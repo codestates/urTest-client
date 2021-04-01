@@ -9,7 +9,7 @@
     <a href="https://urtest.shop">🏠 Homepage   </a>
     <!-- <a href="https://youtu.be/uBEj5ZkDewI">📺  시연 영상   </a> -->
     <a href="https://github.com/codestates/urtest-client/wiki">📖 Wiki   </a>
-    <a href="https://github.com/codestates/urtest-client/wiki/Wire-Frame">:mag: Wire Frame   </a>
+    <a href="https://github.com/codestates/urtest-client/wiki/WireFrame">:mag: Wire Frame   </a>
     <a href="https://github.com/codestates/urtest-client/wiki/System-Architecture">:hammer_and_wrench: System Architecture   </a>
     <br />
     <!-- <a href="https://github.com/codestates/exitGiftShop-client/wiki/Feature-List">:package: Feature List   </a> -->
