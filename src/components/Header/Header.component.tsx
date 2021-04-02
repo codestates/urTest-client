@@ -1,29 +1,37 @@
 import React from "react";
 import { LinkContainer } from "react-router-bootstrap";
 
-import { Nav } from "react-bootstrap";
+import { Navbar, Nav, NavDropdown, Button } from "react-bootstrap";
 
 const Header = () => {
   return (
     <>
-      <Nav>
-        <Nav.Item>
-          <LinkContainer to="/">
+      <Navbar.Toggle className="mr-2" aria-controls="basic-navbar-nav" />
+      <LinkContainer to="/">
+        <Navbar.Brand>Urtest</Navbar.Brand>
+      </LinkContainer>
+      <Navbar.Collapse id="basic-navbar-nav">
+        <Nav className="mr-auto">
+          <LinkContainer to="/" exact>
             <Nav.Link>Home</Nav.Link>
           </LinkContainer>
-        </Nav.Item>
-
-        <Nav.Item>
-          <LinkContainer to="/buttons">
-            <Nav.Link>buttons</Nav.Link>
+          <LinkContainer to="/all-tours">
+            <Nav.Link>Tours</Nav.Link>
           </LinkContainer>
-        </Nav.Item>
-
-        <Nav.Item>
-          <LinkContainer to="/toasts">
-            <Nav.Link>toasts</Nav.Link>
-          </LinkContainer>
-        </Nav.Item>
+          <NavDropdown title="Others" id="basic-nav-dropdown">
+            <LinkContainer to="/xyz">
+              <NavDropdown.Item>404</NavDropdown.Item>
+            </LinkContainer>
+            <LinkContainer to="/tour-detail/100">
+              <NavDropdown.Item>Tour Detail</NavDropdown.Item>
+            </LinkContainer>
+          </NavDropdown>
+        </Nav>
+      </Navbar.Collapse>
+      <Nav className="ml-auto">
+        <LinkContainer to="/login">
+          <Button variant="outline-dark">Login</Button>
+        </LinkContainer>
       </Nav>
     </>
   );
