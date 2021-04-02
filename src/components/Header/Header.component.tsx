@@ -50,7 +50,7 @@ const Header = () => {
             </InputGroup.Append>
           </InputGroup>
         </Col>
-        <LinkContainer to="/login" className="d-none d-xl-block ml-auto">
+        <LinkContainer to="/login" className="d-none d-md-block ml-auto">
           <Button variant="outline-dark">Login</Button>
         </LinkContainer>
       </Container>

@@ -1,6 +1,21 @@
+// 순서 중요함 섞지 마세요
+
+
+
+
+@import './main.scss';
 @import './custom.scss';
+@import './header.scss';
+@import './sidebar.scss';
+@import './cardslider.scss';
+
 
 $body-bg: #ddd;
 
+// swiper --------------------
+@import 'swiper/swiper.scss';
+@import 'swiper/components/navigation/navigation.scss';
+@import 'swiper/components/pagination/pagination.scss';
 
+// bootstrap ---------------
 @import '~bootstrap/scss/bootstrap.scss';
