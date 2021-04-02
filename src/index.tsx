@@ -7,10 +7,11 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import dotenv from "dotenv";
 dotenv.config();
 // Page ---------------------------------------
-import Home from "./components/Home";
-import Header from "./components/Header";
-import Buttons from "./components/Buttons";
-import Toasts from "./components/Toasts";
+import Home from "./components/Home/Home.component";
+import Header from "./components/Header/Header.component";
+import Buttons from "./components/Buttons/Buttons.component";
+import Toasts from "./components/Toasts/Toasts.component";
+import ImgGame from "./components/ImgGame/ImgGame.component";
 // CSS ---------------------------------------
 import "./common/styles/global.scss";
 // Apollo ---------------------------------------
@@ -26,6 +27,7 @@ ReactDOM.render(
           <Route exact path="/" component={Home} />
           <Route path="/buttons" component={Buttons} />
           <Route path="/toasts" component={Toasts} />
+          <Route path="/imggame" component={ImgGame} />
         </Switch>
       </Router>
     </ApolloProvider>
