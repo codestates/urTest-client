@@ -1,16 +1,26 @@
 import React from "react";
 import { LinkContainer } from "react-router-bootstrap";
 
-import { Navbar, Nav, NavDropdown, Button } from "react-bootstrap";
+import {
+  Navbar,
+  Nav,
+  NavDropdown,
+  Button,
+  InputGroup,
+  FormControl,
+  Col,
+} from "react-bootstrap";
 
 const Header = () => {
   return (
     <>
-      <Navbar.Toggle className="mr-2" aria-controls="basic-navbar-nav" />
-      <LinkContainer to="/">
-        <Navbar.Brand>Urtest</Navbar.Brand>
-      </LinkContainer>
-      <Navbar.Collapse id="basic-navbar-nav">
+      <Col className="mr-auto" sm={4}>
+        <Navbar.Toggle className="mr-2 sm" aria-controls="basic-navbar-nav" />
+        <LinkContainer to="/">
+          <Navbar.Brand>Urtest</Navbar.Brand>
+        </LinkContainer>
+      </Col>
+      <Navbar.Collapse id="basic-navbar-nav" className="mr-auto">
         <Nav className="mr-auto">
           <LinkContainer to="/" exact>
             <Nav.Link>Home</Nav.Link>
@@ -26,13 +36,19 @@ const Header = () => {
               <NavDropdown.Item>Tour Detail</NavDropdown.Item>
             </LinkContainer>
           </NavDropdown>
+          <LinkContainer to="/login">
+            <Button variant="outline-dark">Login</Button>
+          </LinkContainer>
         </Nav>
       </Navbar.Collapse>
-      <Nav className="ml-auto">
-        <LinkContainer to="/login">
-          <Button variant="outline-dark">Login</Button>
-        </LinkContainer>
-      </Nav>
+      <Col sm={4} className="mt-1 ml-auto">
+        <InputGroup size="sm">
+          <FormControl aria-describedby="basic-addon1" />
+          <InputGroup.Append>
+            <Button variant="outline-dark">Search</Button>
+          </InputGroup.Append>
+        </InputGroup>
+      </Col>
     </>
   );
 };

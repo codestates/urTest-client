@@ -479,3 +479,8 @@ No media query for `xs` since this is the default in Bootstrap*/
     width: 60%;
   }
 }
+
+.navbar-toggler.sm {
+  padding: 0.2rem 0.6rem;
+  font-size: 1rem;
+}

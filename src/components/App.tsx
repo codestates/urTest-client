@@ -49,7 +49,7 @@ const App = () => {
         bg="light"
         expand={false}
         variant="light"
-        className="justify-content-start"
+        className="justify-content-center"
         fixed="top"
         expanded={false}
         onToggle={(toggleState: boolean) => {
@@ -89,6 +89,11 @@ const App = () => {
           <Nav.Item>
             <LinkContainer to="/dsklfjeklsfjelwfo i¨≈vj˚µ≈˜ kfgljsio juflodxjfvkl xjldfgvjklsjfl k ">
               <Nav.Link>404</Nav.Link>
+            </LinkContainer>
+          </Nav.Item>
+          <Nav.Item>
+            <LinkContainer to="/Login">
+              <Nav.Link>Login</Nav.Link>
             </LinkContainer>
           </Nav.Item>
         </Nav>
