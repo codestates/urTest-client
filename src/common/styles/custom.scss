@@ -1,0 +1,481 @@
+.cover {
+  margin-top: 0;
+}
+.custom-carousel-item {
+  height: calc(100vh - 56px);
+  width: 100vw;
+  min-height: 350px;
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  background-position-x: center;
+  background-position-y: top;
+  background-size: cover;
+}
+
+.custom-carousel-item-1 {
+  background-image: url("https://source.unsplash.com/Jy4-xk34q0s/2560x1920");
+}
+
+.custom-carousel-item-2 {
+  background-image: url("https://source.unsplash.com/dYYv2PMRMV8/2560x1920");
+}
+
+.custom-carousel-item-3 {
+  background-image: url("https://source.unsplash.com/pYFue5PzpcI/2560x1920");
+}
+
+.wrapper {
+  display: block;
+}
+
+#sidebar {
+  width: 250px;
+  position: fixed;
+  top: 0;
+  left: -250px;
+  height: 100vh;
+  z-index: 9999;
+  background: var(--light);
+  color: #fff;
+  transition: all 0.3s;
+  overflow-y: scroll;
+  box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+}
+
+#sidebar.active {
+  left: 0;
+}
+
+.overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 9998;
+  opacity: 0;
+  transition: all 0.5s ease-in-out;
+}
+/* display .overlay when it has the .active class */
+.overlay.active {
+  display: block;
+  opacity: 1;
+}
+
+#dismiss {
+  width: 35px;
+  height: 35px;
+  line-height: 35px;
+  text-align: center;
+  background: var(--primary);
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  cursor: pointer;
+  -webkit-transition: all 0.3s;
+  -o-transition: all 0.3s;
+  transition: all 0.3s;
+}
+
+.sideDrawer {
+  border-bottom: var(--light) 1px solid;
+}
+
+.login,
+.image {
+  min-height: 100vh;
+}
+
+.bg-image {
+  background-image: url("https://source.unsplash.com/WEQbe2jBg40/600x1200");
+  background-size: cover;
+  background-position: center;
+}
+
+.login-heading {
+  font-weight: 300;
+}
+
+.btn-login {
+  font-size: 0.9rem;
+  letter-spacing: 0.05rem;
+  padding: 0.75rem 1rem;
+  border-radius: 2rem;
+}
+
+.btn-details {
+  font-size: 0.9rem;
+  letter-spacing: 0.05rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: 1rem;
+}
+
+.no-match {
+  margin-top: 100px;
+}
+
+.main {
+  position: relative;
+  top: 56px;
+}
+
+.card-columns {
+  display: inline-block;
+}
+
+.card-image-overlay {
+  position: relative;
+  /*Media query needed*/
+  width: 90%;
+  align-self: flex-end;
+  margin-right: 2px;
+  margin-top: -50px;
+  margin-bottom: 0.75rem;
+  font-size: 1.8rem;
+  text-align: right;
+  text-transform: uppercase;
+  color: #fff;
+  font-weight: normal;
+  line-height: 1.2;
+}
+
+.tour-card-title-text {
+  line-height: 1;
+  padding-left: 2px;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+  background-image: linear-gradient(
+    to bottom right,
+    var(--primary),
+    rgba(40, 180, 135, 0.85)
+  );
+}
+
+.tour-card-image {
+  clip-path: polygon(0 0, 100% 0%, 100% 83%, 0% 98%);
+}
+
+.tour-icons {
+  color: var(--primary);
+}
+
+.tour-pointer {
+  white-space: nowrap;
+  font-size: 0.9rem;
+}
+
+.tour-review {
+  color: var(--primary);
+}
+
+.tour-detail-jumbo {
+  max-width: 100%;
+  height: auto;
+}
+
+.test-jumbo {
+  background-image: url("https://source.unsplash.com/_UIN-pFfJ7c/2048x1536");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  /*Media query needed*/
+  height: 400px;
+  border-radius: 0px;
+}
+
+.jumbo-image-overlay {
+  position: relative;
+  /*Media query needed*/
+  width: 100%;
+  font-size: 2rem;
+  text-align: center;
+  text-transform: uppercase;
+  color: #fff;
+  font-weight: normal;
+  line-height: 1.4;
+  border-radius: 2px;
+}
+
+.jumbo-title-text {
+  line-height: 1;
+  padding: 5px;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+  background-image: linear-gradient(
+    to bottom right,
+    var(--primary),
+    rgba(40, 180, 135, 0.7)
+  );
+  border-radius: 2px;
+}
+
+.custom-card-header {
+  background-color: var(--primary);
+  color: #fff;
+  padding: 0.5rem 1rem 0 1rem;
+}
+
+.tour-map-container {
+  height: calc(100vh - 116px); /*56px navbar + ~60px titlebar*/
+  top: 116px;
+}
+
+.all-tours-title {
+  position: fixed;
+  top: 56px;
+  z-index: 9;
+  background-color: white;
+}
+
+.all-tours-title-block {
+ flex: 1 0 100%;
+}
+
+.all-tours-content {
+  position: relative;
+  top: 20px;
+}
+
+.all-tours-header-row {
+  position: fixed;
+  width: 100%;
+  z-index: 99;
+  height: 60px;
+  background-color: #fff;
+  top:56px;
+}
+
+.all-tours-header {
+  height: 100%;    
+  width: 100%;
+  margin-right: 30px;
+}
+
+.btn-circle-fab {
+  background: #fff;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  text-align: center;
+  color: #fff;
+  box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.5), 3px 3px 3px rgba(0, 0, 0, 0.25);
+  position: fixed;
+  bottom: 20px;
+  right: 10px;
+  font-size: 1.7em;
+  line-height: 1.8;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.info-window-style {
+  position: relative;
+  width: 220px;
+  background-color: white;
+  box-shadow: 0 2px 7px 1px rgba(0, 0, 0, 0.3);
+  padding: 10px;
+  z-index: 100;
+}
+
+.custom-map-marker {
+  align-items: center;
+  background-color: rgb(255, 255, 255);
+  border-radius: 28px;
+  box-shadow: rgba(0, 0, 0, 0.08) 0px 0px 0px 1px,
+    rgba(0, 0, 0, 0.18) 0px 1px 2px;
+  color: rgb(113, 113, 113);
+  display: flex;
+  height: 28px;
+  justify-content: center;
+  padding: 0px 8px;
+  position: relative;
+  white-space: nowrap;
+  width: 48px;
+}
+
+.map-marker {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 18px;
+  height: 18px;
+  background-color: var(--primary);
+  color: #fff;
+  border: 2px solid #fff;
+  border-radius: 100%;
+  user-select: none;
+  transform: translate(-50%, -50%);
+}
+
+.map-marker:hover {
+  background-color: #000;
+  border: 2px solid var(--primary);
+  z-index: 1;
+}
+
+.tour-bottom-card {
+  min-height: 100px;
+  min-width: 300px;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.yest {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  padding: 0;
+  margin: 0;
+  z-index: 1201;
+  overflow-x: scroll;
+}
+
+.header-filter-button {
+  border-radius: 30px;
+  height: auto;
+  line-height: 0;
+}
+
+.show-map-toggle {
+  line-height:1.3
+}
+
+.pin {
+  width: 35px;
+  height: 35px;
+  border-radius: 50% 50% 50% 0;
+  background: white;
+  position: absolute;
+  transform: rotate(-45deg);
+  left: 50%;
+  top: 50%;
+  margin: -25px 0 0 -23px;
+  box-shadow: rgba(0, 0, 0, 0.08) 0px 0px 0px 1px,
+    rgba(0, 0, 0, 0.18) 0px 1px 2px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: black;
+  cursor: pointer;
+}
+.pin-text {
+  transform: rotate(45deg);
+  font-weight: 500;
+}
+.pin-over {
+  background-color: #000;
+  color: #fff;
+  z-index: 1;
+}
+.pin-pressed {
+  background-color: var(--primary);
+  color: #fff;
+}
+.bounce {
+  animation-name: bounce;
+  animation-fill-mode: both;
+  animation-duration: 1s;
+}
+
+.pulse {
+  background: #d6d4d4;
+  border-radius: 50%;
+  height: 14px;
+  width: 14px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin: 11px 0px 0px -12px;
+  transform: rotateX(55deg);
+  z-index: -2;
+  cursor: pointer;
+}
+.pulse:after {
+  content: "";
+  border-radius: 50%;
+  height: 40px;
+  width: 40px;
+  position: absolute;
+  margin: -13px 0 0 -13px;
+  animation: pulsate 1s ease-out;
+  animation-iteration-count: infinite;
+  opacity: 0;
+  box-shadow: 0 0 1px 2px var(--primary);
+  animation-delay: 1.1s;
+}
+
+@keyframes pulsate {
+  0% {
+    transform: scale(0.1, 0.1);
+    opacity: 0;
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  100% {
+    transform: scale(1.2, 1.2);
+    opacity: 0;
+  }
+}
+
+@keyframes bounce {
+  0% {
+    opacity: 0;
+    transform: translateY(-2000px) rotate(-45deg);
+  }
+
+  60% {
+    opacity: 1;
+    transform: translateY(30px) rotate(-45deg);
+  }
+
+  80% {
+    transform: translateY(-10px) rotate(-45deg);
+  }
+
+  100% {
+    transform: translateY(0) rotate(-45deg);
+  }
+}
+
+/*Extra small devices (portrait phones, less than 576px)
+No media query for `xs` since this is the default in Bootstrap*/
+
+/* Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) {
+}
+
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) {
+  .test-jumbo {
+    height: 450px;
+  }
+  .card-image-overlay {
+    width: 90%;
+  }
+}
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+  .test-jumbo {
+    height: 500px;
+  }
+  .card-image-overlay {
+    width: 70%;
+  }
+  
+}
+
+/* Extra large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+  .test-jumbo {
+    height: 550px;
+  }
+  .card-image-overlay {
+    width: 60%;
+  }
+}
