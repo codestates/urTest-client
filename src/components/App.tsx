@@ -98,6 +98,7 @@ const App = () => {
         <Route path="/buttons" component={Buttons} />
         <Route path="/toasts" component={Toasts} />
         <Route path="/imggame" component={ImgGame} />
+        <Route path="/login" component={ImgGame} />
         <Route path="/*">
           <NoMatch />
         </Route>
