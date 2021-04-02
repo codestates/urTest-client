@@ -1,5 +1,5 @@
 import React from "react";
-import SwiperCore, { Navigation, Pagination, Scrollbar, A11y } from "swiper";
+import SwiperCore, { Navigation, Scrollbar, A11y } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Row, Col, Container } from "react-bootstrap";
 import CardItem from "./CardItem.component";
@@ -147,7 +147,7 @@ const items = [
   },
 ];
 
-SwiperCore.use([Navigation, Pagination, Scrollbar, A11y]);
+SwiperCore.use([Navigation, Scrollbar, A11y]);
 
 const CardSlider = () => {
   return (
@@ -190,7 +190,7 @@ const CardSlider = () => {
         },
       }}
       navigation
-      pagination={{ clickable: true }}
+      scrollbar={{ draggable: true }}
       onSwiper={(swiper) => console.log(swiper)}
       onSlideChange={() => console.log("slide change")}
     >
