@@ -7,6 +7,8 @@ import Buttons from "./Buttons/Buttons.component";
 import Toasts from "./Toasts/Toasts.component";
 import ImgGame from "./ImgGame/ImgGame.component";
 import SideDrawer from "./Sidebar/sidedrawer";
+import Signin from "./Signin/Signin.component";
+import Signup from "./signup/signup.component";
 // bootstrap ---------------------------
 import { Nav, Navbar } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
@@ -98,7 +100,8 @@ const App = () => {
         <Route path="/buttons" component={Buttons} />
         <Route path="/toasts" component={Toasts} />
         <Route path="/imggame" component={ImgGame} />
-        <Route path="/login" component={ImgGame} />
+        <Route path="/login" component={Signin} />
+        <Route path="/signup" component={Signup} />
         <Route path="/*">
           <NoMatch />
         </Route>
