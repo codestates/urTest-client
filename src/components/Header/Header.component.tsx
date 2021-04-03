@@ -22,7 +22,7 @@ const Header = () => {
             <Navbar.Brand>Urtest</Navbar.Brand>
           </LinkContainer>
         </Col>
-        <Col xl={4} lg={6} className="d-none d-xl-block">
+        <Col xl={4} lg={3} className="d-none d-lg-block">
           <Navbar.Collapse id="basic-navbar-nav" className="">
             <Nav className="">
               <LinkContainer to="/imggame">
@@ -45,7 +45,7 @@ const Header = () => {
             </Nav>
           </Navbar.Collapse>
         </Col>
-        <Col xl={5} lg={4} md={5} sm={5} xs={6} className="mt-1 mr-auto">
+        <Col xl={4} lg={4} md={5} sm={5} xs={6} className="mt-1 mr-auto">
           <InputGroup size="sm">
             <FormControl aria-describedby="basic-addon1" />
             <InputGroup.Append>
