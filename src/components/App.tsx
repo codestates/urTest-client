@@ -10,7 +10,7 @@ import SideDrawer from "./Sidebar/sidedrawer";
 import Signin from "./Signin/Signin.component";
 import Signup from "./signup/signup.component";
 // bootstrap ---------------------------
-import { Nav, Navbar } from "react-bootstrap";
+import { Nav, Navbar, Col } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 
 const SideDrawerBrand = () => (
@@ -49,7 +49,7 @@ const App = () => {
     <>
       <Navbar
         bg="light"
-        expand={false}
+        expand="xl"
         variant="light"
         className="justify-content-start"
         fixed="top"
@@ -67,33 +67,40 @@ const App = () => {
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         closeSideDrawer={(ev: any) => setSideBarState(false)}
       >
-        <Nav>
-          <Nav.Item>
-            <LinkContainer to="/" exact>
-              <Nav.Link>Home</Nav.Link>
-            </LinkContainer>
-          </Nav.Item>
-          <Nav.Item>
-            <LinkContainer to="/buttons">
-              <Nav.Link>Buttons</Nav.Link>
-            </LinkContainer>
-          </Nav.Item>
-          <Nav.Item>
-            <LinkContainer to="/toasts">
-              <Nav.Link>Toasts</Nav.Link>
-            </LinkContainer>
-          </Nav.Item>
-          <Nav.Item>
-            <LinkContainer to="/imggame">
-              <Nav.Link>Img Game</Nav.Link>
-            </LinkContainer>
-          </Nav.Item>
-          <Nav.Item>
-            <LinkContainer to="/dsklfjeklsfjelwfo i¨≈vj˚µ≈˜ kfgljsio juflodxjfvkl xjldfgvjklsjfl k ">
-              <Nav.Link>404</Nav.Link>
-            </LinkContainer>
-          </Nav.Item>
-        </Nav>
+        <Col>
+          <Nav>
+            <Nav.Item>
+              <LinkContainer to="/" exact>
+                <Nav.Link>Home</Nav.Link>
+              </LinkContainer>
+            </Nav.Item>
+            <Nav.Item>
+              <LinkContainer to="/buttons">
+                <Nav.Link>Buttons</Nav.Link>
+              </LinkContainer>
+            </Nav.Item>
+            <Nav.Item>
+              <LinkContainer to="/toasts">
+                <Nav.Link>Toasts</Nav.Link>
+              </LinkContainer>
+            </Nav.Item>
+            <Nav.Item>
+              <LinkContainer to="/imggame">
+                <Nav.Link>Img Game</Nav.Link>
+              </LinkContainer>
+            </Nav.Item>
+            <Nav.Item>
+              <LinkContainer to="/dsklfjeklsfjelwfo i¨≈vj˚µ≈˜ kfgljsio juflodxjfvkl xjldfgvjklsjfl k ">
+                <Nav.Link>404</Nav.Link>
+              </LinkContainer>
+            </Nav.Item>
+            <Nav.Item>
+              <LinkContainer to="/Login">
+                <Nav.Link>Login</Nav.Link>
+              </LinkContainer>
+            </Nav.Item>
+          </Nav>
+        </Col>
       </SideDrawer>
       <Switch>
         <Route exact path="/" component={Home} />

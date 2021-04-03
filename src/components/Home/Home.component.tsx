@@ -1,4 +1,5 @@
 import React from "react";
+import CardSlider from "./CardSlider.component";
 // import {
 //   Form,
 //   Button,
@@ -9,10 +10,16 @@ import React from "react";
 //   Card,
 // } from "react-bootstrap";
 // import apple from "../../img/apple.jpg";
-// import { LinkContainer } from "react-router-bootstrap";
+import { Container } from "react-bootstrap";
 
 const Home = () => {
-  return <>testtest</>;
+  return (
+    <>
+      <Container fluid className="vh-93">
+        <CardSlider></CardSlider>
+      </Container>
+    </>
+  );
 };
 
 export default Home;
