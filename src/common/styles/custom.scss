@@ -35,7 +35,7 @@
 }
 
 .bg-image {
-  background-image: url("https://source.unsplash.com/WEQbe2jBg40/600x1200");
+  background-image: url("http://drive.google.com/uc?export=view&id=1HJXOSa1lG4wdPpGLHeZV6ciiU6-O3hv_");
   background-size: cover;
   background-position: center;
 }
@@ -420,4 +420,12 @@ No media query for `xs` since this is the default in Bootstrap*/
   .card-image-overlay {
     width: 60%;
   }
+}
+
+// -----------------------------
+
+.btn-google {
+  color: #545454;
+  background-color: #ffffff;
+  box-shadow: 0 1px 2px 1px #ddd
 }
