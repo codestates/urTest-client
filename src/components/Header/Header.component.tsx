@@ -25,20 +25,12 @@ const Header = () => {
         <Col xl={4} lg={3} className="d-none d-lg-block">
           <Navbar.Collapse id="basic-navbar-nav" className="">
             <Nav className="">
-              <LinkContainer to="/" exact>
-                <Nav.Link>Home</Nav.Link>
+              <LinkContainer to="/simri">
+                <Nav.Link>심리테스트</Nav.Link>
               </LinkContainer>
-              <LinkContainer to="/all-tours">
-                <Nav.Link>Tours</Nav.Link>
+              <LinkContainer to="/cup">
+                <Nav.Link>이상형월드컵</Nav.Link>
               </LinkContainer>
-              <NavDropdown title="Others" id="basic-nav-dropdown">
-                <LinkContainer to="/xyz">
-                  <NavDropdown.Item>404</NavDropdown.Item>
-                </LinkContainer>
-                <LinkContainer to="/tour-detail/100">
-                  <NavDropdown.Item>Tour Detail</NavDropdown.Item>
-                </LinkContainer>
-              </NavDropdown>
             </Nav>
           </Navbar.Collapse>
         </Col>
