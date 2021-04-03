@@ -102,17 +102,19 @@ const App = () => {
           </Nav>
         </Col>
       </SideDrawer>
-      <Switch>
-        <Route exact path="/" component={Home} />
-        <Route path="/buttons" component={Buttons} />
-        <Route path="/toasts" component={Toasts} />
-        <Route path="/imggame" component={ImgGame} />
-        <Route path="/login" component={Signin} />
-        <Route path="/signup" component={Signup} />
-        <Route path="/*">
-          <NoMatch />
-        </Route>
-      </Switch>
+      <div className="main">
+        <Switch>
+          <Route exact path="/" component={Home} />
+          <Route path="/buttons" component={Buttons} />
+          <Route path="/toasts" component={Toasts} />
+          <Route path="/imggame" component={ImgGame} />
+          <Route path="/login" component={Signin} />
+          <Route path="/signup" component={Signup} />
+          <Route path="/*">
+            <NoMatch />
+          </Route>
+        </Switch>
+      </div>
     </>
   );
 };
