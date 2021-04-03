@@ -25,18 +25,21 @@ const Header = () => {
         <Col xl={4} lg={3} className="d-none d-lg-block">
           <Navbar.Collapse id="basic-navbar-nav" className="">
             <Nav className="">
-              <LinkContainer to="/" exact>
-                <Nav.Link>Home</Nav.Link>
+              <LinkContainer to="/imggame">
+                <Nav.Link>심리테스트</Nav.Link>
               </LinkContainer>
-              <LinkContainer to="/all-tours">
-                <Nav.Link>Tours</Nav.Link>
+              <LinkContainer to="/imggame">
+                <Nav.Link>이상형월드컵</Nav.Link>
               </LinkContainer>
-              <NavDropdown title="Others" id="basic-nav-dropdown">
-                <LinkContainer to="/xyz">
-                  <NavDropdown.Item>404</NavDropdown.Item>
+              <NavDropdown title="마이페이지" id="basic-nav-dropdown">
+                <LinkContainer to="/">
+                  <Nav.Link>테스트 만들기</Nav.Link>
                 </LinkContainer>
-                <LinkContainer to="/tour-detail/100">
-                  <NavDropdown.Item>Tour Detail</NavDropdown.Item>
+                <LinkContainer to="/">
+                  <Nav.Link>나의 테스트</Nav.Link>
+                </LinkContainer>
+                <LinkContainer to="/">
+                  <Nav.Link>정보수정</Nav.Link>
                 </LinkContainer>
               </NavDropdown>
             </Nav>
