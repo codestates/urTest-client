@@ -27,7 +27,9 @@
     "react": "^17.0.2",
     "react-bootstrap": "^1.5.2",
     "react-dom": "^17.0.2",
+    "react-dropzone": "^11.3.2",
     "react-google-login": "^5.2.2",
+    "react-hook-form": "^7.0.0",
     "react-router-bootstrap": "^0.25.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
@@ -67,6 +69,7 @@
     ]
   },
   "devDependencies": {
+    "@hookform/devtools": "^3.0.0-rc.2",
     "@types/react-router-bootstrap": "^0.24.5",
     "@typescript-eslint/eslint-plugin": "^4.20.0",
     "apollo": "^2.32.5",

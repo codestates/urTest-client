@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Switch, Route, useLocation, useHistory } from "react-router-dom";
+
 // Page ---------------------------------------
 import Home from "./Home/Home.component";
 import Header from "./Header/Header.component";
@@ -10,6 +11,7 @@ import Signup from "./Signup/signup.component";
 import ImgList from "./ImgList/ImgList.component";
 import TextList from "./TextList/TextList.component";
 import SearchList from "./SearchList/SearchList.component";
+import Multistep from "./Upload/Multistep.component";
 // bootstrap ---------------------------
 import { Nav, Navbar, Col } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
@@ -91,8 +93,8 @@ const App = () => {
               </LinkContainer>
             </Nav.Item>
             <Nav.Item>
-              <LinkContainer to="/없다고 말해">
-                <Nav.Link>404</Nav.Link>
+              <LinkContainer to="/multistep">
+                <Nav.Link>만들기 테스트</Nav.Link>
               </LinkContainer>
             </Nav.Item>
             <Nav.Item>
@@ -112,6 +114,7 @@ const App = () => {
           <Route path="/searchlist" component={SearchList} />
           <Route path="/login" component={Signin} />
           <Route path="/signup" component={Signup} />
+          <Route path="/multistep" component={Multistep} />
           <Route path="/*">
             <NoMatch />
           </Route>

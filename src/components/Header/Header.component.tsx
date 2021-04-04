@@ -44,7 +44,7 @@ const Header = () => {
                   <Nav.Link>즐겨찾기</Nav.Link>
                 </LinkContainer>
               </NavDropdown>
-              <LinkContainer to="/">
+              <LinkContainer to="/multistep">
                 <Nav.Link>테스트 만들기</Nav.Link>
               </LinkContainer>
             </Nav>
