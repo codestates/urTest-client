@@ -3,12 +3,13 @@ import { Switch, Route, useLocation, useHistory } from "react-router-dom";
 // Page ---------------------------------------
 import Home from "./Home/Home.component";
 import Header from "./Header/Header.component";
-import Buttons from "./Buttons/Buttons.component";
-import Toasts from "./Toasts/Toasts.component";
 import ImgGame from "./ImgGame/ImgGame.component";
 import SideDrawer from "./Sidebar/sidedrawer";
 import Signin from "./Signin/Signin.component";
-import Signup from "./signup/signup.component";
+import Signup from "./Signup/signup.component";
+import ImgList from "./ImgList/ImgList.component";
+import TextList from "./TextList/TextList.component";
+import SearchList from "./SearchList/SearchList.component";
 // bootstrap ---------------------------
 import { Nav, Navbar, Col } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
@@ -75,13 +76,13 @@ const App = () => {
               </LinkContainer>
             </Nav.Item>
             <Nav.Item>
-              <LinkContainer to="/buttons">
-                <Nav.Link>Buttons</Nav.Link>
+              <LinkContainer to="/imglist">
+                <Nav.Link>이상형월드컵</Nav.Link>
               </LinkContainer>
             </Nav.Item>
             <Nav.Item>
-              <LinkContainer to="/toasts">
-                <Nav.Link>Toasts</Nav.Link>
+              <LinkContainer to="/textlist">
+                <Nav.Link>심리테스트</Nav.Link>
               </LinkContainer>
             </Nav.Item>
             <Nav.Item>
@@ -90,7 +91,7 @@ const App = () => {
               </LinkContainer>
             </Nav.Item>
             <Nav.Item>
-              <LinkContainer to="/dsklfjeklsfjelwfo i¨≈vj˚µ≈˜ kfgljsio juflodxjfvkl xjldfgvjklsjfl k ">
+              <LinkContainer to="/없다고 말해">
                 <Nav.Link>404</Nav.Link>
               </LinkContainer>
             </Nav.Item>
@@ -105,9 +106,10 @@ const App = () => {
       <div className="main">
         <Switch>
           <Route exact path="/" component={Home} />
-          <Route path="/buttons" component={Buttons} />
-          <Route path="/toasts" component={Toasts} />
           <Route path="/imggame" component={ImgGame} />
+          <Route path="/imglist" component={ImgList} />
+          <Route path="/textlist" component={TextList} />
+          <Route path="/searchlist" component={SearchList} />
           <Route path="/login" component={Signin} />
           <Route path="/signup" component={Signup} />
           <Route path="/*">
