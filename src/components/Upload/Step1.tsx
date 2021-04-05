@@ -19,6 +19,7 @@ const Step1 = () => {
     data: { firstName: string; lastName: string } | undefined
   ) => {
     inputVar({ ...input, ...data });
+    console.log(input);
     history.push("multistep/step2");
   };
   return (
