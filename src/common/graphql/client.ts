@@ -2,7 +2,11 @@ import { ApolloClient, InMemoryCache, gql } from "@apollo/client";
 import { makeVar } from "@apollo/client";
 
 // 전역 상태
-export const inputVar = makeVar({ firstName: "", lastName: "" });
+export const inputVar = makeVar({
+  title: "",
+  desc: "",
+  step1clear: false,
+});
 export const isLoginVar = makeVar(false);
 // 전역쿼리
 export const GET_INPUT_VAR = gql`
