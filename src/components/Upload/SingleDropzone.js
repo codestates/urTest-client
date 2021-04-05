@@ -62,7 +62,7 @@ const img = {
   height: "100%",
 };
 
-export default function Previews(props) {
+export default function SingleDropZone(props) {
   const [files, setFiles] = useState([]);
   const input = useReactiveVar(inputVar);
 
@@ -73,6 +73,7 @@ export default function Previews(props) {
     isDragAccept,
     isDragReject,
   } = useDropzone({
+    maxFiles: 1,
     accept: "image/*",
     onDrop: (acceptedFiles) => {
       setFiles(
@@ -116,8 +117,7 @@ export default function Previews(props) {
     <section className="container">
       <div {...getRootProps({ style })}>
         <input {...getInputProps()} />
-        <p>업로드에 사용할 파일들을 올려주세요</p>
-        <p>다음단계에서 파일들을 수정 할 수 있습니다</p>
+        <p>하나의 파일만 올려주세요</p>
       </div>
       <aside style={thumbsContainer}>{thumbs}</aside>
     </section>

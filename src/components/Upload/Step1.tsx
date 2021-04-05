@@ -7,8 +7,18 @@ import { inputVar } from "../../common/graphql/client";
 import { Form, Button, Col, Row } from "react-bootstrap";
 import Previews from "./Dropzone";
 
+// const ADD_CONTENT = gql`
+//   mutation UploadContent($title: String, $desc: String, $files: [Upload]) {
+//     uploadContent(title: $title, desc: $desc, files: [$files] }) {
+//       ok
+//       error
+//     }
+//   }
+// `;
+
 const Step1 = () => {
   const history = useHistory();
+  // const [addTodo, { data }] = useMutation(ADD_CONTENT);
 
   const { register, handleSubmit } = useForm();
   const input = useReactiveVar(inputVar);
@@ -16,11 +26,14 @@ const Step1 = () => {
     inputVar({ ...input, ...data });
     console.log(input);
     inputVar({ ...input, step1clear: true });
+    // addTodo({
+    //   variables: { files: input.files, title: input.title, desc: input.desc },
+    // });
     history.push("multistep/step2");
   };
   return (
     <Row className="justify-content-md-center">
-      <Col md={6} className="bg-light rounded">
+      <Col md={8} className="bg-light rounded">
         <Form onSubmit={handleSubmit(onSubmit)}>
           <Form.Row>
             <Form.Group as={Col}>
@@ -47,7 +60,7 @@ const Step1 = () => {
             </Form.Group>
           </Form.Row>
 
-          <Previews />
+          <Previews {...register("files")} defaultValue={input.files} />
           <Form.Row>
             <Col>
               <Button block variant="dark" type="submit" size="lg">

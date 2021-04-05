@@ -5,6 +5,7 @@ import { makeVar } from "@apollo/client";
 export const inputVar = makeVar({
   title: "",
   desc: "",
+  files: [],
   step1clear: false,
 });
 export const isLoginVar = makeVar(false);
