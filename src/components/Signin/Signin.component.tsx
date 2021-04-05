@@ -2,6 +2,11 @@ import React from "react";
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
 import { GoogleLogin } from "react-google-login";
 import { LinkContainer } from "react-router-bootstrap";
+
+const responseGoogle = (response: any) => {
+  console.log(response.tokenObj.id_token);
+};
+
 const Signin = () => {
   return (
     <React.Fragment>
@@ -33,7 +38,7 @@ const Signin = () => {
                         Sign In
                       </Button>
                       <GoogleLogin
-                        clientId=""
+                        clientId="724060049648-nnacpoao7gftdukk1gurp600rfgme79k.apps.googleusercontent.com"
                         render={(renderProps) => (
                           <Button
                             onClick={renderProps.onClick}
@@ -46,8 +51,8 @@ const Signin = () => {
                             Google
                           </Button>
                         )}
-                        // onSuccess={responseGoogle}
-                        // onFailure={responseGoogle}
+                        onSuccess={responseGoogle}
+                        onFailure={responseGoogle}
                         cookiePolicy={"single_host_origin"}
                       />
                       <p className="text-inverse text-center">
