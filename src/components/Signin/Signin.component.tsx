@@ -2,6 +2,7 @@ import React from "react";
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
 import { GoogleLogin } from "react-google-login";
 import { LinkContainer } from "react-router-bootstrap";
+import { isLoginVar } from "../../common/graphql/client";
 
 const responseGoogle = (response: any) => {
   console.log(response.tokenObj.id_token);

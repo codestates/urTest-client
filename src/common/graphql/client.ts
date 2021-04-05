@@ -3,6 +3,7 @@ import { makeVar } from "@apollo/client";
 
 // 전역 상태
 export const inputVar = makeVar({ firstName: "", lastName: "" });
+export const isLoginVar = makeVar(false);
 
 export const cache = new InMemoryCache();
 
