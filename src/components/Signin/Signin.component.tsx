@@ -3,12 +3,17 @@ import { Container, Row, Col, Form, Button } from "react-bootstrap";
 import { GoogleLogin } from "react-google-login";
 import { LinkContainer } from "react-router-bootstrap";
 import { isLoginVar } from "../../common/graphql/client";
+import { useReactiveVar } from "@apollo/client";
 
 const responseGoogle = (response: any) => {
   console.log(response.tokenObj.id_token);
 };
 
 const Signin = () => {
+  const isLogin = useReactiveVar(isLoginVar);
+  isLoginVar(true);
+  console.log(isLogin);
+
   return (
     <React.Fragment>
       <Container fluid={true}>
