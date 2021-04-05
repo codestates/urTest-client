@@ -7,7 +7,7 @@ import Header from "./Header/Header.component";
 import ImgGame from "./ImgGame/ImgGame.component";
 import SideDrawer from "./Sidebar/sidedrawer";
 import Signin from "./Signin/Signin.component";
-import Signup from "./Signup/signup.component";
+import Signup from "./Signup/Signup.component";
 import ImgList from "./ImgList/ImgList.component";
 import TextList from "./TextList/TextList.component";
 import SearchList from "./SearchList/SearchList.component";
