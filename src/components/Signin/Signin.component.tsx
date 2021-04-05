@@ -1,18 +1,74 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
 import { GoogleLogin } from "react-google-login";
 import { LinkContainer } from "react-router-bootstrap";
 import { isLoginVar } from "../../common/graphql/client";
-import { useReactiveVar } from "@apollo/client";
-
-const responseGoogle = (response: any) => {
-  console.log(response.tokenObj.id_token);
-};
+import { useReactiveVar, gql, useMutation } from "@apollo/client";
 
 const Signin = () => {
-  const isLogin = useReactiveVar(isLoginVar);
-  isLoginVar(true);
-  console.log(isLogin);
+  // const isLogin = useReactiveVar(isLoginVar);
+  // isLoginVar(true);
+  // console.log(isLogin);
+
+  // 일반 로그인(토큰 관련 정보 확인, 스테이츠 관리 확인)
+  const [inputs, setInputs] = useState({
+    user_email: "",
+    user_password: "",
+  });
+
+  const { user_email, user_password } = inputs;
+
+  const inputHandler = (e: any) => {
+    const { name, value } = e.target;
+
+    setInputs({
+      ...inputs,
+      [name]: value,
+    });
+  };
+
+  const POST_SIGNIN = gql`
+    mutation login($email: String!, $password: String!) {
+      login(email: $email, password: $password) {
+        ok
+        error
+        token
+      }
+    }
+  `;
+
+  const [isOk, setIsOk] = useState(Boolean);
+
+  const [login] = useMutation(POST_SIGNIN, {
+    onCompleted: (data) => {
+      const {
+        login: { ok },
+      } = data;
+      if (!ok) {
+        setIsOk(false);
+      } else {
+        setIsOk(true);
+      }
+      console.log(isOk);
+    },
+  });
+
+  const signinBtnHandler = (e: any) => {
+    e.preventDefault();
+    login({
+      variables: {
+        email: user_email,
+        password: user_password,
+      },
+    });
+  };
+
+  // 구글 로그인
+  const responseGoogle = (response: any) => {
+    console.log(response.tokenObj.id_token);
+  };
+
+  // 유효성 검사
 
   return (
     <React.Fragment>
@@ -28,11 +84,25 @@ const Signin = () => {
                     <Form>
                       <Form.Group controlId="formBasicEmail">
                         <Form.Label>Email</Form.Label>
-                        <Form.Control type="email" placeholder="Email" />
+                        <Form.Control
+                          type="email"
+                          placeholder="Email"
+                          onChange={(e) => {
+                            inputHandler(e);
+                          }}
+                          name="user_email"
+                        />
                       </Form.Group>
                       <Form.Group controlId="formBasicPassword">
                         <Form.Label>Password</Form.Label>
-                        <Form.Control type="password" placeholder="Password" />
+                        <Form.Control
+                          type="password"
+                          placeholder="Password"
+                          onChange={(e) => {
+                            inputHandler(e);
+                          }}
+                          name="user_password"
+                        />
                       </Form.Group>
                       <Button
                         variant="dark"
@@ -40,6 +110,7 @@ const Signin = () => {
                         block
                         className="btn-login text-uppercase font-weight-bold mb-2"
                         type="submit"
+                        onClick={signinBtnHandler}
                       >
                         Sign In
                       </Button>
