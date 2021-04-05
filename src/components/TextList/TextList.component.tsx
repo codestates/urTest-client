@@ -2,7 +2,7 @@ import React from "react";
 import CardSlider from "../CardList/CardSlider.component";
 import { Container } from "react-bootstrap";
 
-const Home = () => {
+const TextList = () => {
   return (
     <>
       <Container fluid className="vh-93 pt-5">
@@ -12,4 +12,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default TextList;
