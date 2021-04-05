@@ -41,14 +41,17 @@ const Signin = () => {
 
   const [login] = useMutation(POST_SIGNIN, {
     onCompleted: (data) => {
-      const {
-        login: { ok },
-      } = data;
-      if (!ok) {
-        setIsOk(false);
-      } else {
-        setIsOk(true);
-      }
+      //   const {
+      //     login: { ok },
+      //   } = data;
+      //   if (!ok) {
+      //     setIsOk(false);
+      //   } else {
+      //     setIsOk(true);
+      //   }
+      //   console.log(isOk);
+      console.log(data);
+      setIsOk(data.login.ok);
       console.log(isOk);
     },
   });
