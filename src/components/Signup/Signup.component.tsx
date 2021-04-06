@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
 import { gql, useMutation } from "@apollo/client";
+import { Redirect } from "react-router-dom";
+
 const Signup = () => {
   // 회원가입
   const [inputs, setInputs] = useState({
@@ -30,30 +32,44 @@ const Signup = () => {
       }
     }
   `;
-  const [isOk, setIsOk] = useState();
+  const [signUpOk, setSignUpOk] = useState(false);
+
+  const [duplication, setDuplication] = useState(false);
 
   const [createAccount] = useMutation(POST_SIGNUP, {
     onCompleted: (data) => {
-      console.log(data.login.ok);
-      setIsOk(data.login.ok);
-      console.log(isOk);
+      if (data.createAccount.ok === true) {
+        setSignUpOk(true);
+        return;
+      }
+      setDuplication(true);
+      return;
     },
   });
 
+  const [validation, setValidation] = useState(true);
+
   const signupBtnHandler = (e: any) => {
     e.preventDefault();
-    createAccount({
-      variables: {
-        email: user_email,
-        password: user_password,
-      },
-    });
+    if (user_password === user_confirm_password) {
+      createAccount({
+        variables: {
+          email: user_email,
+          password: user_password,
+        },
+      });
+      setValidation(true);
+      return;
+    }
+    setValidation(false);
+    return;
   };
 
   // 유효성 검사
 
   return (
     <React.Fragment>
+      {signUpOk ? <Redirect to="/login" /> : ""}
       <Container fluid={true}>
         <Row>
           <Col md={4} lg={6} className="bg-image" />
@@ -90,6 +106,13 @@ const Signup = () => {
                           name="user_confirm_password"
                           onChange={(e) => inputHandler(e)}
                         />
+                        <Form.Label className="mt-1 text-danger">
+                          {!validation
+                            ? "* Confirm Password"
+                            : duplication
+                            ? "* Email Duplication"
+                            : ""}
+                        </Form.Label>
                       </Form.Group>
                       <Button
                         variant="dark"

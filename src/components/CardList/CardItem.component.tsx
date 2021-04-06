@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Container, Row, Col, Card, Button } from "react-bootstrap";
+import { LinkContainer } from "react-router-bootstrap";
 
 const CardItem = ({ d }: any) => {
   const [flipped, setFlipped] = useState(false);
@@ -24,17 +25,19 @@ const CardItem = ({ d }: any) => {
             <span>Lorem ipsum</span>
           </div>
         </div>
-        <div
-          className="back"
-          style={{ backgroundImage: `url("https://unsplash.it/500/500/")` }}
-        >
-          <div className="inner">
-            <p>
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Alias
-              cum repellat velit quae suscipit c.
-            </p>
+        <LinkContainer to="/imggame">
+          <div
+            className="back"
+            style={{ backgroundImage: `url("https://unsplash.it/500/500/")` }}
+          >
+            <div className="inner">
+              <p>
+                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Alias
+                cum repellat velit quae suscipit c.
+              </p>
+            </div>
           </div>
-        </div>
+        </LinkContainer>
       </Container>
     </Col>
   );

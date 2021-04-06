@@ -1,5 +1,7 @@
 import React from "react";
 import { LinkContainer } from "react-router-bootstrap";
+import { isLoginVar } from "../../common/graphql/client";
+import { useReactiveVar } from "@apollo/client";
 
 import {
   Navbar,
@@ -13,6 +15,16 @@ import {
 } from "react-bootstrap";
 
 const Header = () => {
+  const isLogin = useReactiveVar(isLoginVar);
+  if (localStorage.getItem("token")) {
+    isLoginVar(true);
+  }
+
+  const logoutHandler = () => {
+    localStorage.removeItem("token");
+    isLoginVar(false);
+  };
+
   return (
     <>
       <Container fluid={true}>
@@ -58,9 +70,17 @@ const Header = () => {
             </InputGroup.Append>
           </InputGroup>
         </Col>
-        <LinkContainer to="/login" className="d-none d-md-block ml-auto">
-          <Button variant="outline-dark">Login</Button>
-        </LinkContainer>
+        {isLogin ? (
+          <LinkContainer to="/" className="d-none d-md-block ml-auto">
+            <Button variant="outline-dark" onClick={() => logoutHandler()}>
+              Logout
+            </Button>
+          </LinkContainer>
+        ) : (
+          <LinkContainer to="/login" className="d-none d-md-block ml-auto">
+            <Button variant="outline-dark">Login</Button>
+          </LinkContainer>
+        )}
       </Container>
     </>
   );
