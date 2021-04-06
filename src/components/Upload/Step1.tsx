@@ -7,6 +7,7 @@ import { inputVar } from "../../common/graphql/client";
 import { Form, Button, Col, Row } from "react-bootstrap";
 import Previews from "./Dropzone";
 import Comment from "../Comment/Comment.component";
+import CommentItem from "../Comment/CommentItem.component";
 
 // const ADD_CONTENT = gql`
 //   mutation UploadContent($title: String, $desc: String, $files: [Upload]) {
@@ -74,6 +75,12 @@ const Step1 = () => {
         </Col>
       </Row>
       <Comment />
+      <CommentItem />
+      <CommentItem />
+      <CommentItem />
+      <CommentItem />
+      <CommentItem />
+      <CommentItem />
     </>
   );
 };
