@@ -15,6 +15,7 @@ import {
   Container,
   Tooltip,
   OverlayTrigger,
+  ButtonGroup,
 } from "react-bootstrap";
 
 const renderTooltip1 = (props: any) => (
@@ -83,24 +84,26 @@ const Header = () => {
         <Col xl={4} lg={4} md={5} sm={5} xs={6} className="mt-1 mr-auto">
           <InputGroup size="sm">
             <InputGroup.Prepend>
-              <OverlayTrigger
-                placement="bottom"
-                delay={{ show: 50, hide: 400 }}
-                overlay={renderTooltip1}
-              >
-                <Button variant="outline-secondary" active>
-                  <Trophy />
-                </Button>
-              </OverlayTrigger>
-              <OverlayTrigger
-                placement="bottom"
-                delay={{ show: 50, hide: 400 }}
-                overlay={renderTooltip2}
-              >
-                <Button variant="outline-secondary">
-                  <Pen />
-                </Button>
-              </OverlayTrigger>
+              <ButtonGroup size="sm" aria-label="First group">
+                <OverlayTrigger
+                  placement="bottom"
+                  delay={{ show: 50, hide: 400 }}
+                  overlay={renderTooltip1}
+                >
+                  <Button variant="outline-secondary">
+                    <Trophy />
+                  </Button>
+                </OverlayTrigger>
+                <OverlayTrigger
+                  placement="bottom"
+                  delay={{ show: 50, hide: 400 }}
+                  overlay={renderTooltip2}
+                >
+                  <Button variant="outline-secondary">
+                    <Pen />
+                  </Button>
+                </OverlayTrigger>
+              </ButtonGroup>
             </InputGroup.Prepend>
             <FormControl aria-describedby="basic-addon1" />
             <InputGroup.Append>
