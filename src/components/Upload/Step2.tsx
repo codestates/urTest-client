@@ -30,7 +30,7 @@ const Step2 = () => {
     },
     {
       dataField: "price",
-      text: "Product Price",
+      text: "이미지",
       // eslint-disable-next-line react/display-name
       editorRenderer: (editorProps: any, value: any) => (
         <SingleDropzone {...editorProps} value={value} />
@@ -39,6 +39,7 @@ const Step2 = () => {
   ];
   const onSubmit = (data: any) => {
     console.log(products);
+    inputVar({ ...input, step2clear: true });
     history.push("/multistep/stepresult");
   };
   const onAfterSave = (data: any) => {

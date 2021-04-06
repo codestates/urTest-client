@@ -7,6 +7,7 @@ export const inputVar = makeVar({
   desc: "",
   files: [],
   step1clear: false,
+  step2clear: false,
 });
 export const isLoginVar = makeVar(false);
 // 전역쿼리
