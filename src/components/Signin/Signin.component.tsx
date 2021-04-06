@@ -43,7 +43,10 @@ const Signin = () => {
       console.log(data.login.ok);
       setIsOk(data.login.ok);
       if (data.login.ok === true) {
-        isLoginVar(true);
+        localStorage.setItem("token", data.login.token);
+        if (localStorage.getItem("token")) {
+          isLoginVar(true);
+        }
       }
     },
   });
@@ -66,7 +69,7 @@ const Signin = () => {
   // 유효성 검사
 
   return (
-    <React.Fragment>
+    <>
       {isLogin ? <Redirect to="/" /> : ""}
       <Container fluid={true}>
         <Row>
@@ -145,7 +148,7 @@ const Signin = () => {
           </Col>
         </Row>
       </Container>
-    </React.Fragment>
+    </>
   );
 };
 

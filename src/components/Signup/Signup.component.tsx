@@ -1,13 +1,9 @@
 import React, { useState } from "react";
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
-import { isLoginVar } from "../../common/graphql/client";
-import { useReactiveVar, gql, useMutation } from "@apollo/client";
+import { gql, useMutation } from "@apollo/client";
 import { Redirect } from "react-router-dom";
 
 const Signup = () => {
-  // 전역 변수
-  const isLogin = useReactiveVar(isLoginVar);
-
   // 회원가입
   const [inputs, setInputs] = useState({
     user_email: "",
@@ -36,12 +32,14 @@ const Signup = () => {
       }
     }
   `;
+  const [signUpOk, setSignUpOk] = useState(false);
+
   const [duplication, setDuplication] = useState(false);
 
   const [createAccount] = useMutation(POST_SIGNUP, {
     onCompleted: (data) => {
       if (data.createAccount.ok === true) {
-        isLoginVar(true);
+        setSignUpOk(true);
         return;
       }
       setDuplication(true);
@@ -71,7 +69,7 @@ const Signup = () => {
 
   return (
     <React.Fragment>
-      {isLogin ? <Redirect to="/" /> : ""}
+      {signUpOk ? <Redirect to="/login" /> : ""}
       <Container fluid={true}>
         <Row>
           <Col md={4} lg={6} className="bg-image" />
