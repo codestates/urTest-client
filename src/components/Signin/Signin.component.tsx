@@ -1,14 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
 import { GoogleLogin } from "react-google-login";
 import { LinkContainer } from "react-router-bootstrap";
 import { isLoginVar } from "../../common/graphql/client";
 import { useReactiveVar, gql, useMutation } from "@apollo/client";
+import { Redirect } from "react-router-dom";
 
 const Signin = () => {
-  // const isLogin = useReactiveVar(isLoginVar);
-  // isLoginVar(true);
-  // console.log(isLogin);
+  // 전역 변수
+  const isLogin = useReactiveVar(isLoginVar);
 
   // 일반 로그인(토큰 관련 정보 확인, 스테이츠 관리 확인)
   const [inputs, setInputs] = useState({
@@ -36,23 +36,15 @@ const Signin = () => {
       }
     }
   `;
-
-  const [isOk, setIsOk] = useState(Boolean);
+  const [isOk, setIsOk] = useState(true);
 
   const [login] = useMutation(POST_SIGNIN, {
     onCompleted: (data) => {
-      //   const {
-      //     login: { ok },
-      //   } = data;
-      //   if (!ok) {
-      //     setIsOk(false);
-      //   } else {
-      //     setIsOk(true);
-      //   }
-      //   console.log(isOk);
-      console.log(data);
+      console.log(data.login.ok);
       setIsOk(data.login.ok);
-      console.log(isOk);
+      if (data.login.ok === true) {
+        isLoginVar(true);
+      }
     },
   });
 
@@ -75,6 +67,7 @@ const Signin = () => {
 
   return (
     <React.Fragment>
+      {isLogin ? <Redirect to="/" /> : ""}
       <Container fluid={true}>
         <Row>
           <Col md={4} lg={6} className="bg-image" />
@@ -106,6 +99,9 @@ const Signin = () => {
                           }}
                           name="user_password"
                         />
+                        <Form.Label className="mt-1 text-danger">
+                          {isOk ? " " : "* Invalid Email or Password"}
+                        </Form.Label>
                       </Form.Group>
                       <Button
                         variant="dark"
@@ -113,7 +109,7 @@ const Signin = () => {
                         block
                         className="btn-login text-uppercase font-weight-bold mb-2"
                         type="submit"
-                        onClick={signinBtnHandler}
+                        onClick={(e) => signinBtnHandler(e)}
                       >
                         Sign In
                       </Button>
