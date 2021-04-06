@@ -63,8 +63,38 @@ const Signin = () => {
   };
 
   // 구글 로그인
+  const POST_OAUTH_SIGNIN = gql`
+    mutation authLogin($googleToken: String!) {
+      authLogin(googleToken: $googleToken) {
+        ok
+        error
+        token
+      }
+    }
+  `;
+
+  const [authLogin] = useMutation(POST_OAUTH_SIGNIN, {
+    onCompleted: (data) => {
+      console.log(data);
+      setIsOk(data.authLogin.ok);
+      if (data.authLogin.ok === true) {
+        localStorage.setItem("token", data.authLogin.token);
+        if (localStorage.getItem("token")) {
+          isLoginVar(true);
+          return;
+        }
+      }
+      return;
+    },
+  });
+
   const responseGoogle = (response: any) => {
     console.log(response.tokenObj.id_token);
+    authLogin({
+      variables: {
+        googleToken: response.tokenObj.id_token,
+      },
+    });
   };
 
   // 유저 정보
