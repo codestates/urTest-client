@@ -3,7 +3,7 @@ import { Container, Row, Col, Form, Button } from "react-bootstrap";
 import { GoogleLogin } from "react-google-login";
 import { LinkContainer } from "react-router-bootstrap";
 import { isLoginVar } from "../../common/graphql/client";
-import { useReactiveVar, gql, useMutation } from "@apollo/client";
+import { useReactiveVar, gql, useMutation, useQuery } from "@apollo/client";
 import { Redirect } from "react-router-dom";
 
 const Signin = () => {
@@ -40,14 +40,15 @@ const Signin = () => {
 
   const [login] = useMutation(POST_SIGNIN, {
     onCompleted: (data) => {
-      console.log(data.login.ok);
       setIsOk(data.login.ok);
       if (data.login.ok === true) {
         localStorage.setItem("token", data.login.token);
         if (localStorage.getItem("token")) {
           isLoginVar(true);
+          return;
         }
       }
+      return;
     },
   });
 
@@ -66,7 +67,7 @@ const Signin = () => {
     console.log(response.tokenObj.id_token);
   };
 
-  // 유효성 검사
+  // 유저 정보
 
   return (
     <>

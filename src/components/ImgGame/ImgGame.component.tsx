@@ -76,7 +76,6 @@ const ImgGame = () => {
       setImg(img.slice(2));
     }
   };
-
   return (
     <>
       <Container fluid>

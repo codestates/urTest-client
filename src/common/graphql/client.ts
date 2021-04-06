@@ -1,5 +1,22 @@
-import { ApolloClient, InMemoryCache, gql } from "@apollo/client";
+import {
+  ApolloClient,
+  InMemoryCache,
+  gql,
+  createHttpLink,
+} from "@apollo/client";
 import { makeVar } from "@apollo/client";
+import { setContext } from "@apollo/client/link/context";
+
+// 헤더
+const authLink = setContext((_, { headers }) => {
+  const token = localStorage.getItem("token");
+  return {
+    headers: {
+      ...headers,
+      authorization: token ? `Bearer ${token}` : "",
+    },
+  };
+});
 
 // 전역 상태
 export const inputVar = makeVar({
@@ -10,6 +27,7 @@ export const inputVar = makeVar({
   step2clear: false,
 });
 export const isLoginVar = makeVar(false);
+
 // 전역쿼리
 export const GET_INPUT_VAR = gql`
   query {
@@ -29,8 +47,12 @@ export const cache = new InMemoryCache({
   },
 });
 
-const client = new ApolloClient({
+const httpLink = createHttpLink({
   uri: process.env.REACT_APP_GRAPHQL_URL,
+});
+
+const client = new ApolloClient({
+  link: authLink.concat(httpLink),
   cache,
   connectToDevTools: true,
 });
