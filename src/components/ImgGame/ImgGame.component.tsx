@@ -1,67 +1,39 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Container, Col, Row, Card } from "react-bootstrap";
-import apple from "../../img/apple.jpg";
-import berries from "../../img/berries.jpg";
-import ice_cream from "../../img/ice_cream.jpg";
-import salmon from "../../img/salmon.jpg";
-import cherry from "../../img/cherry.jpg";
-import ddalgi from "../../img/ddalgi.jpg";
-import kiwi from "../../img/kiwi.jpg";
-import gul from "../../img/gul.jpg";
-
-const items = [
-  {
-    name: "apple",
-    src: apple,
-  },
-  {
-    name: "berries",
-    src: berries,
-  },
-  {
-    name: "ice cream",
-    src: ice_cream,
-  },
-  {
-    name: "cherry",
-    src: cherry,
-  },
-  {
-    name: "ddalgi",
-    src: ddalgi,
-  },
-  {
-    name: "gul",
-    src: gul,
-  },
-  {
-    name: "kiwi",
-    src: kiwi,
-  },
-  {
-    name: "salmon",
-    src: salmon,
-  },
-];
-
-interface Items {
-  name: string;
-  src: any;
-}
+import { gql, useQuery } from "@apollo/client";
 
 const ImgGame = () => {
-  const [img, setImg] = useState([] as Items[]);
-  const [displays, setDisplays] = useState([] as Items[]);
-  const [winners, setWinners] = useState([] as Items[]);
+  // 쿼리
+  const GET_CONTENTS = gql`
+    query getContent($id: Int!) {
+      getContent(id: $id) {
+        photos {
+          id
+          photos
+          photoName
+        }
+      }
+    }
+  `;
+  const [img, setImg] = useState([] as any[]);
+  const [displays, setDisplays] = useState([] as any[]);
+  const [winners, setWinners] = useState([] as any[]);
   const [rounds, setRounds] = useState(0 as any);
-  useEffect(() => {
-    items.sort(() => Math.random() - 0.5);
-    setImg(items);
-    setDisplays([items[0], items[1]]);
-    setRounds(items.length / 2);
-  }, []);
 
-  const clickHandler = (pick: Items) => {
+  const { loading, data, error } = useQuery(GET_CONTENTS, {
+    variables: {
+      id: 2,
+    },
+    onCompleted: (data) => {
+      const item = [...data.getContent.photos];
+      item.sort(() => Math.random() - 0.5);
+      setImg(item);
+      setDisplays([item[0], item[1]]);
+      setRounds(item.length / 2);
+    },
+  });
+
+  const clickHandler = (pick: any) => {
     if (img.length <= 2) {
       if (winners.length === 0) {
         setRounds("우승");
@@ -91,18 +63,26 @@ const ImgGame = () => {
         </h1>
         <Col>
           <Row>
-            {displays.map((d) => {
+            {displays.map((d, i) => {
               return (
-                <Card
-                  key={d.name}
-                  onClick={() => clickHandler(d)}
-                  style={
-                    displays.length === 1 ? { width: "100%" } : { width: "50%" }
-                  }
-                >
-                  <Card.Img src={d.src} alt="" style={{ height: "800px" }} />
-                  <Card.Text>{d.name}</Card.Text>
-                </Card>
+                <>
+                  <Card
+                    key={i}
+                    onClick={() => clickHandler(d)}
+                    style={
+                      displays.length === 1
+                        ? { width: "100%" }
+                        : { width: "50%" }
+                    }
+                  >
+                    <Card.Img
+                      src={d.photos}
+                      alt=""
+                      style={{ height: "800px" }}
+                    />
+                    <Card.Text>{d.photoName}</Card.Text>
+                  </Card>
+                </>
               );
             })}
           </Row>
