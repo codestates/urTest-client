@@ -53,21 +53,24 @@ const ImgGame = () => {
   const [img, setImg] = useState([] as Items[]);
   const [displays, setDisplays] = useState([] as Items[]);
   const [winners, setWinners] = useState([] as Items[]);
+  const [rounds, setRounds] = useState(0 as any);
   useEffect(() => {
     items.sort(() => Math.random() - 0.5);
     setImg(items);
     setDisplays([items[0], items[1]]);
+    setRounds(items.length / 2);
   }, []);
 
   const clickHandler = (pick: Items) => {
     if (img.length <= 2) {
       if (winners.length === 0) {
-        setImg(img.slice(1)); // 수정함
+        setRounds("우승");
         setDisplays([pick]);
       } else {
-        const updateLee = [...winners, pick];
-        setImg(updateLee);
-        setDisplays([updateLee[0], updateLee[1]]);
+        const updateImg = [...winners, pick];
+        setRounds(updateImg.length / 2);
+        setImg(updateImg);
+        setDisplays([updateImg[0], updateImg[1]]);
         setWinners([]);
       }
     } else if (img.length > 2) {
@@ -80,7 +83,11 @@ const ImgGame = () => {
     <>
       <Container fluid>
         <h1 className="title">
-          {img.length === 1 ? `우승` : `${img.length} / ${img.length}`}
+          {rounds === "우승"
+            ? "우승"
+            : rounds === 1
+            ? `결승`
+            : `${rounds * 2}강 ${winners.length + 1} / ${rounds}`}
         </h1>
         <Col>
           <Row>

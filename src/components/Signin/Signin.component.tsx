@@ -75,7 +75,6 @@ const Signin = () => {
 
   const [authLogin] = useMutation(POST_OAUTH_SIGNIN, {
     onCompleted: (data) => {
-      console.log(data);
       setIsOk(data.authLogin.ok);
       if (data.authLogin.ok === true) {
         localStorage.setItem("token", data.authLogin.token);
@@ -89,7 +88,6 @@ const Signin = () => {
   });
 
   const responseGoogle = (response: any) => {
-    console.log(response.tokenObj.id_token);
     authLogin({
       variables: {
         googleToken: response.tokenObj.id_token,
