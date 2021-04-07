@@ -73,8 +73,14 @@ export default function Previews(props) {
     isDragAccept,
     isDragReject,
   } = useDropzone({
+    maxFiles: 64,
     accept: "image/*",
     onDrop: (acceptedFiles) => {
+      if (acceptedFiles.length < 8) {
+        setFiles([]);
+        inputVar({ ...input, files: [] });
+        return alert("8~64개의 파일이 필요합니다");
+      }
       setFiles(
         acceptedFiles.map((file) =>
           Object.assign(file, {

@@ -9,8 +9,10 @@ import { inputVar } from "../../common/graphql/client";
 import { Col, Row, Button } from "react-bootstrap";
 import SingleDropzone from "./SingleDropzone";
 
-const Step2 = () => {
+const Step2img = () => {
   const input = useReactiveVar(inputVar);
+  console.log(input);
+
   const history = useHistory();
   const products = [
     { id: "test1", name: "name1", price: "1000" },
@@ -82,4 +84,4 @@ const Step2 = () => {
   );
 };
 
-export default Step2;
+export default Step2img;
