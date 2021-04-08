@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Container, Row, Col, Card, Button } from "react-bootstrap";
+import { Container, Col } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 
 const CardItem = ({ d }: any) => {
@@ -21,8 +21,8 @@ const CardItem = ({ d }: any) => {
           style={{ backgroundImage: `url("https://unsplash.it/500/500/")` }}
         >
           <div className="inner">
-            <p>{d.name}</p>
-            <span>Lorem ipsum</span>
+            <p>{d.title}</p>
+            <span>{d.desc}</span>
           </div>
         </div>
         <LinkContainer to="/imggame">
@@ -31,10 +31,7 @@ const CardItem = ({ d }: any) => {
             style={{ backgroundImage: `url("https://unsplash.it/500/500/")` }}
           >
             <div className="inner">
-              <p>
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Alias
-                cum repellat velit quae suscipit c.
-              </p>
+              <p>{d.desc}</p>
             </div>
           </div>
         </LinkContainer>

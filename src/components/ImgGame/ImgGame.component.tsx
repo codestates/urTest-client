@@ -9,7 +9,7 @@ const ImgGame = () => {
       getContent(id: $id) {
         photos {
           id
-          photos
+          photoUrl
           photoName
         }
       }
@@ -20,7 +20,7 @@ const ImgGame = () => {
   const [winners, setWinners] = useState([] as any[]);
   const [rounds, setRounds] = useState(0 as any);
 
-  const { loading, data, error } = useQuery(GET_CONTENTS, {
+  const { loading } = useQuery(GET_CONTENTS, {
     variables: {
       id: 2,
     },
@@ -53,21 +53,23 @@ const ImgGame = () => {
   };
   return (
     <>
-      <Container fluid>
-        <h1 className="title">
-          {rounds === "우승"
-            ? "우승"
-            : rounds === 1
-            ? `결승`
-            : `${rounds * 2}강 ${winners.length + 1} / ${rounds}`}
-        </h1>
-        <Col>
-          <Row>
-            {displays.map((d, i) => {
-              return (
-                <>
+      {loading ? (
+        "isLoading................................................................."
+      ) : (
+        <Container fluid>
+          <h1 className="title">
+            {rounds === "우승"
+              ? "우승"
+              : rounds === 1
+              ? `결승`
+              : `${rounds * 2}강 ${winners.length + 1} / ${rounds}`}
+          </h1>
+          <Col>
+            <Row>
+              {displays.map((d) => {
+                return (
                   <Card
-                    key={i}
+                    key={d.id}
                     onClick={() => clickHandler(d)}
                     style={
                       displays.length === 1
@@ -76,18 +78,18 @@ const ImgGame = () => {
                     }
                   >
                     <Card.Img
-                      src={d.photos}
+                      src={d.photoUrl}
                       alt=""
                       style={{ height: "800px" }}
                     />
                     <Card.Text>{d.photoName}</Card.Text>
                   </Card>
-                </>
-              );
-            })}
-          </Row>
-        </Col>
-      </Container>
+                );
+              })}
+            </Row>
+          </Col>
+        </Container>
+      )}
     </>
   );
 };
