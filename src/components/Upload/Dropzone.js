@@ -1,7 +1,7 @@
-import React, { useEffect, useState, useMemo } from "react";
+import React, { useEffect, useState, useMemo, useCallback } from "react";
 import { useDropzone } from "react-dropzone";
 import { inputVar } from "../../common/graphql/client";
-import { useReactiveVar } from "@apollo/client";
+import { useReactiveVar, useMutation, gql } from "@apollo/client";
 
 const baseStyle = {
   flex: 1,
@@ -62,9 +62,58 @@ const img = {
   height: "100%",
 };
 
+const UPLOAD_CONTENT = gql`
+  mutation uploadContent($title: String!, $desc: String!, $files: [Upload]!) {
+    uploadContent(title: $title, desc: $desc, files: $files) {
+      photos {
+        photoName
+        photoUrl
+        id
+      }
+      id
+    }
+  }
+`;
+
 export default function Previews(props) {
+  const onDrop = useCallback((acceptedFiles) => {
+    // do something here
+    console.log(acceptedFiles);
+  }, []);
   const [files, setFiles] = useState([]);
   const input = useReactiveVar(inputVar);
+  const uploadObjStr = localStorage.getItem("uploadObj");
+  const uploadObj = uploadObjStr
+    ? JSON.parse(uploadObjStr)
+    : {
+        title: "",
+        desc: "",
+        files: [],
+        textTest: [
+          { id: "1", question: "질문1", answer1: "답변1", answer2: "답변2" },
+          { id: "2", question: "질문2", answer1: "답변1", answer2: "답변2" },
+          { id: "3", question: "질문3", answer1: "답변1", answer2: "답변2" },
+          { id: "4", question: "질문4", answer1: "답변1", answer2: "답변2" },
+          { id: "5", question: "", answer1: "", answer2: "" },
+          { id: "6", question: "", answer1: "", answer2: "" },
+          { id: "7", question: "", answer1: "", answer2: "" },
+          { id: "8", question: "", answer1: "", answer2: "" },
+          { id: "9", question: "", answer1: "", answer2: "" },
+          { id: "10", question: "", answer1: "", answer2: "" },
+          { id: "11", question: "", answer1: "", answer2: "" },
+          { id: "12", question: "", answer1: "", answer2: "" },
+          { id: "13", question: "", answer1: "", answer2: "" },
+          { id: "14", question: "", answer1: "", answer2: "" },
+          { id: "15", question: "", answer1: "", answer2: "" },
+          { id: "16", question: "", answer1: "", answer2: "" },
+        ],
+      };
+  const [uploadContent] = useMutation(UPLOAD_CONTENT, {
+    onCompleted: (data) => {
+      console.log(data);
+      return;
+    },
+  });
 
   const {
     getRootProps,
@@ -75,20 +124,37 @@ export default function Previews(props) {
   } = useDropzone({
     maxFiles: 64,
     accept: "image/*",
-    onDrop: (acceptedFiles) => {
+    onDrop: async (acceptedFiles) => {
+      console.log(acceptedFiles);
       if (acceptedFiles.length < 8) {
         setFiles([]);
         inputVar({ ...input, files: [] });
         return alert("8~64개의 파일이 필요합니다");
       }
-      setFiles(
+      const uploaded = await uploadContent({
+        variables: {
+          title: uploadObj.title,
+          desc: uploadObj.desc,
+          files: acceptedFiles,
+        },
+      });
+      if (!uploaded) {
+        console.log("업로드 안됨");
+        return;
+      }
+      const makePreview = await setFiles(
         acceptedFiles.map((file) =>
           Object.assign(file, {
             preview: URL.createObjectURL(file),
           })
         )
       );
-      inputVar({ ...input, files: [...acceptedFiles] });
+      if (!makePreview) {
+        console.log("프리뷰가 안됨");
+        return;
+      }
+      uploadObj.files = acceptedFiles;
+      localStorage.setItem("uploadObj", JSON.stringify(uploadObj));
     },
   });
 
@@ -102,7 +168,6 @@ export default function Previews(props) {
 
   useEffect(
     () => () => {
-      // Make sure to revoke the data uris to avoid memory leaks
       files.forEach((file) => URL.revokeObjectURL(file.preview));
     },
     [files]

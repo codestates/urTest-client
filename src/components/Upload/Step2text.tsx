@@ -7,68 +7,95 @@ import BootstrapTable from "react-bootstrap-table-next";
 import cellEditFactory from "react-bootstrap-table2-editor";
 import { inputVar } from "../../common/graphql/client";
 import { Col, Row, Button } from "react-bootstrap";
-import SingleDropzone from "./SingleDropzone";
 
 const Step2img = () => {
   const input = useReactiveVar(inputVar);
-  console.log(input);
-
   const history = useHistory();
-  const products = [
-    { id: "test1", name: "name1", price: "1000" },
-    { id: "test2", name: "name2", price: "2000" },
-    { id: "test3", name: "name3", price: "3000" },
-    { id: "test4", name: "name4", price: "4000" },
-    { id: "test5", name: "name5", price: "5000" },
-  ];
+  const uploadObjStr = localStorage.getItem("uploadObj");
+  const uploadObj = uploadObjStr
+    ? JSON.parse(uploadObjStr)
+    : {
+        title: "",
+        desc: "",
+        files: [],
+        textTest: [
+          { id: "1", question: "질문1", answer1: "답변1", answer2: "답변2" },
+          { id: "2", question: "질문2", answer1: "답변1", answer2: "답변2" },
+          { id: "3", question: "질문3", answer1: "답변1", answer2: "답변2" },
+          { id: "4", question: "질문4", answer1: "답변1", answer2: "답변2" },
+          { id: "5", question: "", answer1: "", answer2: "" },
+          { id: "6", question: "", answer1: "", answer2: "" },
+          { id: "7", question: "", answer1: "", answer2: "" },
+          { id: "8", question: "", answer1: "", answer2: "" },
+          { id: "9", question: "", answer1: "", answer2: "" },
+          { id: "10", question: "", answer1: "", answer2: "" },
+          { id: "11", question: "", answer1: "", answer2: "" },
+          { id: "12", question: "", answer1: "", answer2: "" },
+          { id: "13", question: "", answer1: "", answer2: "" },
+          { id: "14", question: "", answer1: "", answer2: "" },
+          { id: "15", question: "", answer1: "", answer2: "" },
+          { id: "16", question: "", answer1: "", answer2: "" },
+        ],
+      };
+  console.log(uploadObj);
   const columns = [
     {
       dataField: "id",
-      text: "문항 ID",
+      text: "문항번호",
     },
     {
-      dataField: "name",
-      text: "파일명",
+      dataField: "question",
+      text: "질문",
     },
     {
-      dataField: "price",
-      text: "이미지",
-      // eslint-disable-next-line react/display-name
-      editorRenderer: (editorProps: any, value: any) => (
-        <SingleDropzone {...editorProps} value={value} />
-      ),
+      dataField: "answer1",
+      text: "답변1",
+    },
+    {
+      dataField: "answer2",
+      text: "답변2",
     },
   ];
   const onSubmit = (data: any) => {
-    console.log(products);
     inputVar({ ...input, step2clear: true });
-    history.push("/multistep/stepresult");
+    history.push("/multistep/step3text");
   };
-  const onAfterSave = (data: any) => {
-    console.log(data);
-    // history.push("multistep/stepResult");
-  };
+  // const textArr: any = [];
+  // testText.map((row) => {
+  //   if (row.question !== "" && row.answer1 !== "" && row.answer2 !== "") {
+  //     textArr.push([row.question, row.answer1, row.answer2]);
+  //   }
+  // });
+  // if (textArr.length < 4 || 16 < textArr.length) {
+  //   return alert("문항수는 4~16개입니다");
+  // }
+  // inputVar({ ...input, ...data });
+  // textArr.map((row: any) => {
+  // inputVar().testText?.push(row);
+  // });
   return (
     <>
       {!input.step1clear ? <Redirect to="/multistep" /> : ""}
       <Row className="justify-content-md-center">
         <Col md={8} className="bg-light rounded pt-3 pb-3">
-          <BootstrapTable
-            keyField="id"
-            data={products}
-            columns={columns}
-            cellEdit={cellEditFactory({
-              mode: "click",
-              afterSaveCell: (
-                oldValue: any,
-                newValue: any,
-                row: any,
-                column: any
-              ) => {
-                onAfterSave(newValue);
-              },
-            })}
-          />
+          <>
+            <BootstrapTable
+              keyField="id"
+              data={uploadObj.textTest}
+              columns={columns}
+              cellEdit={cellEditFactory({
+                mode: "click",
+                // afterSaveCell: (
+                //   oldValue: any,
+                //   newValue: any,
+                //   row: any,
+                //   column: any
+                // ) => {
+                //   onAfterSave(newValue);
+                // },
+              })}
+            />
+          </>
           <Button
             block
             variant="dark"

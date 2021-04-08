@@ -1,73 +1,55 @@
 import React from "react";
 import { useReactiveVar } from "@apollo/client";
 import { Redirect, useHistory } from "react-router-dom";
-import BootstrapTable from "react-bootstrap-table-next";
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
-import cellEditFactory from "react-bootstrap-table2-editor";
+import Previews from "./Dropzone";
+
 import { inputVar } from "../../common/graphql/client";
 import { Col, Row, Button } from "react-bootstrap";
-import SingleDropzone from "./SingleDropzone";
 
 const Step2img = () => {
   const input = useReactiveVar(inputVar);
-  console.log(input);
   const history = useHistory();
-  const products = [
-    { id: "test1", name: "name1", price: "1000" },
-    { id: "test2", name: "name2", price: "2000" },
-    { id: "test3", name: "name3", price: "3000" },
-    { id: "test4", name: "name4", price: "4000" },
-    { id: "test5", name: "name5", price: "5000" },
-  ];
-  const columns = [
-    {
-      dataField: "id",
-      text: "문항 ID",
-    },
-    {
-      dataField: "name",
-      text: "파일명",
-    },
-    {
-      dataField: "price",
-      text: "이미지",
-      // eslint-disable-next-line react/display-name
-      editorRenderer: (editorProps: any, value: any) => (
-        <SingleDropzone {...editorProps} value={value} />
-      ),
-    },
-  ];
+  const uploadObjStr = localStorage.getItem("uploadObj");
+  const uploadObj = uploadObjStr
+    ? JSON.parse(uploadObjStr)
+    : {
+        title: "",
+        desc: "",
+        files: [],
+        textTest: [
+          { id: "1", question: "질문1", answer1: "답변1", answer2: "답변2" },
+          { id: "2", question: "질문2", answer1: "답변1", answer2: "답변2" },
+          { id: "3", question: "질문3", answer1: "답변1", answer2: "답변2" },
+          { id: "4", question: "질문4", answer1: "답변1", answer2: "답변2" },
+          { id: "5", question: "", answer1: "", answer2: "" },
+          { id: "6", question: "", answer1: "", answer2: "" },
+          { id: "7", question: "", answer1: "", answer2: "" },
+          { id: "8", question: "", answer1: "", answer2: "" },
+          { id: "9", question: "", answer1: "", answer2: "" },
+          { id: "10", question: "", answer1: "", answer2: "" },
+          { id: "11", question: "", answer1: "", answer2: "" },
+          { id: "12", question: "", answer1: "", answer2: "" },
+          { id: "13", question: "", answer1: "", answer2: "" },
+          { id: "14", question: "", answer1: "", answer2: "" },
+          { id: "15", question: "", answer1: "", answer2: "" },
+          { id: "16", question: "", answer1: "", answer2: "" },
+        ],
+      };
+  console.log(uploadObj);
   const onSubmit = (data: any) => {
-    console.log(products);
+    if (uploadObj.files.length < 8) {
+      uploadObj.files = [];
+      return alert("이상형월드컵은 최소 8장 이상의 파일이 필요합니다");
+    }
     inputVar({ ...input, step2clear: true });
-    history.push("/multistep/stepresult");
-  };
-  const onAfterSave = (data: any) => {
-    console.log(data);
-    // history.push("multistep/stepResult");
+    history.push("/multistep/step3img");
   };
   return (
     <>
       {!input.step1clear ? <Redirect to="/multistep" /> : ""}
       <Row className="justify-content-md-center">
         <Col md={8} className="bg-light rounded pt-3 pb-3">
-          <BootstrapTable
-            keyField="id"
-            data={products}
-            columns={columns}
-            cellEdit={cellEditFactory({
-              mode: "click",
-              afterSaveCell: (
-                oldValue: any,
-                newValue: any,
-                row: any,
-                column: any
-              ) => {
-                onAfterSave(newValue);
-              },
-            })}
-          />
+          <Previews />
           <Button
             block
             variant="dark"

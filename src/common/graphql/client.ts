@@ -1,11 +1,7 @@
-import {
-  ApolloClient,
-  InMemoryCache,
-  gql,
-  createHttpLink,
-} from "@apollo/client";
+import { ApolloClient, InMemoryCache } from "@apollo/client";
 import { makeVar } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
+import { createUploadLink } from "apollo-upload-client";
 
 // 헤더
 const authLink = setContext((_, { headers }) => {
@@ -20,10 +16,6 @@ const authLink = setContext((_, { headers }) => {
 
 // 전역 상태
 export const inputVar = makeVar({
-  title: "",
-  desc: "",
-  files: [],
-  textTest: [],
   types: "imgGame",
   step1clear: false,
   step2clear: false,
@@ -47,30 +39,11 @@ export const textUploadTable = makeVar([
   { id: "15", question: "", answer1: "", answer2: "" },
   { id: "16", question: "", answer1: "", answer2: "" },
 ]);
-// 텍스트게임 초기테이블헤더
-export const textUploadHeaders = makeVar([
-  {
-    dataField: "id",
-    text: "문항번호",
-  },
-  {
-    dataField: "question",
-    text: "질문",
-  },
-  {
-    dataField: "answer1",
-    text: "답변1",
-  },
-  {
-    dataField: "answer2",
-    text: "답변2",
-  },
-]);
 export const isLoginVar = makeVar(false);
 
 export const cache = new InMemoryCache();
 
-const httpLink = createHttpLink({
+const httpLink = createUploadLink({
   uri: process.env.REACT_APP_GRAPHQL_URL,
 });
 

@@ -153,10 +153,10 @@ const CardSlider = () => {
   return (
     <Swiper
       className="swiper-container mh-100 min-vh-83"
-      spaceBetween={10}
-      slidesPerView={6}
-      slidesPerColumn={2}
-      slidesPerColumnFill={"row"}
+      // spaceBetween={10}
+      // slidesPerView={6}
+      // slidesPerColumn={2}
+      // slidesPerColumnFill={"row"}
       breakpoints={{
         0: {
           slidesPerView: 1,
