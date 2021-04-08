@@ -1,155 +1,31 @@
-import React from "react";
+import React, { useState } from "react";
 import SwiperCore, { Navigation, Pagination, Scrollbar, A11y } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Row, Col, Container } from "react-bootstrap";
 import CardItem from "./CardItem.component";
-import { LinkContainer } from "react-router-bootstrap";
-const items = [
-  {
-    name: "apple",
-    src: "apple",
-  },
-  {
-    name: "berries",
-    src: "berries",
-  },
-  {
-    name: "ice cream",
-    src: "ice_cream",
-  },
-  {
-    name: "cherry",
-    src: "cherry",
-  },
-  {
-    name: "ddalgi",
-    src: "ddalgi",
-  },
-  {
-    name: "gul",
-    src: "gul",
-  },
-  {
-    name: "kiwi",
-    src: "kiwi",
-  },
-  {
-    name: "apple",
-    src: "apple",
-  },
-  {
-    name: "berries",
-    src: "berries",
-  },
-  {
-    name: "ice cream",
-    src: "ice_cream",
-  },
-  {
-    name: "cherry",
-    src: "cherry",
-  },
-  {
-    name: "ddalgi",
-    src: "ddalgi",
-  },
-  {
-    name: "gul",
-    src: "gul",
-  },
-  {
-    name: "kiwi",
-    src: "kiwi",
-  },
-  {
-    name: "apple",
-    src: "apple",
-  },
-  {
-    name: "berries",
-    src: "berries",
-  },
-  {
-    name: "ice cream",
-    src: "ice_cream",
-  },
-  {
-    name: "cherry",
-    src: "cherry",
-  },
-  {
-    name: "ddalgi",
-    src: "ddalgi",
-  },
-  {
-    name: "gul",
-    src: "gul",
-  },
-  {
-    name: "kiwi",
-    src: "kiwi",
-  },
-  {
-    name: "apple",
-    src: "apple",
-  },
-  {
-    name: "berries",
-    src: "berries",
-  },
-  {
-    name: "ice cream",
-    src: "ice_cream",
-  },
-  {
-    name: "cherry",
-    src: "cherry",
-  },
-  {
-    name: "ddalgi",
-    src: "ddalgi",
-  },
-  {
-    name: "gul",
-    src: "gul",
-  },
-  {
-    name: "kiwi",
-    src: "kiwi",
-  },
-  {
-    name: "apple",
-    src: "apple",
-  },
-  {
-    name: "berries",
-    src: "berries",
-  },
-  {
-    name: "ice cream",
-    src: "ice_cream",
-  },
-  {
-    name: "cherry",
-    src: "cherry",
-  },
-  {
-    name: "ddalgi",
-    src: "ddalgi",
-  },
-  {
-    name: "gul",
-    src: "gul",
-  },
-  {
-    name: "kiwi",
-    src: "kiwi",
-  },
-];
+import { gql, useQuery } from "@apollo/client";
 
 SwiperCore.use([Navigation, Pagination, Scrollbar, A11y]);
 
 const CardSlider = () => {
+  // 쿼리
+  const GET_CONTENT_ALL = gql`
+    query getContentAll {
+      getContentAll {
+        id
+        title
+        desc
+        type
+      }
+    }
+  `;
+  const [contents, setContents] = useState([] as any);
+
+  const { loading } = useQuery(GET_CONTENT_ALL, {
+    onCompleted: (data) => {
+      setContents([...data.getContentAll]);
+    },
+  });
+
   return (
     <Swiper
       className="swiper-container mh-100 min-vh-83"
@@ -198,9 +74,9 @@ const CardSlider = () => {
       onSwiper={(swiper) => console.log(swiper)}
       onSlideChange={() => console.log("slide change")}
     >
-      {items.map((el, i) => {
+      {contents.map((el: any) => {
         return (
-          <SwiperSlide key={i}>
+          <SwiperSlide key={el.id}>
             <CardItem d={el} />
           </SwiperSlide>
         );
