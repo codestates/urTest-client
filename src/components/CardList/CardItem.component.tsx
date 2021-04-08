@@ -25,7 +25,7 @@ const CardItem = ({ d }: any) => {
             <span>{d.desc}</span>
           </div>
         </div>
-        <LinkContainer to={`/imggame/${d.id}`}>
+        <LinkContainer to={`/${d.type}/${d.id}`}>
           <div
             className="back"
             style={{ backgroundImage: `url("https://unsplash.it/500/500/")` }}
