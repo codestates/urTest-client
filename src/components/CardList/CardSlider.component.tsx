@@ -26,7 +26,9 @@ const CardSlider = () => {
     },
   });
 
-  return (
+  return contents.length === 0 ? (
+    <div>loading</div>
+  ) : (
     <Swiper
       className="swiper-container mh-100 min-vh-83"
       spaceBetween={10}

@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import { Container, Col, Row, Card } from "react-bootstrap";
 import { gql, useQuery } from "@apollo/client";
 
-const ImgGame = () => {
+const ImgGame = (props: any) => {
+  console.log(props.gameid);
   // 쿼리
   const GET_CONTENTS = gql`
     query getContent($id: Int!) {
@@ -22,7 +23,7 @@ const ImgGame = () => {
 
   const { loading } = useQuery(GET_CONTENTS, {
     variables: {
-      id: 2,
+      id: +props.gameid,
     },
     onCompleted: (data) => {
       const item = [...data.getContent.photos];
@@ -95,3 +96,6 @@ const ImgGame = () => {
 };
 
 export default ImgGame;
+function gameId(gameId: any) {
+  throw new Error("Function not implemented.");
+}
