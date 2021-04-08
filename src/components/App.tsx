@@ -1,10 +1,17 @@
 import React, { useState, useEffect } from "react";
-import { Switch, Route, useLocation, useHistory } from "react-router-dom";
+import {
+  Switch,
+  Route,
+  useLocation,
+  useHistory,
+  useParams,
+} from "react-router-dom";
 
 // Page ---------------------------------------
 import Home from "./Home/Home.component";
 import Header from "./Header/Header.component";
 import ImgGame from "./ImgGame/ImgGame.component";
+import TextGame from "./TextGame/TextGame.componet";
 import SideDrawer from "./Sidebar/sidedrawer";
 import Signin from "./Signin/Signin.component";
 import Signup from "./Signup/Signup.component";
@@ -32,6 +39,19 @@ const NoMatch = () => {
       </h3>
     </div>
   );
+};
+
+const ImgGameId = () => {
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  const { id } = useParams();
+  return <ImgGame gameid={id} />;
+};
+const TextGameId = () => {
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  const { id } = useParams();
+  return <TextGame gameid={id} />;
 };
 
 const App = () => {
@@ -108,7 +128,8 @@ const App = () => {
       <div className="main">
         <Switch>
           <Route exact path="/" component={Home} />
-          <Route path="/imggame" component={ImgGame} />
+          <Route path="/imggame/:id/" component={ImgGameId} />
+          <Route path="/textgame/:id/" component={TextGameId} />
           <Route path="/imglist" component={ImgList} />
           <Route path="/textlist" component={TextList} />
           <Route path="/searchlist" component={SearchList} />

@@ -20,19 +20,21 @@ const CardSlider = () => {
   `;
   const [contents, setContents] = useState([] as any);
 
-  const { loading } = useQuery(GET_CONTENT_ALL, {
+  const {} = useQuery(GET_CONTENT_ALL, {
     onCompleted: (data) => {
       setContents([...data.getContentAll]);
     },
   });
 
-  return (
+  return contents.length === 0 ? (
+    <div>Loading...</div>
+  ) : (
     <Swiper
       className="swiper-container mh-100 min-vh-83"
-      spaceBetween={10}
-      slidesPerView={6}
-      slidesPerColumn={2}
-      slidesPerColumnFill={"row"}
+      // spaceBetween={10}
+      // slidesPerView={6}
+      // slidesPerColumn={2}
+      // slidesPerColumnFill={"row"}
       breakpoints={{
         0: {
           slidesPerView: 1,
