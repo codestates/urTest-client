@@ -9,14 +9,14 @@ const authLink = setContext((_, { headers }) => {
   return {
     headers: {
       ...headers,
-      authorization: token ? `Bearer ${token}` : "",
+      authorization: token ? `${token}` : "",
     },
   };
 });
 
 // 전역 상태
 export const inputVar = makeVar({
-  types: "imgGame",
+  types: "imggame",
   step1clear: false,
   step2clear: false,
 });

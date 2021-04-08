@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useHistory } from "react-router-dom";
-import { useReactiveVar } from "@apollo/client";
+import { useReactiveVar, useMutation, gql } from "@apollo/client";
 import { inputVar } from "../../common/graphql/client";
 import { Form, Button, Col, Row } from "react-bootstrap";
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -10,6 +10,14 @@ import { Form, Button, Col, Row } from "react-bootstrap";
 // import cellEditFactory from "react-bootstrap-table2-editor";
 // import Comment from "../Comment/Comment.component";
 // import CommentItem from "../Comment/CommentItem.component";
+
+const UPLOAD_CONTENT = gql`
+  mutation uploadContent($title: String!, $desc: String!) {
+    uploadContent(title: $title, desc: $desc) {
+      id
+    }
+  }
+`;
 
 const Step1 = () => {
   const history = useHistory();
@@ -39,7 +47,17 @@ const Step1 = () => {
           { id: "16", question: "", answer1: "", answer2: "" },
         ],
       };
-  const [types, setTypes] = useState("imgGame");
+  const [types, setTypes] = useState("imggame");
+
+  const [uploadContent] = useMutation(UPLOAD_CONTENT, {
+    onCompleted: (data) => {
+      uploadObj.contentId = data.uploadContent.id;
+      console.log(uploadObj);
+      localStorage.setItem("uploadObj", JSON.stringify(uploadObj));
+      history.push("multistep/step2img");
+      return;
+    },
+  });
 
   const {
     register,
@@ -57,26 +75,49 @@ const Step1 = () => {
 
   const input = useReactiveVar(inputVar);
 
-  const onSubmit = (data: any) => {
-    if (types === "imgGame") {
+  const onSubmit = async (data: any) => {
+    if (types === "imggame") {
       if (Object.keys(errors).length === 0) {
         uploadObj.title = data.title;
         uploadObj.desc = data.desc;
         uploadObj.type = data.type;
         localStorage.setItem("uploadObj", JSON.stringify(uploadObj));
         inputVar({ ...input, step1clear: true });
-        history.push("multistep/step2img");
+        await uploadContent({
+          variables: {
+            title: uploadObj.title,
+            desc: uploadObj.desc,
+          },
+        });
       }
       return;
     }
-    if (types === "textGame") {
+    if (types === "textgame") {
       if (Object.keys(errors).length !== 0) {
         return;
       } else {
         uploadObj.title = data.title;
         uploadObj.desc = data.desc;
         uploadObj.type = data.type;
-        localStorage.setItem("uploadObj", JSON.stringify(uploadObj));
+        (uploadObj.textTest = [
+          { id: "1", question: "질문1", answer1: "답변1", answer2: "답변2" },
+          { id: "2", question: "질문2", answer1: "답변1", answer2: "답변2" },
+          { id: "3", question: "질문3", answer1: "답변1", answer2: "답변2" },
+          { id: "4", question: "질문4", answer1: "답변1", answer2: "답변2" },
+          { id: "5", question: "", answer1: "", answer2: "" },
+          { id: "6", question: "", answer1: "", answer2: "" },
+          { id: "7", question: "", answer1: "", answer2: "" },
+          { id: "8", question: "", answer1: "", answer2: "" },
+          { id: "9", question: "", answer1: "", answer2: "" },
+          { id: "10", question: "", answer1: "", answer2: "" },
+          { id: "11", question: "", answer1: "", answer2: "" },
+          { id: "12", question: "", answer1: "", answer2: "" },
+          { id: "13", question: "", answer1: "", answer2: "" },
+          { id: "14", question: "", answer1: "", answer2: "" },
+          { id: "15", question: "", answer1: "", answer2: "" },
+          { id: "16", question: "", answer1: "", answer2: "" },
+        ]),
+          localStorage.setItem("uploadObj", JSON.stringify(uploadObj));
         inputVar({ ...input, step1clear: true });
         history.push("multistep/step2text");
       }
@@ -124,8 +165,8 @@ const Step1 = () => {
                   onChange={typeSelected}
                   custom
                 >
-                  <option value="imgGame">이상형 월드컵</option>
-                  <option value="textGame">밸런스게임</option>
+                  <option value="imggame">이상형 월드컵</option>
+                  <option value="textgame">밸런스게임</option>
                 </Form.Control>
               </Form.Group>
             </Form.Row>

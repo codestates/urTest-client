@@ -35,13 +35,11 @@ const Step2img = () => {
           { id: "16", question: "", answer1: "", answer2: "" },
         ],
       };
-  console.log(uploadObj);
   const onSubmit = (data: any) => {
-    if (uploadObj.files.length < 8) {
-      uploadObj.files = [];
-      return alert("이상형월드컵은 최소 8장 이상의 파일이 필요합니다");
-    }
     inputVar({ ...input, step2clear: true });
+    uploadObj.files = [];
+    uploadObj.textTest = [];
+    localStorage.setItem("uploadObj", JSON.stringify(uploadObj));
     history.push("/multistep/step3img");
   };
   return (

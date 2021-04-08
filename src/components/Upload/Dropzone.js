@@ -62,24 +62,18 @@ const img = {
   height: "100%",
 };
 
-const UPLOAD_CONTENT = gql`
-  mutation uploadContent($title: String!, $desc: String!, $files: [Upload]!) {
-    uploadContent(title: $title, desc: $desc, files: $files) {
-      photos {
-        photoName
-        photoUrl
-        id
-      }
+const UPLOAD_PHOTO = gql`
+  mutation uploadPhoto($file: Upload!, $id: Int!) {
+    uploadPhoto(file: $file, id: $id) {
+      contentId
       id
+      photoUrl
+      photoName
     }
   }
 `;
 
 export default function Previews(props) {
-  const onDrop = useCallback((acceptedFiles) => {
-    // do something here
-    console.log(acceptedFiles);
-  }, []);
   const [files, setFiles] = useState([]);
   const input = useReactiveVar(inputVar);
   const uploadObjStr = localStorage.getItem("uploadObj");
@@ -108,7 +102,7 @@ export default function Previews(props) {
           { id: "16", question: "", answer1: "", answer2: "" },
         ],
       };
-  const [uploadContent] = useMutation(UPLOAD_CONTENT, {
+  const [uploadPhoto] = useMutation(UPLOAD_PHOTO, {
     onCompleted: (data) => {
       console.log(data);
       return;
@@ -124,38 +118,30 @@ export default function Previews(props) {
   } = useDropzone({
     maxFiles: 64,
     accept: "image/*",
-    onDrop: async (acceptedFiles) => {
-      console.log(acceptedFiles);
-      if (acceptedFiles.length < 8) {
+    onDrop: useCallback(async (acceptedFiles) => {
+      if (acceptedFiles.length < 4) {
         setFiles([]);
         inputVar({ ...input, files: [] });
-        return alert("8~64개의 파일이 필요합니다");
+        return alert("4~64개의 파일이 필요합니다");
       }
-      const uploaded = await uploadContent({
-        variables: {
-          title: uploadObj.title,
-          desc: uploadObj.desc,
-          files: acceptedFiles,
-        },
+      await acceptedFiles.map(async (file) => {
+        uploadPhoto({
+          variables: {
+            file: file,
+            id: uploadObj.contentId,
+          },
+        });
       });
-      if (!uploaded) {
-        console.log("업로드 안됨");
-        return;
-      }
-      const makePreview = await setFiles(
+      await setFiles(
         acceptedFiles.map((file) =>
           Object.assign(file, {
             preview: URL.createObjectURL(file),
           })
         )
       );
-      if (!makePreview) {
-        console.log("프리뷰가 안됨");
-        return;
-      }
       uploadObj.files = acceptedFiles;
       localStorage.setItem("uploadObj", JSON.stringify(uploadObj));
-    },
+    }, []),
   });
 
   const thumbs = files.map((file) => (
