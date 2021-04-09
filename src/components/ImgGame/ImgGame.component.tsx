@@ -96,6 +96,3 @@ const ImgGame = (props: any) => {
 };
 
 export default ImgGame;
-function gameId(gameId: any) {
-  throw new Error("Function not implemented.");
-}

@@ -17,41 +17,55 @@ const TextGame = (props: any) => {
       }
     }
   `;
-  const [displays, setDisplays] = useState([] as any);
-  const [scores, setScores] = useState([] as any);
 
-  const { loading } = useQuery(GET_CONTENTS, {
+  const [question, setQuestion] = useState([] as any);
+
+  const {} = useQuery(GET_CONTENTS, {
     variables: {
       id: +props.gameid,
     },
     onCompleted: (data) => {
       const questions = [...data.getContent.question];
-      console.log(questions[0]);
-      setDisplays(questions);
+      setQuestion(questions);
     },
   });
 
-  const clickHandler = (pick: any) => {
-    setScores([pick]);
+  const clickHandler = () => {
+    question.shift();
+    const nextQuestions = [...question];
+    setQuestion(nextQuestions);
   };
+
   return (
     <>
-      <Container fluid>
-        <div>밸런스게임</div>
-        {displays.map((d: any) => {
-          return (
-            <Card
-              key={d.id}
-              onClick={() => clickHandler(d)}
-              style={
-                displays.length === 1 ? { width: "100%" } : { width: "50%" }
-              }
-            >
-              <Card.Text>{d.questionBody}</Card.Text>
-            </Card>
-          );
-        })}
-      </Container>
+      {question.length === 0 ? (
+        "loading..."
+      ) : (
+        <Container fluid>
+          <div>밸런스게임</div>
+          <h1 key={question[0].id}>
+            {question[0].questionBody}
+            <Row>
+              <Col>
+                <Card
+                  style={{ height: "780px", width: "100%" }}
+                  onClick={() => clickHandler()}
+                >
+                  {question[0].answer[0].body}
+                </Card>
+              </Col>
+              <Col>
+                <Card
+                  style={{ height: "780px", width: "100%" }}
+                  onClick={() => clickHandler()}
+                >
+                  {question[0].answer[1].body}
+                </Card>
+              </Col>
+            </Row>
+          </h1>
+        </Container>
+      )}
     </>
   );
 };
