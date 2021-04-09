@@ -8,6 +8,7 @@ import { Col, Row, Button, Image } from "react-bootstrap";
 import { useReactiveVar } from "@apollo/client";
 import { inputVar } from "../../common/graphql/client";
 import { Redirect, useHistory } from "react-router-dom";
+import SweetAlert from "react-bootstrap-sweetalert";
 
 // 쿼리
 const GET_CONTENTS = gql`
@@ -35,6 +36,7 @@ const Step3img = () => {
   const history = useHistory();
   const uploadObjStr = localStorage.getItem("uploadObj");
   const input = useReactiveVar(inputVar);
+  const [sweetAlertShow, setSweetAlertShow] = useState(false);
   const [contentFiles, setContentFiles] = useState([] as any);
   const [editPhotoName] = useMutation(EDTI_PHOTONAME, {
     onCompleted: (data) => {
@@ -68,7 +70,7 @@ const Step3img = () => {
         ],
       };
 
-  const { loading } = useQuery(GET_CONTENTS, {
+  useQuery(GET_CONTENTS, {
     variables: {
       id: uploadObj.contentId,
     },
@@ -90,7 +92,8 @@ const Step3img = () => {
     return <Image src={`${cell}`} thumbnail />;
   }
 
-  const onAfterSave = async (row: any, newValue: any) => {
+  const onAfterSave = async (row: any) => {
+    console.log(row);
     await editPhotoName({
       variables: {
         id: row.photoId,
@@ -123,10 +126,11 @@ const Step3img = () => {
     },
   ];
 
-  const onSubmit = (data: any) => {
-    inputVar({ ...input, step2clear: true });
-    history.push("/multistep/step3text");
+  const onSubmit = () => {
+    setSweetAlertShow(true);
+    return;
   };
+
   return (
     <>
       {!input.step2clear ? <Redirect to="/multistep" /> : ""}
@@ -142,13 +146,8 @@ const Step3img = () => {
                 columns={columns}
                 cellEdit={cellEditFactory({
                   mode: "click",
-                  afterSaveCell: (
-                    oldValue: any,
-                    newValue: any,
-                    row: any,
-                    column: any
-                  ) => {
-                    onAfterSave(row, newValue);
+                  afterSaveCell: (oldValue: any, newValue: any, row: any) => {
+                    onAfterSave(row);
                   },
                 })}
               />
@@ -165,6 +164,118 @@ const Step3img = () => {
           </Col>
         </Row>
       )}
+      <SweetAlert
+        show={sweetAlertShow}
+        showConfirm={false}
+        success
+        title="테스트 만들기 완료!"
+        onConfirm={() => {
+          const uploadReset = {
+            title: "",
+            desc: "",
+            files: [],
+            textTest: [
+              {
+                id: "1",
+                question: "질문1",
+                answer1: "답변1",
+                answer2: "답변2",
+              },
+              {
+                id: "2",
+                question: "질문2",
+                answer1: "답변1",
+                answer2: "답변2",
+              },
+              {
+                id: "3",
+                question: "질문3",
+                answer1: "답변1",
+                answer2: "답변2",
+              },
+              {
+                id: "4",
+                question: "질문4",
+                answer1: "답변1",
+                answer2: "답변2",
+              },
+              { id: "5", question: "", answer1: "", answer2: "" },
+              { id: "6", question: "", answer1: "", answer2: "" },
+              { id: "7", question: "", answer1: "", answer2: "" },
+              { id: "8", question: "", answer1: "", answer2: "" },
+              { id: "9", question: "", answer1: "", answer2: "" },
+              { id: "10", question: "", answer1: "", answer2: "" },
+              { id: "11", question: "", answer1: "", answer2: "" },
+              { id: "12", question: "", answer1: "", answer2: "" },
+              { id: "13", question: "", answer1: "", answer2: "" },
+              { id: "14", question: "", answer1: "", answer2: "" },
+              { id: "15", question: "", answer1: "", answer2: "" },
+              { id: "16", question: "", answer1: "", answer2: "" },
+            ],
+          };
+          inputVar({
+            types: "imggame",
+            step1clear: false,
+            step2clear: false,
+          });
+          localStorage.setItem("uploadObj", JSON.stringify(uploadReset));
+          history.push("/");
+        }}
+        onCancel={() => {
+          const uploadReset = {
+            title: "",
+            desc: "",
+            files: [],
+            textTest: [
+              {
+                id: "1",
+                question: "질문1",
+                answer1: "답변1",
+                answer2: "답변2",
+              },
+              {
+                id: "2",
+                question: "질문2",
+                answer1: "답변1",
+                answer2: "답변2",
+              },
+              {
+                id: "3",
+                question: "질문3",
+                answer1: "답변1",
+                answer2: "답변2",
+              },
+              {
+                id: "4",
+                question: "질문4",
+                answer1: "답변1",
+                answer2: "답변2",
+              },
+              { id: "5", question: "", answer1: "", answer2: "" },
+              { id: "6", question: "", answer1: "", answer2: "" },
+              { id: "7", question: "", answer1: "", answer2: "" },
+              { id: "8", question: "", answer1: "", answer2: "" },
+              { id: "9", question: "", answer1: "", answer2: "" },
+              { id: "10", question: "", answer1: "", answer2: "" },
+              { id: "11", question: "", answer1: "", answer2: "" },
+              { id: "12", question: "", answer1: "", answer2: "" },
+              { id: "13", question: "", answer1: "", answer2: "" },
+              { id: "14", question: "", answer1: "", answer2: "" },
+              { id: "15", question: "", answer1: "", answer2: "" },
+              { id: "16", question: "", answer1: "", answer2: "" },
+            ],
+          };
+          inputVar({
+            types: "imggame",
+            step1clear: false,
+            step2clear: false,
+          });
+          localStorage.setItem("uploadObj", JSON.stringify(uploadReset));
+          history.push("/");
+        }}
+      >
+        홈화면으로 이동합니다
+      </SweetAlert>
     </>
   );
 };

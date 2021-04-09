@@ -55,7 +55,7 @@ const Step2img = () => {
       text: "답변2",
     },
   ];
-  const onSubmit = (data: any) => {
+  const onSubmit = () => {
     inputVar({ ...input, step2clear: true });
     history.push("/multistep/step3text");
   };

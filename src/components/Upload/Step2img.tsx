@@ -1,12 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import { useReactiveVar } from "@apollo/client";
 import { Redirect, useHistory } from "react-router-dom";
 import Previews from "./Dropzone";
 
 import { inputVar, uploadVar } from "../../common/graphql/client";
+import SweetAlert from "react-bootstrap-sweetalert";
 import { Col, Row, Button } from "react-bootstrap";
 
 const Step2img = () => {
+  const [sweetAlertShow, setSweetAlertShow] = useState(false);
   const input = useReactiveVar(inputVar);
   const isUpload = useReactiveVar(uploadVar);
   const history = useHistory();
@@ -36,17 +38,18 @@ const Step2img = () => {
           { id: "16", question: "", answer1: "", answer2: "" },
         ],
       };
-  const onSubmit = (data: any) => {
+  const onSubmit = () => {
     if (isUpload) {
       return alert(
         "백그라운드에서 업로드가 진행중입니다 3초 후 다시 시도해주세요"
       );
+    } else if (uploadObj.files.length >= 4) {
+      inputVar({ ...input, step2clear: true });
+      uploadObj.files = [];
+      uploadObj.textTest = [];
+      localStorage.setItem("uploadObj", JSON.stringify(uploadObj));
+      setSweetAlertShow(true);
     }
-    inputVar({ ...input, step2clear: true });
-    uploadObj.files = [];
-    uploadObj.textTest = [];
-    localStorage.setItem("uploadObj", JSON.stringify(uploadObj));
-    history.push("/multistep/step3img");
   };
   return (
     <>
@@ -65,6 +68,20 @@ const Step2img = () => {
           </Button>
         </Col>
       </Row>
+      <SweetAlert
+        show={sweetAlertShow}
+        showConfirm={false}
+        success
+        title="사진 업로드 완료!"
+        onConfirm={() => {
+          history.push("/multistep/step3img");
+        }}
+        onCancel={() => {
+          history.push("/multistep/step3img");
+        }}
+      >
+        다음단계에서 사진들을 세팅합니다
+      </SweetAlert>
     </>
   );
 };

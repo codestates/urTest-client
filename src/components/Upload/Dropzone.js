@@ -73,10 +73,10 @@ const UPLOAD_PHOTO = gql`
   }
 `;
 
-export default function Previews(props) {
+export default function Previews() {
   const [files, setFiles] = useState([]);
   const input = useReactiveVar(inputVar);
-  const isUpload = useReactiveVar(uploadVar);
+  useReactiveVar(uploadVar);
   const uploadObjStr = localStorage.getItem("uploadObj");
   const uploadObj = uploadObjStr
     ? JSON.parse(uploadObjStr)
@@ -129,7 +129,9 @@ export default function Previews(props) {
         inputVar({ ...input, files: [] });
         return alert("4~64개의 파일이 필요합니다");
       }
-      const uploaded = await acceptedFiles.map(async (file) => {
+      uploadObj.files = acceptedFiles;
+      localStorage.setItem("uploadObj", JSON.stringify(uploadObj));
+      await acceptedFiles.map(async (file) => {
         uploadPhoto({
           variables: {
             file: file,
@@ -138,21 +140,13 @@ export default function Previews(props) {
         });
       });
 
-      if (!uploaded) {
-        return;
-      }
-      const makePreview = await setFiles(
+      await setFiles(
         acceptedFiles.map((file) =>
           Object.assign(file, {
             preview: URL.createObjectURL(file),
           })
         )
       );
-      if (!makePreview) {
-        return;
-      }
-      uploadObj.files = acceptedFiles;
-      localStorage.setItem("uploadObj", JSON.stringify(uploadObj));
     }, []),
   });
 
