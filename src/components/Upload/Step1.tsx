@@ -5,6 +5,7 @@ import { useHistory } from "react-router-dom";
 import { useReactiveVar, useMutation, gql } from "@apollo/client";
 import { inputVar } from "../../common/graphql/client";
 import { Form, Button, Col, Row } from "react-bootstrap";
+import SweetAlert from "react-bootstrap-sweetalert";
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 // import cellEditFactory from "react-bootstrap-table2-editor";
@@ -20,6 +21,8 @@ const UPLOAD_CONTENT = gql`
 `;
 
 const Step1 = () => {
+  const [sweetAlertShow, setSweetAlertShow] = useState(false);
+  const [types, setTypes] = useState("imggame");
   const history = useHistory();
   const uploadObjStr = localStorage.getItem("uploadObj");
   const uploadObj = uploadObjStr
@@ -47,14 +50,13 @@ const Step1 = () => {
           { id: "16", question: "", answer1: "", answer2: "" },
         ],
       };
-  const [types, setTypes] = useState("imggame");
 
   const [uploadContent] = useMutation(UPLOAD_CONTENT, {
     onCompleted: (data) => {
       uploadObj.contentId = data.uploadContent.id;
       console.log(uploadObj);
       localStorage.setItem("uploadObj", JSON.stringify(uploadObj));
-      history.push("multistep/step2img");
+      setSweetAlertShow(true);
       return;
     },
   });
@@ -126,8 +128,8 @@ const Step1 = () => {
   };
   return (
     <>
-      <Row className="justify-content-md-center">
-        <Col md={8} className="bg-light rounded">
+      <Row className="justify-content-md-center mt-4">
+        <Col md={8} className="bg-light rounded pb-4">
           <Form onSubmit={handleSubmit(onSubmit)}>
             <Form.Row>
               <Form.Group as={Col}>
@@ -177,6 +179,20 @@ const Step1 = () => {
           </Form>
         </Col>
       </Row>
+      <SweetAlert
+        show={sweetAlertShow}
+        showConfirm={false}
+        success
+        title="테스트 생성 완료!"
+        onConfirm={() => {
+          history.push("multistep/step2img");
+        }}
+        onCancel={() => {
+          history.push("multistep/step2img");
+        }}
+      >
+        다음단계에서 사진들을 세팅합니다
+      </SweetAlert>
       {/* <Comment />
       <CommentItem />
       <CommentItem />

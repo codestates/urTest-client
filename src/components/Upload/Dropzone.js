@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useMemo, useCallback } from "react";
 import { useDropzone } from "react-dropzone";
-import { inputVar } from "../../common/graphql/client";
+import { inputVar, uploadVar } from "../../common/graphql/client";
 import { useReactiveVar, useMutation, gql } from "@apollo/client";
 
 const baseStyle = {
@@ -73,9 +73,10 @@ const UPLOAD_PHOTO = gql`
   }
 `;
 
-export default function Previews(props) {
+export default function Previews() {
   const [files, setFiles] = useState([]);
   const input = useReactiveVar(inputVar);
+  useReactiveVar(uploadVar);
   const uploadObjStr = localStorage.getItem("uploadObj");
   const uploadObj = uploadObjStr
     ? JSON.parse(uploadObjStr)
@@ -119,11 +120,17 @@ export default function Previews(props) {
     maxFiles: 64,
     accept: "image/*",
     onDrop: useCallback(async (acceptedFiles) => {
+      await uploadVar(true);
+      setTimeout(() => {
+        uploadVar(false);
+      }, 3000);
       if (acceptedFiles.length < 4) {
         setFiles([]);
         inputVar({ ...input, files: [] });
         return alert("4~64개의 파일이 필요합니다");
       }
+      uploadObj.files = acceptedFiles;
+      localStorage.setItem("uploadObj", JSON.stringify(uploadObj));
       await acceptedFiles.map(async (file) => {
         uploadPhoto({
           variables: {
@@ -132,6 +139,7 @@ export default function Previews(props) {
           },
         });
       });
+
       await setFiles(
         acceptedFiles.map((file) =>
           Object.assign(file, {
@@ -139,8 +147,6 @@ export default function Previews(props) {
           })
         )
       );
-      uploadObj.files = acceptedFiles;
-      localStorage.setItem("uploadObj", JSON.stringify(uploadObj));
     }, []),
   });
 
