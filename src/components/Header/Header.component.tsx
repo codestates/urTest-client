@@ -50,7 +50,7 @@ const Header = () => {
           <Navbar.Collapse id="basic-navbar-nav" className="">
             <Nav className="">
               <LinkContainer to="/textlist">
-                <Nav.Link>심리테스트</Nav.Link>
+                <Nav.Link>밸런스게임</Nav.Link>
               </LinkContainer>
               <LinkContainer to="/imglist">
                 <Nav.Link>이상형월드컵</Nav.Link>

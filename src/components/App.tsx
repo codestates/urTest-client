@@ -104,7 +104,7 @@ const App = () => {
             </Nav.Item>
             <Nav.Item>
               <LinkContainer to="/textlist">
-                <Nav.Link>심리테스트</Nav.Link>
+                <Nav.Link>밸런스게임</Nav.Link>
               </LinkContainer>
             </Nav.Item>
             <Nav.Item>
