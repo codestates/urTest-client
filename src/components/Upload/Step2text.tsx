@@ -1,11 +1,11 @@
 import React from "react";
 import { useReactiveVar } from "@apollo/client";
+import { inputVar } from "../../common/graphql/client";
 import { Redirect, useHistory } from "react-router-dom";
 import BootstrapTable from "react-bootstrap-table-next";
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import cellEditFactory from "react-bootstrap-table2-editor";
-import { inputVar } from "../../common/graphql/client";
 import { Col, Row, Button } from "react-bootstrap";
 
 const Step2img = () => {
@@ -37,7 +37,6 @@ const Step2img = () => {
           { id: "16", question: "", answer1: "", answer2: "" },
         ],
       };
-  console.log(uploadObj);
   const columns = [
     {
       dataField: "id",

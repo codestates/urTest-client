@@ -3,11 +3,12 @@ import { useReactiveVar } from "@apollo/client";
 import { Redirect, useHistory } from "react-router-dom";
 import Previews from "./Dropzone";
 
-import { inputVar } from "../../common/graphql/client";
+import { inputVar, uploadVar } from "../../common/graphql/client";
 import { Col, Row, Button } from "react-bootstrap";
 
 const Step2img = () => {
   const input = useReactiveVar(inputVar);
+  const isUpload = useReactiveVar(uploadVar);
   const history = useHistory();
   const uploadObjStr = localStorage.getItem("uploadObj");
   const uploadObj = uploadObjStr
@@ -36,6 +37,11 @@ const Step2img = () => {
         ],
       };
   const onSubmit = (data: any) => {
+    if (isUpload) {
+      return alert(
+        "백그라운드에서 업로드가 진행중입니다 3초 후 다시 시도해주세요"
+      );
+    }
     inputVar({ ...input, step2clear: true });
     uploadObj.files = [];
     uploadObj.textTest = [];
@@ -45,7 +51,7 @@ const Step2img = () => {
   return (
     <>
       {!input.step1clear ? <Redirect to="/multistep" /> : ""}
-      <Row className="justify-content-md-center">
+      <Row className="justify-content-md-center mt-4">
         <Col md={8} className="bg-light rounded pt-3 pb-3">
           <Previews />
           <Button

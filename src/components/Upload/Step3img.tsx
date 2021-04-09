@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { gql, useQuery } from "@apollo/client";
+import { gql, useQuery, useMutation } from "@apollo/client";
 import BootstrapTable from "react-bootstrap-table-next";
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
@@ -22,11 +22,26 @@ const GET_CONTENTS = gql`
   }
 `;
 
+const EDTI_PHOTONAME = gql`
+  mutation editPhotoName($id: Int!, $photoName: String) {
+    editPhotoName(id: $id, photoName: $photoName) {
+      error
+      ok
+    }
+  }
+`;
+
 const Step3img = () => {
+  const history = useHistory();
   const uploadObjStr = localStorage.getItem("uploadObj");
   const input = useReactiveVar(inputVar);
   const [contentFiles, setContentFiles] = useState([] as any);
-  const history = useHistory();
+  const [editPhotoName] = useMutation(EDTI_PHOTONAME, {
+    onCompleted: (data) => {
+      console.log(data);
+      return;
+    },
+  });
   const uploadObj = uploadObjStr
     ? JSON.parse(uploadObjStr)
     : {
@@ -52,32 +67,7 @@ const Step3img = () => {
           { id: "16", question: "", answer1: "", answer2: "" },
         ],
       };
-  function imageFormatter(cell: any) {
-    return <Image src={`${cell}`} thumbnail />;
-  }
 
-  const columns = [
-    {
-      dataField: "id",
-      text: "이미지번호",
-      headerStyle: {
-        width: "10%",
-      },
-      headerAlign: "center",
-    },
-    {
-      dataField: "photoUrl",
-      text: "사진",
-      headerStyle: {
-        width: "20%",
-      },
-      formatter: imageFormatter,
-    },
-    {
-      dataField: "photoName",
-      text: "이미지 이름",
-    },
-  ];
   const { loading } = useQuery(GET_CONTENTS, {
     variables: {
       id: uploadObj.contentId,
@@ -95,6 +85,44 @@ const Step3img = () => {
       await localStorage.setItem("uploadObj", JSON.stringify(uploadObj));
     },
   });
+
+  function imageFormatter(cell: any) {
+    return <Image src={`${cell}`} thumbnail />;
+  }
+
+  const onAfterSave = async (row: any, newValue: any) => {
+    await editPhotoName({
+      variables: {
+        id: row.photoId,
+        photoName: row.photoName,
+      },
+    });
+  };
+
+  const columns = [
+    {
+      dataField: "id",
+      text: "이미지번호",
+      headerStyle: {
+        width: "10%",
+      },
+      headerAlign: "center",
+    },
+    {
+      dataField: "photoUrl",
+      text: "사진",
+      headerStyle: {
+        width: "20%",
+      },
+      formatter: imageFormatter,
+      editable: false,
+    },
+    {
+      dataField: "photoName",
+      text: "이미지 이름",
+    },
+  ];
+
   const onSubmit = (data: any) => {
     inputVar({ ...input, step2clear: true });
     history.push("/multistep/step3text");
@@ -105,7 +133,7 @@ const Step3img = () => {
       {contentFiles === 0 ? (
         <div>loading</div>
       ) : (
-        <Row className="justify-content-md-center">
+        <Row className="justify-content-md-center mt-4">
           <Col md={8} className="bg-light rounded pt-3 pb-3">
             <>
               <BootstrapTable
@@ -114,14 +142,14 @@ const Step3img = () => {
                 columns={columns}
                 cellEdit={cellEditFactory({
                   mode: "click",
-                  // afterSaveCell: (
-                  //   oldValue: any,
-                  //   newValue: any,
-                  //   row: any,
-                  //   column: any
-                  // ) => {
-                  //   onAfterSave(newValue);
-                  // },
+                  afterSaveCell: (
+                    oldValue: any,
+                    newValue: any,
+                    row: any,
+                    column: any
+                  ) => {
+                    onAfterSave(row, newValue);
+                  },
                 })}
               />
             </>
