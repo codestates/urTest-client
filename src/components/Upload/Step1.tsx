@@ -8,7 +8,7 @@ import { Form, Button, Col, Row } from "react-bootstrap";
 import SweetAlert from "react-bootstrap-sweetalert";
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
-// import cellEditFactory from "react-bootstrap-table2-editor";
+// !!!!!!!!
 // import Comment from "../Comment/Comment.component";
 // import CommentItem from "../Comment/CommentItem.component";
 
@@ -54,7 +54,6 @@ const Step1 = () => {
   const [uploadContent] = useMutation(UPLOAD_CONTENT, {
     onCompleted: (data) => {
       uploadObj.contentId = data.uploadContent.id;
-      console.log(uploadObj);
       localStorage.setItem("uploadObj", JSON.stringify(uploadObj));
       setSweetAlertShow(true);
       return;
@@ -193,7 +192,8 @@ const Step1 = () => {
       >
         다음단계에서 사진들을 세팅합니다
       </SweetAlert>
-      {/* <Comment />
+      {/* !!!!!!!!!
+      <Comment />
       <CommentItem />
       <CommentItem />
       <CommentItem />

@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import { useReactiveVar } from "@apollo/client";
+import { gql, useMutation } from "@apollo/client";
 import { inputVar } from "../../common/graphql/client";
 import { Redirect, useHistory } from "react-router-dom";
 import BootstrapTable from "react-bootstrap-table-next";
@@ -7,8 +8,19 @@ import BootstrapTable from "react-bootstrap-table-next";
 // @ts-ignore
 import cellEditFactory from "react-bootstrap-table2-editor";
 import { Col, Row, Button } from "react-bootstrap";
+import SweetAlert from "react-bootstrap-sweetalert";
+
+const UPLOAD_TEXT = gql`
+  mutation editPhotoName($id: Int!, $photoName: String) {
+    editPhotoName(id: $id, photoName: $photoName) {
+      error
+      ok
+    }
+  }
+`;
 
 const Step2img = () => {
+  const [sweetAlertShow, setSweetAlertShow] = useState(false);
   const input = useReactiveVar(inputVar);
   const history = useHistory();
   const uploadObjStr = localStorage.getItem("uploadObj");
@@ -56,22 +68,10 @@ const Step2img = () => {
     },
   ];
   const onSubmit = () => {
-    inputVar({ ...input, step2clear: true });
-    history.push("/multistep/step3text");
+    console.log(uploadObj.textTest);
+    // inputVar({ ...input, step2clear: true });
+    // history.push("/multistep/step3text");
   };
-  // const textArr: any = [];
-  // testText.map((row) => {
-  //   if (row.question !== "" && row.answer1 !== "" && row.answer2 !== "") {
-  //     textArr.push([row.question, row.answer1, row.answer2]);
-  //   }
-  // });
-  // if (textArr.length < 4 || 16 < textArr.length) {
-  //   return alert("문항수는 4~16개입니다");
-  // }
-  // inputVar({ ...input, ...data });
-  // textArr.map((row: any) => {
-  // inputVar().testText?.push(row);
-  // });
   return (
     <>
       {!input.step1clear ? <Redirect to="/multistep" /> : ""}
@@ -84,14 +84,6 @@ const Step2img = () => {
               columns={columns}
               cellEdit={cellEditFactory({
                 mode: "click",
-                // afterSaveCell: (
-                //   oldValue: any,
-                //   newValue: any,
-                //   row: any,
-                //   column: any
-                // ) => {
-                //   onAfterSave(newValue);
-                // },
               })}
             />
           </>
@@ -106,6 +98,20 @@ const Step2img = () => {
           </Button>
         </Col>
       </Row>
+      <SweetAlert
+        show={sweetAlertShow}
+        showConfirm={false}
+        success
+        title="업로드 완료!"
+        onConfirm={() => {
+          history.push("/");
+        }}
+        onCancel={() => {
+          history.push("/");
+        }}
+      >
+        홈화면으로 이동합니다
+      </SweetAlert>
     </>
   );
 };
