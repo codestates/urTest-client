@@ -129,7 +129,7 @@ const Step3img = () => {
   };
   return (
     <>
-      {/* {!input.step2clear ? <Redirect to="/multistep" /> : ""} */}
+      {!input.step2clear ? <Redirect to="/multistep" /> : ""}
       {contentFiles === 0 ? (
         <div>loading</div>
       ) : (
