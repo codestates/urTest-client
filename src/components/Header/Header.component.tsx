@@ -3,7 +3,8 @@ import { LinkContainer } from "react-router-bootstrap";
 import { isLoginVar } from "../../common/graphql/client";
 import { useReactiveVar } from "@apollo/client";
 import { Search } from "react-bootstrap-icons";
-
+import { useLocation } from "react-router-dom";
+import queryString from "query-string";
 import {
   Navbar,
   Nav,
@@ -15,18 +16,12 @@ import {
   Container,
 } from "react-bootstrap";
 
-// const renderTooltip1 = (props: any) => (
-//   <Tooltip id="button-tooltip" {...props}>
-//     이상형월드컵
-//   </Tooltip>
-// );
-// const renderTooltip2 = (props: any) => (
-//   <Tooltip id="button-tooltip" {...props}>
-//     밸런스게임
-//   </Tooltip>
-// );
-
 const Header = () => {
+  const location = useLocation();
+  console.log(location.pathname);
+  const query = queryString.parse(location.search);
+  console.log(query);
+
   const isLogin = useReactiveVar(isLoginVar);
   if (localStorage.getItem("token")) {
     isLoginVar(true);

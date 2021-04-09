@@ -58,9 +58,7 @@ const App = () => {
   const [isSideBarOpen, setSideBarState] = useState(false);
   const history = useHistory();
   useEffect(() => {
-    console.log("App Mounted !!");
     const deregisterListener = history.listen(() => {
-      console.log("on route change");
       setSideBarState(false);
     });
     return () => {
