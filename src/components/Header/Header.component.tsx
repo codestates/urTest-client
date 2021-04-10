@@ -3,7 +3,6 @@ import { LinkContainer } from "react-router-bootstrap";
 import { isLoginVar, searchState } from "../../common/graphql/client";
 import { useReactiveVar } from "@apollo/client";
 import { Search } from "react-bootstrap-icons";
-import { useLocation } from "react-router-dom";
 import queryString from "query-string";
 import {
   Navbar,
@@ -18,11 +17,6 @@ import {
 import { useHistory, useLocation } from "react-router";
 
 const Header = () => {
-  const location = useLocation();
-  console.log(location.pathname);
-  const query = queryString.parse(location.search);
-  console.log(query);
-
   const isLogin = useReactiveVar(isLoginVar);
   if (localStorage.getItem("token")) {
     isLoginVar(true);
@@ -80,7 +74,7 @@ const Header = () => {
                     <LinkContainer to="/">
                       <Nav.Link>나의 테스트</Nav.Link>
                     </LinkContainer>
-                    <LinkContainer to="/">
+                    <LinkContainer to="/mypage">
                       <Nav.Link>정보수정</Nav.Link>
                     </LinkContainer>
                     <LinkContainer to="/">
