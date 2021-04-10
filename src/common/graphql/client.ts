@@ -20,6 +20,8 @@ export const inputVar = makeVar({
   step1clear: false,
   step2clear: false,
 });
+export const searchState = makeVar("");
+
 export const uploadVar = makeVar(false);
 
 export const isLoginVar = makeVar(false);

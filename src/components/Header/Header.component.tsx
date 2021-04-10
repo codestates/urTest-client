@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { LinkContainer } from "react-router-bootstrap";
-import { isLoginVar } from "../../common/graphql/client";
+import { isLoginVar, searchState } from "../../common/graphql/client";
 import { useReactiveVar } from "@apollo/client";
 import { Search } from "react-bootstrap-icons";
-
+import { useHistory, useLocation } from "react-router";
+import queryString from "query-string";
 import {
   Navbar,
   Nav,
@@ -15,18 +16,12 @@ import {
   Container,
 } from "react-bootstrap";
 
-// const renderTooltip1 = (props: any) => (
-//   <Tooltip id="button-tooltip" {...props}>
-//     이상형월드컵
-//   </Tooltip>
-// );
-// const renderTooltip2 = (props: any) => (
-//   <Tooltip id="button-tooltip" {...props}>
-//     밸런스게임
-//   </Tooltip>
-// );
-
 const Header = () => {
+  const location = useLocation();
+  console.log(location.pathname);
+  const query = queryString.parse(location.search);
+  console.log(query);
+
   const isLogin = useReactiveVar(isLoginVar);
   if (localStorage.getItem("token")) {
     isLoginVar(true);
@@ -35,6 +30,29 @@ const Header = () => {
   const logoutHandler = () => {
     localStorage.removeItem("token");
     isLoginVar(false);
+  };
+
+  const [searchInput, setSearchInput] = useState("" as string);
+  useReactiveVar(searchState);
+  const searchInputHandler = (e: any) => {
+    const { value } = e.target;
+    setSearchInput(value);
+  };
+
+  const searchBtnHandler = () => {
+    if (!searchInput) {
+      return;
+    }
+    searchState(searchInput);
+    setSearchInput("");
+  };
+
+  const history = useHistory();
+  const onKeyPress = (e: any) => {
+    if (e.key === "Enter" && searchInput !== "") {
+      searchBtnHandler();
+      history.push(`/searchlist/${searchInput}`);
+    }
   };
 
   return (
@@ -50,7 +68,7 @@ const Header = () => {
           <Navbar.Collapse id="basic-navbar-nav" className="">
             <Nav className="">
               <LinkContainer to="/textlist">
-                <Nav.Link>심리테스트</Nav.Link>
+                <Nav.Link>밸런스게임</Nav.Link>
               </LinkContainer>
               <LinkContainer to="/imglist">
                 <Nav.Link>이상형월드컵</Nav.Link>
@@ -80,12 +98,25 @@ const Header = () => {
         </Col>
         <Col xl={4} lg={4} md={5} sm={5} xs={6} className="mt-1 mr-auto">
           <InputGroup size="sm">
-            <FormControl aria-describedby="basic-addon1" />
-            <InputGroup.Append>
-              <Button variant="outline-dark">
-                <Search />
-              </Button>
-            </InputGroup.Append>
+            <FormControl
+              value={searchInput}
+              required
+              placeholder="검색어를 입력해주세요"
+              aria-describedby="basic-addon1"
+              onChange={searchInputHandler}
+              onKeyPress={onKeyPress}
+            />
+            <LinkContainer
+              to={
+                searchInput ? `/searchlist/${searchInput}` : location.pathname
+              }
+            >
+              <InputGroup.Append>
+                <Button variant="outline-dark" onClick={searchBtnHandler}>
+                  <Search />
+                </Button>
+              </InputGroup.Append>
+            </LinkContainer>
           </InputGroup>
         </Col>
         {isLogin ? (

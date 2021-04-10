@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import { useReactiveVar } from "@apollo/client";
+import { gql, useMutation } from "@apollo/client";
 import { inputVar } from "../../common/graphql/client";
 import { Redirect, useHistory } from "react-router-dom";
 import BootstrapTable from "react-bootstrap-table-next";
@@ -7,11 +8,28 @@ import BootstrapTable from "react-bootstrap-table-next";
 // @ts-ignore
 import cellEditFactory from "react-bootstrap-table2-editor";
 import { Col, Row, Button } from "react-bootstrap";
+import SweetAlert from "react-bootstrap-sweetalert";
+
+const UPLOAD_TEXT = gql`
+  mutation uploadText($title: String, $desc: String, $textTest: [data]) {
+    uploadText(title: $title, desc: $desc, textTest: $textTest) {
+      error
+      ok
+    }
+  }
+`;
 
 const Step2img = () => {
+  const [sweetAlertShow, setSweetAlertShow] = useState(false);
   const input = useReactiveVar(inputVar);
   const history = useHistory();
   const uploadObjStr = localStorage.getItem("uploadObj");
+  const [uploadText] = useMutation(UPLOAD_TEXT, {
+    onCompleted: () => {
+      setSweetAlertShow(true);
+      return;
+    },
+  });
   const uploadObj = uploadObjStr
     ? JSON.parse(uploadObjStr)
     : {
@@ -55,23 +73,21 @@ const Step2img = () => {
       text: "답변2",
     },
   ];
-  const onSubmit = () => {
-    inputVar({ ...input, step2clear: true });
-    history.push("/multistep/step3text");
+  const onSubmit = async () => {
+    const newArr = uploadObj.textTest.filter((row: any) => {
+      delete row.id;
+      if (row.question && row.answer1 && row.answer2) {
+        return row;
+      }
+    });
+    await uploadText({
+      variables: {
+        title: uploadObj.title,
+        desc: uploadObj.desc,
+        textTest: newArr,
+      },
+    });
   };
-  // const textArr: any = [];
-  // testText.map((row) => {
-  //   if (row.question !== "" && row.answer1 !== "" && row.answer2 !== "") {
-  //     textArr.push([row.question, row.answer1, row.answer2]);
-  //   }
-  // });
-  // if (textArr.length < 4 || 16 < textArr.length) {
-  //   return alert("문항수는 4~16개입니다");
-  // }
-  // inputVar({ ...input, ...data });
-  // textArr.map((row: any) => {
-  // inputVar().testText?.push(row);
-  // });
   return (
     <>
       {!input.step1clear ? <Redirect to="/multistep" /> : ""}
@@ -84,14 +100,6 @@ const Step2img = () => {
               columns={columns}
               cellEdit={cellEditFactory({
                 mode: "click",
-                // afterSaveCell: (
-                //   oldValue: any,
-                //   newValue: any,
-                //   row: any,
-                //   column: any
-                // ) => {
-                //   onAfterSave(newValue);
-                // },
               })}
             />
           </>
@@ -106,6 +114,118 @@ const Step2img = () => {
           </Button>
         </Col>
       </Row>
+      <SweetAlert
+        show={sweetAlertShow}
+        showConfirm={false}
+        success
+        title="업로드 완료!"
+        onConfirm={() => {
+          const uploadReset = {
+            title: "",
+            desc: "",
+            files: [],
+            textTest: [
+              {
+                id: "1",
+                question: "질문1",
+                answer1: "답변1",
+                answer2: "답변2",
+              },
+              {
+                id: "2",
+                question: "질문2",
+                answer1: "답변1",
+                answer2: "답변2",
+              },
+              {
+                id: "3",
+                question: "질문3",
+                answer1: "답변1",
+                answer2: "답변2",
+              },
+              {
+                id: "4",
+                question: "질문4",
+                answer1: "답변1",
+                answer2: "답변2",
+              },
+              { id: "5", question: "", answer1: "", answer2: "" },
+              { id: "6", question: "", answer1: "", answer2: "" },
+              { id: "7", question: "", answer1: "", answer2: "" },
+              { id: "8", question: "", answer1: "", answer2: "" },
+              { id: "9", question: "", answer1: "", answer2: "" },
+              { id: "10", question: "", answer1: "", answer2: "" },
+              { id: "11", question: "", answer1: "", answer2: "" },
+              { id: "12", question: "", answer1: "", answer2: "" },
+              { id: "13", question: "", answer1: "", answer2: "" },
+              { id: "14", question: "", answer1: "", answer2: "" },
+              { id: "15", question: "", answer1: "", answer2: "" },
+              { id: "16", question: "", answer1: "", answer2: "" },
+            ],
+          };
+          inputVar({
+            types: "imggame",
+            step1clear: false,
+            step2clear: false,
+          });
+          localStorage.setItem("uploadObj", JSON.stringify(uploadReset));
+          history.push("/");
+        }}
+        onCancel={() => {
+          const uploadReset = {
+            title: "",
+            desc: "",
+            files: [],
+            textTest: [
+              {
+                id: "1",
+                question: "질문1",
+                answer1: "답변1",
+                answer2: "답변2",
+              },
+              {
+                id: "2",
+                question: "질문2",
+                answer1: "답변1",
+                answer2: "답변2",
+              },
+              {
+                id: "3",
+                question: "질문3",
+                answer1: "답변1",
+                answer2: "답변2",
+              },
+              {
+                id: "4",
+                question: "질문4",
+                answer1: "답변1",
+                answer2: "답변2",
+              },
+              { id: "5", question: "", answer1: "", answer2: "" },
+              { id: "6", question: "", answer1: "", answer2: "" },
+              { id: "7", question: "", answer1: "", answer2: "" },
+              { id: "8", question: "", answer1: "", answer2: "" },
+              { id: "9", question: "", answer1: "", answer2: "" },
+              { id: "10", question: "", answer1: "", answer2: "" },
+              { id: "11", question: "", answer1: "", answer2: "" },
+              { id: "12", question: "", answer1: "", answer2: "" },
+              { id: "13", question: "", answer1: "", answer2: "" },
+              { id: "14", question: "", answer1: "", answer2: "" },
+              { id: "15", question: "", answer1: "", answer2: "" },
+              { id: "16", question: "", answer1: "", answer2: "" },
+            ],
+          };
+          inputVar({
+            types: "imggame",
+            step1clear: false,
+            step2clear: false,
+          });
+          localStorage.setItem("uploadObj", JSON.stringify(uploadReset));
+          history.push("/");
+        }}
+      >
+        홈화면으로 이동합니다
+      </SweetAlert>
     </>
   );
 };
