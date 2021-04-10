@@ -48,6 +48,7 @@ const TextGame = (props: any) => {
             <Row>
               <Col>
                 <Card
+                  className="mt-5"
                   style={{ height: "780px", width: "100%" }}
                   onClick={() => clickHandler()}
                 >

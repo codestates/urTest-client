@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Container, Col, Row, Card } from "react-bootstrap";
+import { Container, Card, CardDeck, Modal, Button } from "react-bootstrap";
 import { gql, useQuery } from "@apollo/client";
 
 const ImgGame = (props: any) => {
@@ -8,6 +8,7 @@ const ImgGame = (props: any) => {
   const GET_CONTENTS = gql`
     query getContent($id: Int!) {
       getContent(id: $id) {
+        title
         photos {
           id
           photoUrl
@@ -16,21 +17,44 @@ const ImgGame = (props: any) => {
       }
     }
   `;
+
+  const [Data, setData] = useState([] as any);
+  const [count, setCount] = useState(0);
+  const [start, setStart] = useState(true);
+  const [title, setTitle] = useState([] as any);
   const [img, setImg] = useState([] as any[]);
   const [displays, setDisplays] = useState([] as any[]);
   const [winners, setWinners] = useState([] as any[]);
   const [rounds, setRounds] = useState(0 as any);
 
-  const { loading } = useQuery(GET_CONTENTS, {
+  const modalHandler = () => {
+    if (count === 0) {
+      alert("라운드를 선택해주세요");
+      return;
+    }
+    setStart(false);
+    const item = [...Data.photos.slice(0, count)];
+    item.sort(() => Math.random() - 0.5);
+    setImg(item);
+    setDisplays([item[0], item[1]]);
+    setRounds(item.length / 2);
+  };
+
+  const fourCountHandler = () => {
+    setCount(4);
+  };
+
+  const eightCountHandler = () => {
+    setCount(8);
+  };
+
+  useQuery(GET_CONTENTS, {
     variables: {
       id: +props.gameid,
     },
     onCompleted: (data) => {
-      const item = [...data.getContent.photos];
-      item.sort(() => Math.random() - 0.5);
-      setImg(item);
-      setDisplays([item[0], item[1]]);
-      setRounds(item.length / 2);
+      setData(data.getContent);
+      setTitle(data.getContent.title);
     },
   });
 
@@ -52,43 +76,54 @@ const ImgGame = (props: any) => {
       setImg(img.slice(2));
     }
   };
+
   return (
     <>
-      {loading ? (
-        "isLoading................................................................."
+      {start ? (
+        <Modal.Dialog>
+          <Modal.Header closeButton>
+            <Modal.Title>
+              {title} {count}강
+            </Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <Button onClick={() => fourCountHandler()}>4강</Button>
+            <Button onClick={() => eightCountHandler()}>8강</Button>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="primary" onClick={() => modalHandler()}>
+              시작하기
+            </Button>
+          </Modal.Footer>
+        </Modal.Dialog>
       ) : (
-        <Container fluid>
-          <h1 className="title">
+        <Container>
+          <h1 className="neon">
+            <p>{title}</p>
             {rounds === "우승"
               ? "우승"
               : rounds === 1
               ? `결승`
               : `${rounds * 2}강 ${winners.length + 1} / ${rounds}`}
           </h1>
-          <Col>
-            <Row>
-              {displays.map((d) => {
-                return (
-                  <Card
-                    key={d.id}
-                    onClick={() => clickHandler(d)}
-                    style={
-                      displays.length === 1
-                        ? { width: "100%" }
-                        : { width: "50%" }
-                    }
-                  >
-                    <Card.Img
-                      src={d.photoUrl}
-                      alt=""
-                      style={{ height: "800px" }}
-                    />
-                    <Card.Text>{d.photoName}</Card.Text>
-                  </Card>
-                );
-              })}
-            </Row>
-          </Col>
+          <CardDeck>
+            {displays.map((d) => {
+              return (
+                <Card
+                  key={d.id}
+                  onClick={() => clickHandler(d)}
+                  className="card-size"
+                >
+                  <Card.Img
+                    src={d.photoUrl}
+                    alt=""
+                    className="card-img"
+                    style={{ width: "100%", height: "100%" }}
+                  ></Card.Img>
+                </Card>
+              );
+            })}
+          </CardDeck>
         </Container>
       )}
     </>

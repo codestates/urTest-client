@@ -2,7 +2,7 @@ import React from "react";
 import { LinkContainer } from "react-router-bootstrap";
 import { isLoginVar } from "../../common/graphql/client";
 import { useReactiveVar } from "@apollo/client";
-import { Search, Trophy, Pen } from "react-bootstrap-icons";
+import { Search } from "react-bootstrap-icons";
 
 import {
   Navbar,
@@ -13,21 +13,18 @@ import {
   FormControl,
   Col,
   Container,
-  Tooltip,
-  OverlayTrigger,
-  ButtonGroup,
 } from "react-bootstrap";
 
-const renderTooltip1 = (props: any) => (
-  <Tooltip id="button-tooltip" {...props}>
-    이상형월드컵
-  </Tooltip>
-);
-const renderTooltip2 = (props: any) => (
-  <Tooltip id="button-tooltip" {...props}>
-    밸런스게임
-  </Tooltip>
-);
+// const renderTooltip1 = (props: any) => (
+//   <Tooltip id="button-tooltip" {...props}>
+//     이상형월드컵
+//   </Tooltip>
+// );
+// const renderTooltip2 = (props: any) => (
+//   <Tooltip id="button-tooltip" {...props}>
+//     밸런스게임
+//   </Tooltip>
+// );
 
 const Header = () => {
   const isLogin = useReactiveVar(isLoginVar);
