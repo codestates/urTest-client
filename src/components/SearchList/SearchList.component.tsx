@@ -1,7 +1,7 @@
 import { useReactiveVar } from "@apollo/client";
 import { Container } from "react-bootstrap";
-import { searchState } from "../../common/graphql/client";
-import React, { useEffect, useState } from "react";
+import { searchState, typeCheck } from "../../common/graphql/client";
+import React, { useState } from "react";
 import SwiperCore, { Navigation, Pagination, Scrollbar, A11y } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import CardItem from "../CardList/CardItem.component";
@@ -11,8 +11,8 @@ SwiperCore.use([Navigation, Pagination, Scrollbar, A11y]);
 
 const SearchList = () => {
   const GET_SEARCH_CONTENT = gql`
-    query searchContent($keyword: String!) {
-      searchContent(keyword: $keyword) {
+    query searchContent($keyword: String!, $type: String) {
+      searchContent(keyword: $keyword, type: $type) {
         id
         title
         desc
@@ -21,32 +21,33 @@ const SearchList = () => {
     }
   `;
   const [contents, setContents] = useState([] as any);
+  const [searchData, setSearchData] = useState(true as any);
 
   const keyword = useReactiveVar(searchState);
-
-  const { loading } = useQuery(GET_SEARCH_CONTENT, {
+  const type = useReactiveVar(typeCheck);
+  const {} = useQuery(GET_SEARCH_CONTENT, {
     variables: {
       keyword,
+      type,
     },
     onCompleted: (data) => {
-      if (!data) {
+      if (!data || data.searchContent.length === 0) {
+        setSearchData(false);
         return;
       }
+      setSearchData(true);
       setContents([...data.searchContent]);
+      return;
     },
   });
 
-  useEffect(() => {
-    console.log(contents);
-    searchState("");
-  }, []);
   return (
     <>
       <Container fluid className="vh-93 pt-5">
-        {loading ? (
-          <div>Loading...</div>
-        ) : contents.length === 0 ? (
+        {!searchData ? (
           <div>검색결과가 없습니다</div>
+        ) : contents.length === 0 ? (
+          <div>Loading...</div>
         ) : (
           <Swiper
             className="swiper-container mh-100 min-vh-83"

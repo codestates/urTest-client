@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import SwiperCore, { Navigation, Pagination, Scrollbar, A11y } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import CardItem from "../CardList/CardItem.component";
@@ -27,6 +27,7 @@ const TextList = () => {
       setContents([...data.getContentAll]);
     },
   });
+
   return (
     <>
       <Container fluid className="vh-93 pt-5">

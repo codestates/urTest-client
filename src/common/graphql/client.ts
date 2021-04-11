@@ -21,6 +21,7 @@ export const inputVar = makeVar({
   step2clear: false,
 });
 export const searchState = makeVar("");
+export const typeCheck = makeVar("");
 
 export const uploadVar = makeVar(false);
 
