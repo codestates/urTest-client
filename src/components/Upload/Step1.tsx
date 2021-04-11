@@ -128,7 +128,7 @@ const Step1 = () => {
   };
   return (
     <>
-      <Row className="justify-content-md-center mt-4">
+      <Row className="justify-content-md-center mt-4 mx-2">
         <Col md={8} className="bg-light rounded pb-4">
           <Form onSubmit={handleSubmit(onSubmit)}>
             <Form.Row>
