@@ -23,6 +23,7 @@
     "dotenv": "^8.2.0",
     "graphql": "^15.5.0",
     "install": "^0.13.0",
+    "jsonwebtoken": "^8.5.1",
     "node-sass": "^5.0.0",
     "npm": "^7.7.6",
     "prettier": "^2.2.1",
@@ -80,6 +81,7 @@
   },
   "devDependencies": {
     "@hookform/devtools": "^3.0.0-rc.2",
+    "@types/jsonwebtoken": "^8.5.1",
     "@types/react-router-bootstrap": "^0.24.5",
     "@typescript-eslint/eslint-plugin": "^4.20.0",
     "apollo": "^2.32.5",

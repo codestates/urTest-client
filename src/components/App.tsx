@@ -19,6 +19,7 @@ import ImgList from "./ImgList/ImgList.component";
 import TextList from "./TextList/TextList.component";
 import SearchList from "./SearchList/SearchList.component";
 import Multistep from "./Upload/Multistep.component";
+import Mypage from "./Mypage/Mypage.component";
 // bootstrap ---------------------------
 import { Nav, Navbar, Col } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
@@ -115,6 +116,7 @@ const App = () => {
                 <Nav.Link>만들기 테스트</Nav.Link>
               </LinkContainer>
             </Nav.Item>
+
             <Nav.Item>
               <LinkContainer to="/Login">
                 <Nav.Link>Login</Nav.Link>
@@ -134,6 +136,7 @@ const App = () => {
           <Route path="/login" component={Signin} />
           <Route path="/signup" component={Signup} />
           <Route path="/multistep" component={Multistep} />
+          <Route path="/mypage" component={Mypage} />
           <Route path="/*">
             <NoMatch />
           </Route>
