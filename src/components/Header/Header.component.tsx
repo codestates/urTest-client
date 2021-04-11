@@ -7,7 +7,7 @@ import {
 } from "../../common/graphql/client";
 import { useReactiveVar } from "@apollo/client";
 import { Search } from "react-bootstrap-icons";
-
+import queryString from "query-string";
 import {
   Navbar,
   Nav,
@@ -19,17 +19,6 @@ import {
   Container,
 } from "react-bootstrap";
 import { useHistory, useLocation } from "react-router";
-
-// const renderTooltip1 = (props: any) => (
-//   <Tooltip id="button-tooltip" {...props}>
-//     이상형월드컵
-//   </Tooltip>
-// );
-// const renderTooltip2 = (props: any) => (
-//   <Tooltip id="button-tooltip" {...props}>
-//     밸런스게임
-//   </Tooltip>
-// );
 
 const Header = () => {
   const isLogin = useReactiveVar(isLoginVar);
@@ -84,7 +73,7 @@ const Header = () => {
           <Navbar.Collapse id="basic-navbar-nav" className="">
             <Nav className="">
               <LinkContainer to="/textlist">
-                <Nav.Link>심리테스트</Nav.Link>
+                <Nav.Link>밸런스게임</Nav.Link>
               </LinkContainer>
               <LinkContainer to="/imglist">
                 <Nav.Link>이상형월드컵</Nav.Link>
@@ -95,7 +84,7 @@ const Header = () => {
                     <LinkContainer to="/">
                       <Nav.Link>나의 테스트</Nav.Link>
                     </LinkContainer>
-                    <LinkContainer to="/">
+                    <LinkContainer to="/mypage">
                       <Nav.Link>정보수정</Nav.Link>
                     </LinkContainer>
                     <LinkContainer to="/">
