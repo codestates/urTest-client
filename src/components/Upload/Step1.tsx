@@ -6,11 +6,6 @@ import { useReactiveVar, useMutation, gql } from "@apollo/client";
 import { inputVar } from "../../common/graphql/client";
 import { Form, Button, Col, Row } from "react-bootstrap";
 import SweetAlert from "react-bootstrap-sweetalert";
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
-// !!!!!!!!
-// import Comment from "../Comment/Comment.component";
-// import CommentItem from "../Comment/CommentItem.component";
 
 const UPLOAD_CONTENT = gql`
   mutation uploadContent($title: String!, $desc: String!) {
@@ -84,12 +79,18 @@ const Step1 = () => {
         uploadObj.type = data.type;
         localStorage.setItem("uploadObj", JSON.stringify(uploadObj));
         inputVar({ ...input, step1clear: true });
-        await uploadContent({
-          variables: {
-            title: uploadObj.title,
-            desc: uploadObj.desc,
-          },
-        });
+        if (!uploadObj.contentId) {
+          await uploadContent({
+            variables: {
+              title: uploadObj.title,
+              desc: uploadObj.desc,
+            },
+          });
+        } else {
+          localStorage.setItem("uploadObj", JSON.stringify(uploadObj));
+          setSweetAlertShow(true);
+          return;
+        }
       }
       return;
     }
@@ -192,14 +193,6 @@ const Step1 = () => {
       >
         다음단계에서 사진들을 세팅합니다
       </SweetAlert>
-      {/* !!!!!!!!!
-      <Comment />
-      <CommentItem />
-      <CommentItem />
-      <CommentItem />
-      <CommentItem />
-      <CommentItem />
-      <CommentItem /> */}
     </>
   );
 };

@@ -56,7 +56,7 @@ const Step2img = () => {
       {!input.step1clear ? <Redirect to="/multistep" /> : ""}
       <Row className="justify-content-md-center mt-4">
         <Col md={8} className="bg-light rounded pt-3 pb-3">
-          <Previews />
+          <Previews files={uploadObj.files} />
           <Button
             block
             variant="dark"

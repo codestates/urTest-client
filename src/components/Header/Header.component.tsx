@@ -24,6 +24,7 @@ const Header = () => {
 
   const logoutHandler = () => {
     localStorage.removeItem("token");
+    localStorage.removeItem("uploadObj");
     isLoginVar(false);
   };
 

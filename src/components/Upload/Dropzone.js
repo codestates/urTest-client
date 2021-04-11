@@ -73,7 +73,8 @@ const UPLOAD_PHOTO = gql`
   }
 `;
 
-export default function Previews() {
+export default function Previews(props) {
+  // eslint-disable-next-line react/prop-types
   const [files, setFiles] = useState([]);
   const input = useReactiveVar(inputVar);
   useReactiveVar(uploadVar);
@@ -150,13 +151,24 @@ export default function Previews() {
     }, []),
   });
 
-  const thumbs = files.map((file) => (
-    <div style={thumb} key={file.name}>
-      <div style={thumbInner}>
-        <img src={file.preview} style={img} />
-      </div>
-    </div>
-  ));
+  const thumbs =
+    // eslint-disable-next-line react/prop-types
+    props.files.length !== 0
+      ? // eslint-disable-next-line react/prop-types
+        props.files.map((file) => (
+          <div style={thumb} key={file.photoName}>
+            <div style={thumbInner}>
+              <img src={file.photoUrl} style={img} />
+            </div>
+          </div>
+        ))
+      : files.map((file) => (
+          <div style={thumb} key={file.name}>
+            <div style={thumbInner}>
+              <img src={file.preview} style={img} />
+            </div>
+          </div>
+        ));
 
   useEffect(
     () => () => {

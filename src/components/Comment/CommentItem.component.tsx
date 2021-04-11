@@ -8,7 +8,8 @@ import {
   InputGroup,
   FormControl,
 } from "react-bootstrap";
-const CommentItem = () => {
+const CommentItem = (props: any) => {
+  const { handleCommentDelete } = props;
   return (
     <>
       <Row className="justify-content-md-center">
@@ -33,27 +34,18 @@ const CommentItem = () => {
                 </div>
                 <p className="small text-secondary m-0 mt-1">1 day ago</p>
                 <div className="flex-grow-1 pl-2">
-                  <InputGroup size="sm" className="justify-content-end">
-                    <Form.Label>
-                      <FormControl
-                        placeholder="password"
-                        aria-label="comment-password"
-                        aria-describedby="basic-addon2"
-                        style={{ fontSize: "0.5rem" }}
-                      />
-                    </Form.Label>
-                    <InputGroup.Append>
-                      <Button
-                        as="input"
-                        type="button"
-                        variant="secondary"
-                        value="삭제"
-                        size="sm"
-                        className="mb-2"
-                        style={{ fontSize: "0.5rem" }}
-                      />
-                    </InputGroup.Append>
-                  </InputGroup>
+                  <Button
+                    as="input"
+                    type="button"
+                    variant="secondary"
+                    value="삭제"
+                    size="sm"
+                    className="mb-2  float-right"
+                    style={{ fontSize: "0.5rem" }}
+                    onClick={() => {
+                      handleCommentDelete(props.id, props.password);
+                    }}
+                  />
                 </div>
               </Row>
             </div>
