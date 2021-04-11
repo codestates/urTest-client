@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Container, Card, CardDeck, Modal, Button } from "react-bootstrap";
-import { gql, useQuery } from "@apollo/client";
+import { gql, useQuery, useMutation } from "@apollo/client";
+import { ChatLeftText, Trophy } from "react-bootstrap-icons";
 
 const ImgGame = (props: any) => {
   console.log(props.gameid);
@@ -17,6 +18,17 @@ const ImgGame = (props: any) => {
       }
     }
   `;
+
+  const POST_WINCOUNT = gql`
+    mutation addCount($id: Int!) {
+      addCount(id: $id) {
+        ok
+        error
+      }
+    }
+  `;
+
+  const [addCount] = useMutation(POST_WINCOUNT);
 
   const [Data, setData] = useState([] as any);
   const [count, setCount] = useState(0);
@@ -61,19 +73,28 @@ const ImgGame = (props: any) => {
   const clickHandler = (pick: any) => {
     if (img.length <= 2) {
       if (winners.length === 0) {
+        console.log(pick.id);
         setRounds("우승");
         setDisplays([pick]);
+        addCount({
+          variables: {
+            id: pick.id,
+          },
+        });
+        return;
       } else {
         const updateImg = [...winners, pick];
         setRounds(updateImg.length / 2);
         setImg(updateImg);
         setDisplays([updateImg[0], updateImg[1]]);
         setWinners([]);
+        return;
       }
     } else if (img.length > 2) {
       setWinners([...winners, pick]);
       setDisplays([img[2], img[3]]);
       setImg(img.slice(2));
+      return;
     }
   };
 
