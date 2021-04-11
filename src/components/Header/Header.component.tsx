@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 import { LinkContainer } from "react-router-bootstrap";
-import { isLoginVar, searchState } from "../../common/graphql/client";
+import {
+  isLoginVar,
+  searchState,
+  typeCheck,
+} from "../../common/graphql/client";
 import { useReactiveVar } from "@apollo/client";
 import { Search } from "react-bootstrap-icons";
 import queryString from "query-string";
@@ -28,7 +32,6 @@ const Header = () => {
   };
 
   const [searchInput, setSearchInput] = useState("" as string);
-  useReactiveVar(searchState);
   const searchInputHandler = (e: any) => {
     const { value } = e.target;
     setSearchInput(value);
@@ -37,6 +40,13 @@ const Header = () => {
   const searchBtnHandler = () => {
     if (!searchInput) {
       return;
+    }
+    if (location.pathname === "/textlist") {
+      typeCheck("textgame");
+    } else if (location.pathname === "/imglist") {
+      typeCheck("imggame");
+    } else if (location.pathname === "/") {
+      typeCheck("");
     }
     searchState(searchInput);
     setSearchInput("");
