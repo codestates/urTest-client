@@ -4,7 +4,6 @@ import { gql, useQuery, useMutation } from "@apollo/client";
 import { ChatLeftText, Trophy } from "react-bootstrap-icons";
 
 const ImgGame = (props: any) => {
-  console.log(props.gameid);
   // 쿼리
   const GET_CONTENTS = gql`
     query getContent($id: Int!) {
@@ -20,15 +19,15 @@ const ImgGame = (props: any) => {
   `;
 
   const POST_WINCOUNT = gql`
-    mutation addCount($id: Int!) {
-      addCount(id: $id) {
+    mutation addCountPhoto($id: Int!) {
+      addCountPhoto(id: $id) {
         ok
         error
       }
     }
   `;
 
-  const [addCount] = useMutation(POST_WINCOUNT);
+  const [addCountPhoto] = useMutation(POST_WINCOUNT);
 
   const [Data, setData] = useState([] as any);
   const [count, setCount] = useState(0);
@@ -76,7 +75,7 @@ const ImgGame = (props: any) => {
         console.log(pick.id);
         setRounds("우승");
         setDisplays([pick]);
-        addCount({
+        addCountPhoto({
           variables: {
             id: pick.id,
           },
