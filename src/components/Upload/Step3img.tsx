@@ -137,7 +137,7 @@ const Step3img = () => {
       {contentFiles === 0 ? (
         <div>loading</div>
       ) : (
-        <Row className="justify-content-md-center mt-4">
+        <Row className="justify-content-md-center mt-4 mx-2">
           <Col md={8} className="bg-light rounded pt-3 pb-3">
             <>
               <BootstrapTable
