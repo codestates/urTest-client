@@ -364,48 +364,25 @@
   }
 }
 
-/*Extra small devices (portrait phones, less than 576px)
-No media query for `xs` since this is the default in Bootstrap*/
+// -----------------------------
 
 /* Small devices (landscape phones, 576px and up) */
 @media (min-width: 576px) {
+
 }
 
 /* Medium devices (tablets, 768px and up) */
 @media (min-width: 768px) {
-  .test-jumbo {
-    height: 450px;
-  }
-  .card-image-overlay {
-    width: 90%;
-  }
+
 }
+
 
 /* Large devices (desktops, 992px and up) */
 @media (min-width: 992px) {
-  .test-jumbo {
-    height: 500px;
-  }
-  .card-image-overlay {
-    width: 70%;
-  }
-  
+
 }
 
 /* Extra large devices (large desktops, 1200px and up) */
 @media (min-width: 1200px) {
-  .test-jumbo {
-    height: 550px;
-  }
-  .card-image-overlay {
-    width: 60%;
-  }
-}
-
-// -----------------------------
-
-.btn-google {
-  color: #545454;
-  background-color: #ffffff;
-  box-shadow: 0 1px 2px 1px #ddd
+  
 }

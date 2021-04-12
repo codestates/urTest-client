@@ -1,0 +1,26 @@
+@import url('https://fonts.googleapis.com/css2?family=Jua&display=swap');
+
+@media (max-width: 576px) {
+    .card-size {
+        height: 300px;
+    }
+}
+
+@media (min-width: 576px) {
+    .card-size {
+        height: 700px;
+    }
+}
+
+
+.card-img {
+    position: relative;
+    box-shadow: 10px 20px 20px rgba(0,0,0,0.8);
+}
+
+.neon {
+    font-family: 'Jua', sans-serif;
+    text-shadow: 0 0 20px #ff005b;
+    margin: 0px;
+}
+

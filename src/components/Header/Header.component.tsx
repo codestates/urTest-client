@@ -7,6 +7,7 @@ import {
 } from "../../common/graphql/client";
 import { useReactiveVar } from "@apollo/client";
 import { Search } from "react-bootstrap-icons";
+import { useHistory, useLocation } from "react-router";
 import queryString from "query-string";
 import {
   Navbar,
@@ -18,7 +19,6 @@ import {
   Col,
   Container,
 } from "react-bootstrap";
-import { useHistory, useLocation } from "react-router";
 
 const Header = () => {
   const isLogin = useReactiveVar(isLoginVar);
@@ -37,7 +37,7 @@ const Header = () => {
     const { value } = e.target;
     setSearchInput(value);
   };
-  const location = useLocation();
+
   const searchBtnHandler = () => {
     if (!searchInput) {
       return;
