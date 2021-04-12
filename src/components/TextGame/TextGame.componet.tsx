@@ -1,9 +1,8 @@
 import React, { useState } from "react";
-import { gql, useQuery } from "@apollo/client";
-import { Container, Col, Row, Card } from "react-bootstrap";
+import { gql, useQuery, useMutation } from "@apollo/client";
+import { Container, Card, CardDeck } from "react-bootstrap";
 
 const TextGame = (props: any) => {
-  console.log(props.gameid);
   const GET_CONTENTS = gql`
     query getContent($id: Int!) {
       getContent(id: $id) {
@@ -11,47 +10,77 @@ const TextGame = (props: any) => {
           id
           questionBody
           answer {
+            id
             body
+            winCount
           }
         }
       }
     }
   `;
-  const [displays, setDisplays] = useState([] as any);
-  const [scores, setScores] = useState([] as any);
 
-  const { loading } = useQuery(GET_CONTENTS, {
+  const POST_TEXT = gql`
+    mutation addCountTxt($id: Int!) {
+      addCountTxt(id: $id) {
+        ok
+        error
+      }
+    }
+  `;
+
+  const [addCountTxt] = useMutation(POST_TEXT);
+
+  const [questions, setQuestions] = useState([] as any);
+  const [answers, setAnswers] = useState([] as any);
+
+  useQuery(GET_CONTENTS, {
     variables: {
       id: +props.gameid,
     },
     onCompleted: (data) => {
-      const questions = [...data.getContent.question];
-      console.log(questions[0]);
-      setDisplays(questions);
+      setQuestions(data.getContent.question);
+      setAnswers([
+        data.getContent.question[0].answer[0],
+        data.getContent.question[0].answer[1],
+      ]);
     },
   });
 
   const clickHandler = (pick: any) => {
-    setScores([pick]);
+    addCountTxt({
+      variables: {
+        id: pick.id,
+      },
+    });
+    const nextQuestions = [...questions];
+    nextQuestions.shift();
+    setQuestions(nextQuestions);
+    setAnswers([nextQuestions[0].answer[0], nextQuestions[0].answer[1]]);
   };
+
   return (
     <>
-      <Container fluid>
-        <div>밸런스게임</div>
-        {displays.map((d: any) => {
-          return (
-            <Card
-              key={d.id}
-              onClick={() => clickHandler(d)}
-              style={
-                displays.length === 1 ? { width: "100%" } : { width: "50%" }
-              }
-            >
-              <Card.Text>{d.questionBody}</Card.Text>
-            </Card>
-          );
-        })}
-      </Container>
+      {questions.length === 0 ? (
+        "loading..."
+      ) : (
+        <Container>
+          <CardDeck>
+            {questions[0].questionBody}
+            {answers.map((pick: any) => {
+              return (
+                <Card key={pick.id} onClick={() => clickHandler(pick)}>
+                  <Card.Text>{pick.body}</Card.Text>
+                  <Card.Text>{`선택률 ${
+                    (pick.winCount /
+                      (answers[0].winCount + answers[1].winCount)) *
+                    100
+                  }%`}</Card.Text>
+                </Card>
+              );
+            })}
+          </CardDeck>
+        </Container>
+      )}
     </>
   );
 };

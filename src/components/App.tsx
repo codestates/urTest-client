@@ -20,6 +20,7 @@ import TextList from "./TextList/TextList.component";
 import SearchList from "./SearchList/SearchList.component";
 import Multistep from "./Upload/Multistep.component";
 import Mypage from "./Mypage/Mypage.component";
+import Analytics from "./Analytics/Analytics.component";
 // bootstrap ---------------------------
 import { Nav, Navbar, Col } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
@@ -53,6 +54,12 @@ const TextGameId = () => {
   // @ts-ignore
   const { id } = useParams();
   return <TextGame gameid={id} />;
+};
+const AnalyticsGameId = () => {
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  const { id } = useParams();
+  return <Analytics gameid={id} />;
 };
 
 const App = () => {
@@ -130,6 +137,7 @@ const App = () => {
           <Route exact path="/" component={Home} />
           <Route path="/imggame/:id/" component={ImgGameId} />
           <Route path="/textgame/:id/" component={TextGameId} />
+          <Route path="/analytics/:id/" component={AnalyticsGameId} />
           <Route path="/imglist" component={ImgList} />
           <Route path="/textlist" component={TextList} />
           <Route path="/searchlist" component={SearchList} />

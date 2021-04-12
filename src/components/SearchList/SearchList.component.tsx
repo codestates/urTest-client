@@ -1,11 +1,10 @@
-import { useReactiveVar } from "@apollo/client";
 import { Container } from "react-bootstrap";
 import { searchState, typeCheck } from "../../common/graphql/client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import SwiperCore, { Navigation, Pagination, Scrollbar, A11y } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import CardItem from "../CardList/CardItem.component";
-import { gql, useQuery } from "@apollo/client";
+import { gql, useQuery, useReactiveVar, useLazyQuery } from "@apollo/client";
 
 SwiperCore.use([Navigation, Pagination, Scrollbar, A11y]);
 
@@ -25,7 +24,8 @@ const SearchList = () => {
 
   const keyword = useReactiveVar(searchState);
   const type = useReactiveVar(typeCheck);
-  const {} = useQuery(GET_SEARCH_CONTENT, {
+  const { refetch } = useQuery(GET_SEARCH_CONTENT, {
+    fetchPolicy: "no-cache",
     variables: {
       keyword,
       type,
@@ -40,6 +40,11 @@ const SearchList = () => {
       return;
     },
   });
+
+  useEffect(() => {
+    refetch();
+    setContents([]);
+  }, [location.pathname]);
 
   return (
     <>
