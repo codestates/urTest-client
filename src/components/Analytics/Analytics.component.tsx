@@ -107,9 +107,23 @@ const Analytics = (props: any) => {
         );
         setWinCountTotal(total);
         setImgs(imgArr);
+        return;
       }
       if (data.getContent.type === "textgame") {
-        await setTextTests(data.getContent.question);
+        const textArr: any = [];
+        data.getContent.question.map((question: any, idx: number) => {
+          textArr[idx] = {
+            id: idx + 1,
+            question: question.questionBody,
+            answer1: question.answer[0].body,
+            answer2: question.answer[1].body,
+            answer1Count: question.answer[0].winCount,
+            answer2Count: question.answer[1].winCount,
+          };
+        });
+        console.log(textArr);
+        setTextTests(textArr);
+        return;
       }
     },
     fetchPolicy: "cache-and-network",
@@ -140,6 +154,65 @@ const Analytics = (props: any) => {
 
   const imageFormatter = (cell: any) => {
     return <Image src={`${cell}`} thumbnail />;
+  };
+  const questionFomatter = (cell: any, row: any) => {
+    const winTotal = row.answer1Count + row.answer2Count;
+    return (
+      <>
+        <div>{cell}</div>
+        <div>투표 수 : {winTotal}</div>
+      </>
+    );
+  };
+  const answer1RatingFormatter = (cell: any, row: any) => {
+    const winTotal = row.answer1Count + row.answer2Count;
+    if (winTotal === 0) {
+      return cell;
+    } else {
+      const now = Math.ceil((row.answer1Count / winTotal) * 100);
+      return (
+        <>
+          <p>{cell}</p>
+          {now < 50 ? (
+            <ProgressBar animated now={now} label={`${now}%`} />
+          ) : (
+            <ProgressBar
+              animated
+              now={now}
+              label={`${now}%`}
+              variant="danger"
+            />
+          )}
+
+          <p>[ {row.answer1Count} ]</p>
+        </>
+      );
+    }
+  };
+  const answer2RatingFormatter = (cell: any, row: any) => {
+    const winTotal = row.answer1Count + row.answer2Count;
+    if (winTotal === 0) {
+      return cell;
+    } else {
+      const now = Math.ceil((row.answer2Count / winTotal) * 100);
+      return (
+        <>
+          <p>{cell}</p>
+          {now < 50 ? (
+            <ProgressBar animated now={now} label={`${now}%`} />
+          ) : (
+            <ProgressBar
+              animated
+              now={now}
+              label={`${now}%`}
+              variant="danger"
+            />
+          )}
+
+          <p>[ {row.answer2Count} ]</p>
+        </>
+      );
+    }
   };
 
   const ratingFormatter = (cell: any) => {
@@ -185,6 +258,41 @@ const Analytics = (props: any) => {
     }
   };
 
+  const textColumns = [
+    {
+      dataField: "id",
+      text: "번호",
+      headerStyle: {
+        width: "10%",
+      },
+      headerAlign: "center",
+    },
+    {
+      dataField: "question",
+      text: "질문",
+      headerStyle: {
+        width: "30%",
+      },
+      formatter: questionFomatter,
+    },
+    {
+      dataField: "answer1",
+      text: "답변1",
+      headerStyle: {
+        width: "30%",
+      },
+      formatter: answer1RatingFormatter,
+    },
+    {
+      dataField: "answer2",
+      text: "답변2",
+      headerStyle: {
+        width: "30%",
+      },
+      formatter: answer2RatingFormatter,
+    },
+  ];
+
   const imgColumns = [
     {
       dataField: "id",
@@ -206,14 +314,22 @@ const Analytics = (props: any) => {
       dataField: "photoName",
       text: "이름",
       sort: true,
+      classes: "wordbreak",
+      headerStyle: {
+        width: "30%",
+      },
     },
     {
       dataField: "winCount",
       text: "승률 [ 우승 / 전체 플레이 ]",
       sort: true,
+      headerStyle: {
+        width: "40%",
+      },
       formatter: ratingFormatter,
     },
   ];
+
   const handleCommentDelete = (id: any, password: any) => {
     setSweetAlertShow(true);
     setModalId(id);
@@ -240,7 +356,11 @@ const Analytics = (props: any) => {
           {type === "imggame" ? (
             <BootstrapTable keyField="id" data={imgs} columns={imgColumns} />
           ) : (
-            ""
+            <BootstrapTable
+              keyField="id"
+              data={textTests}
+              columns={textColumns}
+            />
           )}
 
           <Comment handleCommentAdd={handleCommentAdd} />
