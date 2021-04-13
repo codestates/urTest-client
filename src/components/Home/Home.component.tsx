@@ -5,6 +5,7 @@ import CardItem from "../CardList/CardItem.component";
 import { Container } from "react-bootstrap";
 import { gql, useQuery, useReactiveVar } from "@apollo/client";
 import { searchState } from "../../common/graphql/client";
+import Loading from "../Loading/Loading";
 
 // import { gql } from "@apollo/client";
 
@@ -47,7 +48,7 @@ const Home = () => {
     <>
       <Container fluid className="vh-93 pt-5">
         {contents.length === 0 ? (
-          <div>Loading...</div>
+          <Loading />
         ) : (
           <Swiper
             className="swiper-container mh-100 min-vh-83"

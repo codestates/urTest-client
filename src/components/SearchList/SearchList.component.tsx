@@ -5,6 +5,7 @@ import SwiperCore, { Navigation, Pagination, Scrollbar, A11y } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import CardItem from "../CardList/CardItem.component";
 import { gql, useQuery, useReactiveVar, useLazyQuery } from "@apollo/client";
+import Loading from "../Loading/Loading";
 
 SwiperCore.use([Navigation, Pagination, Scrollbar, A11y]);
 
@@ -52,7 +53,7 @@ const SearchList = () => {
         {!searchData ? (
           <div>검색결과가 없습니다</div>
         ) : contents.length === 0 ? (
-          <div>Loading...</div>
+          <Loading />
         ) : (
           <Swiper
             className="swiper-container mh-100 min-vh-83"
