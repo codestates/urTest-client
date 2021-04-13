@@ -4,17 +4,32 @@ import { isLoginVar } from "../../common/graphql/client";
 import { LinkContainer } from "react-router-bootstrap";
 import { Container, Card, CardDeck, Button, Nav } from "react-bootstrap";
 import { useLocation } from "react-router-dom";
+import jwt from "jsonwebtoken";
 
 const TextGame = (props: any) => {
   // 전역 변수
   const isLogin = useReactiveVar(isLoginVar);
   const location = useLocation();
-  console.log(location.pathname);
+
+  const token = localStorage.getItem("token");
+  const userId = jwt.verify(
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    //@ts-ignore
+    token,
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    //@ts-ignore
+    process.env.REACT_APP_SECRET_KEY,
+    function (err: any, decoded: any) {
+      return decoded.id;
+    }
+  );
 
   const GET_CONTENTS = gql`
     query getContent($id: Int!) {
       getContent(id: $id) {
-        bookMarks
+        bookMarks {
+          userId
+        }
         question {
           id
           questionBody
@@ -46,16 +61,10 @@ const TextGame = (props: any) => {
     }
   `;
 
-  const [bookMark, setBookMark] = useState([] as any);
-
   const [addCountTxt] = useMutation(POST_TEXT);
-  const [addBookMark] = useMutation(POST_BOOKMARK, {
-    onCompleted: (data) => {
-      console.log(data.addBookMark.error);
-      setBookMark(data.addBookMark);
-    },
-  });
+  const [addBookMark] = useMutation(POST_BOOKMARK);
 
+  const [user, setUser] = useState([] as any);
   const [questions, setQuestions] = useState([] as any);
   const [answers, setAnswers] = useState([] as any);
   const [rating, setRating] = useState(false);
@@ -71,6 +80,7 @@ const TextGame = (props: any) => {
         data.getContent.question[0].answer[0],
         data.getContent.question[0].answer[1],
       ]);
+      setUser(data.getContent.bookMarks);
     },
   });
 
@@ -103,21 +113,27 @@ const TextGame = (props: any) => {
   };
 
   const copyHandler = () => {
-    document.execCommand(`http://localhost:3000${location.pathname}`);
     alert(`http://localhost:3000${location.pathname}`);
   };
 
   const bookMarkBtnHandler = () => {
-    addBookMark({
-      variables: {
-        id: +props.gameid,
-      },
-    });
-    if (bookMark.ok) {
-      alert("즐겨찾기에 추가되었습니다.");
+    let used = false;
+    user.map((el: any) => {
+      if (el.userId === userId) {
+        used = true;
+        return alert("이미 추가된 컨텐츠 입니다.");
+      }
+      used = false;
       return;
-    } else if (bookMark.error) {
-      alert("이미 추가된 컨텐츠 입니다.");
+    });
+    if (used === false) {
+      addBookMark({
+        variables: {
+          id: +props.gameid,
+        },
+      });
+      alert("즐겨찾기가 추가되었습니다.");
+      // 즐겨찾기로 보내기
       return;
     }
   };
@@ -130,7 +146,7 @@ const TextGame = (props: any) => {
         <Container>
           <Nav>
             {isLogin ? (
-              <Button onClick={() => bookMarkBtnHandler()}>즐겨찾기</Button>
+              <Button onClick={bookMarkBtnHandler}>즐겨찾기</Button>
             ) : (
               ""
             )}
