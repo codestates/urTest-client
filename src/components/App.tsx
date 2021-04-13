@@ -21,6 +21,8 @@ import SearchList from "./SearchList/SearchList.component";
 import Multistep from "./Upload/Multistep.component";
 import Mypage from "./Mypage/Mypage.component";
 import Analytics from "./Analytics/Analytics.component";
+import ModifyTest from "./ModifyTest/ModifyTest.component";
+import ModifyTestT from "./ModifyTest/ModifyTestT.component";
 // bootstrap ---------------------------
 import { Nav, Navbar, Col } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
@@ -61,6 +63,18 @@ const AnalyticsGameId = () => {
   const { id } = useParams();
   return <Analytics gameid={id} />;
 };
+const ModifyGameId = () => {
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  const { id } = useParams();
+  return <ModifyTest gameid={id} />;
+};
+const ModifyTGameId = () => {
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  const { id } = useParams();
+  return <ModifyTestT gameid={id} />;
+};
 
 const App = () => {
   const [isSideBarOpen, setSideBarState] = useState(false);
@@ -77,10 +91,8 @@ const App = () => {
   return (
     <>
       <Navbar
-        bg="light"
-        expand="xl"
-        variant="light"
-        className="justify-content-start"
+        expand={false}
+        className="justify-content-start  header-nav"
         fixed="top"
         expanded={false}
         onToggle={(toggleState: boolean) => {
@@ -145,6 +157,8 @@ const App = () => {
           <Route path="/signup" component={Signup} />
           <Route path="/multistep" component={Multistep} />
           <Route path="/mypage" component={Mypage} />
+          <Route path="/modifytest/:id/" component={ModifyGameId} />
+          <Route path="/modifytext/:id/" component={ModifyTGameId} />
           <Route path="/*">
             <NoMatch />
           </Route>
