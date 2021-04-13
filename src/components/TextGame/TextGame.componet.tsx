@@ -4,6 +4,7 @@ import { isLoginVar } from "../../common/graphql/client";
 import { LinkContainer } from "react-router-bootstrap";
 import { Container, Card, CardDeck, Button, Nav } from "react-bootstrap";
 import { useLocation } from "react-router-dom";
+import jwt from "jsonwebtoken";
 
 const TextGame = (props: any) => {
   // 전역 변수
@@ -11,10 +12,25 @@ const TextGame = (props: any) => {
   const location = useLocation();
   console.log(location.pathname);
 
+  const token = localStorage.getItem("token");
+  const userId = jwt.verify(
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    //@ts-ignore
+    token,
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    //@ts-ignore
+    process.env.REACT_APP_SECRET_KEY,
+    function (err: any, decoded: any) {
+      return decoded.id;
+    }
+  );
+
   const GET_CONTENTS = gql`
     query getContent($id: Int!) {
       getContent(id: $id) {
-        bookMarks
+        bookMarks {
+          userId
+        }
         question {
           id
           questionBody
