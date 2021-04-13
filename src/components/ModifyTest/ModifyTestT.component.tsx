@@ -1,9 +1,7 @@
 import React, { useState } from "react";
-import { useReactiveVar } from "@apollo/client";
 import { gql, useQuery, useMutation } from "@apollo/client";
 
-import { inputVar } from "../../common/graphql/client";
-import { Redirect, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import BootstrapTable from "react-bootstrap-table-next";
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
@@ -32,18 +30,19 @@ const GET_CONTENT = gql`
       userId
       title
       desc
+      type
     }
   }
 `;
 
 const EDIT_TEXT = gql`
-  mutation editText(
+  mutation editTxt(
     $id: Int!
     $question: String
     $answer1: String
     $answer2: String
   ) {
-    editText(
+    editTxt(
       id: $id
       answer1: $answer1
       answer2: $answer2
@@ -58,22 +57,19 @@ const EDIT_TEXT = gql`
 const ModifyTestT = (props: any) => {
   const [sweetAlertShow, setSweetAlertShow] = useState(false);
   const [textTests, setTextTests] = useState([] as any[]);
-  const input = useReactiveVar(inputVar);
   const history = useHistory();
-  const uploadObjStr = localStorage.getItem("uploadObj");
-  const [editText] = useMutation(EDIT_TEXT, {
-    onCompleted: () => {
-      // setSweetAlertShow(true);
+  const [editTxt] = useMutation(EDIT_TEXT, {
+    onCompleted: (data) => {
+      console.log(data);
       return;
     },
   });
   const textArr: any = [];
-  const { refetch } = useQuery(GET_CONTENT, {
+  const {} = useQuery(GET_CONTENT, {
     variables: {
       id: +props.gameid,
     },
     onCompleted: async (data) => {
-      console.log(data);
       const token = localStorage.getItem("token");
       const userId = jwt.verify(
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -90,9 +86,14 @@ const ModifyTestT = (props: any) => {
         history.push("/");
         return;
       }
+      if (data.getContent.type !== "textgame") {
+        history.push("/");
+        return;
+      }
       data.getContent.question.map((question: any, idx: number) => {
         textArr[idx] = {
           id: idx + 1,
+          qid: question.id,
           question: question.questionBody,
           answer1: question.answer[0].body,
           answer2: question.answer[1].body,
@@ -100,37 +101,12 @@ const ModifyTestT = (props: any) => {
           answer2Count: question.answer[1].winCount,
         };
       });
-      console.log(textArr);
       setTextTests(textArr);
       return;
     },
     fetchPolicy: "cache-and-network",
   });
-  const uploadObj = uploadObjStr
-    ? JSON.parse(uploadObjStr)
-    : {
-        title: "",
-        desc: "",
-        files: [],
-        textTest: [
-          { id: "1", question: "질문1", answer1: "답변1", answer2: "답변2" },
-          { id: "2", question: "질문2", answer1: "답변1", answer2: "답변2" },
-          { id: "3", question: "질문3", answer1: "답변1", answer2: "답변2" },
-          { id: "4", question: "질문4", answer1: "답변1", answer2: "답변2" },
-          { id: "5", question: "", answer1: "", answer2: "" },
-          { id: "6", question: "", answer1: "", answer2: "" },
-          { id: "7", question: "", answer1: "", answer2: "" },
-          { id: "8", question: "", answer1: "", answer2: "" },
-          { id: "9", question: "", answer1: "", answer2: "" },
-          { id: "10", question: "", answer1: "", answer2: "" },
-          { id: "11", question: "", answer1: "", answer2: "" },
-          { id: "12", question: "", answer1: "", answer2: "" },
-          { id: "13", question: "", answer1: "", answer2: "" },
-          { id: "14", question: "", answer1: "", answer2: "" },
-          { id: "15", question: "", answer1: "", answer2: "" },
-          { id: "16", question: "", answer1: "", answer2: "" },
-        ],
-      };
+
   const columns = [
     {
       dataField: "id",
@@ -149,20 +125,22 @@ const ModifyTestT = (props: any) => {
       text: "답변2",
     },
   ];
-  const onSubmit = async () => {
-    const newArr = uploadObj.textTest.filter((row: any) => {
-      delete row.id;
-      if (row.question && row.answer1 && row.answer2) {
-        return row;
-      }
+
+  const onAfterSave = async (row: any) => {
+    console.log(row);
+    await editTxt({
+      variables: {
+        id: row.qid,
+        question: row.question,
+        answer1: row.answer1,
+        answer2: row.answer2,
+      },
     });
-    // await uploadText({
-    //   variables: {
-    //     title: uploadObj.title,
-    //     desc: uploadObj.desc,
-    //     textTest: newArr,
-    //   },
-    // });
+  };
+
+  const onSubmit = async () => {
+    setSweetAlertShow(true);
+    return;
   };
   return (
     <>
@@ -175,6 +153,9 @@ const ModifyTestT = (props: any) => {
               columns={columns}
               cellEdit={cellEditFactory({
                 mode: "click",
+                afterSaveCell: (oldValue: any, newValue: any, row: any) => {
+                  onAfterSave(row);
+                },
               })}
             />
           </>
@@ -185,7 +166,7 @@ const ModifyTestT = (props: any) => {
             size="lg"
             onClick={onSubmit}
           >
-            Next Step
+            수정 완료
           </Button>
         </Col>
       </Row>
@@ -193,7 +174,7 @@ const ModifyTestT = (props: any) => {
         show={sweetAlertShow}
         showConfirm={false}
         success
-        title="업로드 완료!"
+        title="수정 완료!"
         onConfirm={() => {
           const uploadReset = {
             title: "",
@@ -238,11 +219,7 @@ const ModifyTestT = (props: any) => {
               { id: "16", question: "", answer1: "", answer2: "" },
             ],
           };
-          inputVar({
-            types: "imggame",
-            step1clear: false,
-            step2clear: false,
-          });
+
           localStorage.setItem("uploadObj", JSON.stringify(uploadReset));
           history.push("/");
         }}
@@ -290,11 +267,7 @@ const ModifyTestT = (props: any) => {
               { id: "16", question: "", answer1: "", answer2: "" },
             ],
           };
-          inputVar({
-            types: "imggame",
-            step1clear: false,
-            step2clear: false,
-          });
+
           localStorage.setItem("uploadObj", JSON.stringify(uploadReset));
           history.push("/");
         }}

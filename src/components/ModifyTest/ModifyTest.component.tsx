@@ -5,9 +5,7 @@ import BootstrapTable from "react-bootstrap-table-next";
 // @ts-ignore
 import cellEditFactory from "react-bootstrap-table2-editor";
 import { Col, Row, Button, Image } from "react-bootstrap";
-import { useReactiveVar } from "@apollo/client";
-import { inputVar } from "../../common/graphql/client";
-import { Redirect, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import SweetAlert from "react-bootstrap-sweetalert";
 import jwt from "jsonwebtoken";
 
@@ -23,6 +21,7 @@ const GET_CONTENTS = gql`
       }
       title
       desc
+      type
     }
   }
 `;
@@ -39,7 +38,6 @@ const EDTI_PHOTONAME = gql`
 const ModifyTest = (props: any) => {
   const history = useHistory();
   const uploadObjStr = localStorage.getItem("uploadObj");
-  const input = useReactiveVar(inputVar);
   const [sweetAlertShow, setSweetAlertShow] = useState(false);
   const [contentFiles, setContentFiles] = useState([] as any);
   const [editPhotoName] = useMutation(EDTI_PHOTONAME, {
@@ -92,6 +90,10 @@ const ModifyTest = (props: any) => {
         }
       );
       if (data.getContent.userId !== +userId) {
+        history.push("/");
+        return;
+      }
+      if (data.getContent.type !== "imggame") {
         history.push("/");
         return;
       }
@@ -231,11 +233,6 @@ const ModifyTest = (props: any) => {
               { id: "16", question: "", answer1: "", answer2: "" },
             ],
           };
-          inputVar({
-            types: "imggame",
-            step1clear: false,
-            step2clear: false,
-          });
           localStorage.setItem("uploadObj", JSON.stringify(uploadReset));
           history.push("/");
         }}
@@ -283,11 +280,6 @@ const ModifyTest = (props: any) => {
               { id: "16", question: "", answer1: "", answer2: "" },
             ],
           };
-          inputVar({
-            types: "imggame",
-            step1clear: false,
-            step2clear: false,
-          });
           localStorage.setItem("uploadObj", JSON.stringify(uploadReset));
           history.push("/");
         }}
