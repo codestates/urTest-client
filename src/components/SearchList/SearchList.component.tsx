@@ -1,11 +1,11 @@
-import { useReactiveVar } from "@apollo/client";
 import { Container } from "react-bootstrap";
 import { searchState, typeCheck } from "../../common/graphql/client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import SwiperCore, { Navigation, Pagination, Scrollbar, A11y } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import CardItem from "../CardList/CardItem.component";
-import { gql, useQuery } from "@apollo/client";
+import { gql, useQuery, useReactiveVar, useLazyQuery } from "@apollo/client";
+import Loading from "../Loading/Loading";
 
 SwiperCore.use([Navigation, Pagination, Scrollbar, A11y]);
 
@@ -25,7 +25,8 @@ const SearchList = () => {
 
   const keyword = useReactiveVar(searchState);
   const type = useReactiveVar(typeCheck);
-  const {} = useQuery(GET_SEARCH_CONTENT, {
+  const { refetch } = useQuery(GET_SEARCH_CONTENT, {
+    fetchPolicy: "no-cache",
     variables: {
       keyword,
       type,
@@ -41,13 +42,18 @@ const SearchList = () => {
     },
   });
 
+  useEffect(() => {
+    refetch();
+    setContents([]);
+  }, [location.pathname]);
+
   return (
     <>
       <Container fluid className="vh-93 pt-5">
         {!searchData ? (
           <div>검색결과가 없습니다</div>
         ) : contents.length === 0 ? (
-          <div>Loading...</div>
+          <Loading />
         ) : (
           <Swiper
             className="swiper-container mh-100 min-vh-83"
