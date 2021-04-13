@@ -4,6 +4,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import CardItem from "../CardList/CardItem.component";
 import { Container } from "react-bootstrap";
 import { gql, useQuery } from "@apollo/client";
+import Loading from "../Loading/Loading";
 
 SwiperCore.use([Navigation, Pagination, Scrollbar, A11y]);
 const ImgList = () => {
@@ -31,7 +32,7 @@ const ImgList = () => {
     <>
       <Container fluid className="vh-93 pt-5">
         {contents.length === 0 ? (
-          <div>Loading...</div>
+          <Loading />
         ) : (
           <Swiper
             className="swiper-container mh-100 min-vh-83"

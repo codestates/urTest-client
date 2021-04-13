@@ -7,7 +7,7 @@ import {
 } from "../../common/graphql/client";
 import { useReactiveVar } from "@apollo/client";
 import { Search } from "react-bootstrap-icons";
-import { useHistory, useLocation } from "react-router";
+import { useHistory } from "react-router";
 import queryString from "query-string";
 import {
   Navbar,
