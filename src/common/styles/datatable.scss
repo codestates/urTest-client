@@ -20,3 +20,12 @@
 .wordbreak {
   word-break: break-word;
 }
+
+.thumb {
+  width:50px;
+  height: auto;
+}
+
+.thumb:hover {
+  cursor: pointer
+}
