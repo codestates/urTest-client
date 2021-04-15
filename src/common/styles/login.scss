@@ -1,21 +1,47 @@
-.login,
+.login {
+  font-family: "Jua", sans-serif;
+}
+
 .image {
   min-height: 93vh;
 }
 
 .bg-image {
-  background-image: url("http://drive.google.com/uc?export=view&id=1HJXOSa1lG4wdPpGLHeZV6ciiU6-O3hv_");
+  background-image: url("undraw.svg");
+  width: 50px;
   background-size: cover;
   background-position: center;
+  margin-top: 50px;
+  margin-bottom: -110px;
 }
 
 .login-heading {
-  font-weight: 300;
+  text-align: center;
+  // font-family: "Jua", sans-serif;
+  font-size: 50px;
 }
 
 .btn-login {
-  font-size: 0.9rem;
+  font-size: 0.7rem;
   letter-spacing: 0.05rem;
   padding: 0.75rem 1rem;
   border-radius: 2rem;
+  width: 300px;
+  height: 45px;
+  text-align: center;
+}
+
+.btn-login2 {
+  font-size: 0.7rem;
+  letter-spacing: 0.05rem;
+  padding: 0.75rem 1rem;
+  border-radius: 2rem;
+  width: 300px;
+  height: 45px;
+  background-color: khaki;
+  text-align: center;
+}
+.form-label {
+  font-family: "Jua", sans-serif;
+  font-size: 30px;
 }

@@ -64,13 +64,13 @@ const Header = () => {
   return (
     <>
       <Container fluid={true}>
-        <Col xl={1} lg={2} md={4} sm={5} xs={6} className="urBrand">
+        <Col xl={2} lg={1} md={4} sm={5} xs={6} className="urBrand">
           <Navbar.Toggle className="mr-2 sm" aria-controls="basic-navbar-nav" />
           <LinkContainer to="/">
-            <Navbar.Brand>Urtest</Navbar.Brand>
+            <Button variant = "dark" size="sm" className="home-btn">홈</Button>
           </LinkContainer>
         </Col>
-        <Col xl={4} lg={3} className="d-none d-lg-block">
+        {/* <Col xl={4} lg={3} className="d-none d-lg-block">
           <Navbar.Collapse id="basic-navbar-nav" className="">
             <Nav className="">
               <LinkContainer to="/textlist">
@@ -101,11 +101,12 @@ const Header = () => {
               )}
             </Nav>
           </Navbar.Collapse>
-        </Col>
-        <Col xl={4} lg={4} md={5} sm={5} xs={6} className="mt-1 mr-auto">
+        </Col> */}
+        <Col xl={9} lg={4} md={5} sm={5} xs={6} className="nav mt-1 mr-auto">
           <InputGroup size="sm">
             <FormControl
               value={searchInput}
+              size="lg"
               required
               placeholder="검색어를 입력해주세요"
               aria-describedby="basic-addon1"
@@ -118,7 +119,7 @@ const Header = () => {
               }
             >
               <InputGroup.Append>
-                <Button variant="outline-dark" onClick={searchBtnHandler}>
+                <Button variant="dark" onClick={searchBtnHandler}>
                   <Search />
                 </Button>
               </InputGroup.Append>
@@ -127,13 +128,13 @@ const Header = () => {
         </Col>
         {isLogin ? (
           <LinkContainer to="/" className="d-none d-md-block ml-auto">
-            <Button variant="outline-dark" onClick={() => logoutHandler()}>
+            <Button variant="dark" onClick={() => logoutHandler()}>
               Logout
             </Button>
           </LinkContainer>
         ) : (
           <LinkContainer to="/login" className="d-none d-md-block ml-auto">
-            <Button variant="outline-dark">Login</Button>
+            <Button className = "loginheader"variant="info" size="sm" >로그인</Button>
           </LinkContainer>
         )}
       </Container>

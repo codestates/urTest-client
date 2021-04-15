@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import { Container, Row, Col, Form, Button } from "react-bootstrap";
+import { Container, Row, Col, Form, Button,Image } from "react-bootstrap";
 import { GoogleLogin } from "react-google-login";
 import { LinkContainer } from "react-router-bootstrap";
 import { isLoginVar } from "../../common/graphql/client";
 import { useReactiveVar, gql, useMutation } from "@apollo/client";
 import { Redirect } from "react-router-dom";
+import { MDBBtn } from "mdbreact"
 
 const Signin = () => {
   // 전역 변수
@@ -99,22 +100,32 @@ const Signin = () => {
 
   return (
     <>
+         {/* <Image src="http://drive.google.com/uc?export=view&id=1HJXOSa1lG4wdPpGLHeZV6ciiU6-O3hv_" roundedCircle/> */}
+         {/* <Col xs={6} md={5}>
+            <Image src="undraw.svg" thumbnail/>
+         </Col> */}
+      {/* http://drive.google.com/uc?export=view&id=1HJXOSa1lG4wdPpGLHeZV6ciiU6-O3hv_ */}
+
       {isLogin ? <Redirect to="/" /> : ""}
       <Container fluid={true}>
         <Row>
-          <Col md={4} lg={6} className="bg-image" />
+          
+         <Col md={8} lg={6} className="bg-image" />
           <Col md={8} lg={6}>
             <div className="login d-flex align-items-center py-5">
               <Container>
                 <Row>
-                  <Col md={9} lg={8} className="mx-auto">
-                    <h3 className="login-heading mb-4">Urtest</h3>
+             
+                  <Col md={9} lg={5} className="mx-auto">
+             
+                    <h2 className="login-heading mb-4">Welcome !</h2>
                     <Form>
                       <Form.Group controlId="formBasicEmail">
-                        <Form.Label>Email</Form.Label>
+                        <Form.Label className="form-label"></Form.Label>
                         <Form.Control
+                          // size="lg"
                           type="email"
-                          placeholder="Email"
+                          placeholder="이메일"
                           onChange={(e) => {
                             inputHandler(e);
                           }}
@@ -122,10 +133,11 @@ const Signin = () => {
                         />
                       </Form.Group>
                       <Form.Group controlId="formBasicPassword">
-                        <Form.Label>Password</Form.Label>
+                        <Form.Label></Form.Label>
                         <Form.Control
+                          // size="lg"
                           type="password"
-                          placeholder="Password"
+                          placeholder="비밀번호를 입력하세요"
                           onChange={(e) => {
                             inputHandler(e);
                           }}
@@ -136,14 +148,14 @@ const Signin = () => {
                         </Form.Label>
                       </Form.Group>
                       <Button
-                        variant="dark"
-                        size="lg"
-                        block
-                        className="btn-login text-uppercase font-weight-bold mb-2"
+                        variant="info"
+                        // size="lg"
+                        // block
+                        className="btn-login text-uppercase mb-2"
                         type="submit"
                         onClick={(e) => signinBtnHandler(e)}
                       >
-                        Sign In
+                        로그인
                       </Button>
                       <GoogleLogin
                         clientId="724060049648-nnacpoao7gftdukk1gurp600rfgme79k.apps.googleusercontent.com"
@@ -151,9 +163,9 @@ const Signin = () => {
                           <Button
                             onClick={renderProps.onClick}
                             variant="dark"
-                            size="lg"
-                            block
-                            className="btn-login text-uppercase font-weight-bold mb-2"
+                            // size="lg"
+                            // block
+                            className="btn-login2  mb-2"
                             type="submit"
                           >
                             Google
@@ -164,9 +176,9 @@ const Signin = () => {
                         cookiePolicy={"single_host_origin"}
                       />
                       <p className="text-inverse text-center">
-                        Don`t have an account?
+                        
                         <LinkContainer to="/signup">
-                          <a> Sign Up</a>
+                          <a> 회원가입</a>
                         </LinkContainer>
                       </p>
                     </Form>
