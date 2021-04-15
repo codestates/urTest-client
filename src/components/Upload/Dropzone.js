@@ -125,11 +125,7 @@ export default function Previews(props) {
       setTimeout(() => {
         uploadVar(false);
       }, 3000);
-      if (acceptedFiles.length < 4) {
-        setFiles([]);
-        inputVar({ ...input, files: [] });
-        return alert("4~64개의 파일이 필요합니다");
-      }
+
       uploadObj.files = acceptedFiles;
       localStorage.setItem("uploadObj", JSON.stringify(uploadObj));
       await acceptedFiles.map(async (file) => {

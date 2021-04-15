@@ -6,13 +6,10 @@ import {
   typeCheck,
 } from "../../common/graphql/client";
 import { useReactiveVar } from "@apollo/client";
-import { Search } from "react-bootstrap-icons";
+import { Search, HouseDoorFill } from "react-bootstrap-icons";
 import { useHistory } from "react-router";
-import queryString from "query-string";
 import {
   Navbar,
-  Nav,
-  NavDropdown,
   Button,
   InputGroup,
   FormControl,
@@ -67,7 +64,9 @@ const Header = () => {
         <Col xl={2} lg={1} md={4} sm={5} xs={6} className="urBrand">
           <Navbar.Toggle className="mr-2 sm" aria-controls="basic-navbar-nav" />
           <LinkContainer to="/">
-            <Button variant = "dark" size="sm" className="home-btn">홈</Button>
+            <Button variant="dark" size="sm" className="home-btn">
+              <HouseDoorFill />
+            </Button>
           </LinkContainer>
         </Col>
         {/* <Col xl={4} lg={3} className="d-none d-lg-block">
@@ -133,8 +132,10 @@ const Header = () => {
             </Button>
           </LinkContainer>
         ) : (
-          <LinkContainer to="/login" className="d-none d-md-block ml-auto">
-            <Button className = "loginheader"variant="info" size="sm" >로그인</Button>
+          <LinkContainer to="/login" className="d-none d-md-block ml-auto mt-1">
+            <Button className="loginheader" variant="info" size="sm">
+              로그인
+            </Button>
           </LinkContainer>
         )}
       </Container>
