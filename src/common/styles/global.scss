@@ -1,0 +1,29 @@
+// 순서 중요함 섞지 마세요
+
+@import "./main.scss";
+@import "./login.scss";
+@import "./custom.scss";
+@import "./header.scss";
+@import "./sidebar.scss";
+@import "./dropzone.scss";
+@import "./cardslider.scss";
+@import "./imggame.scss";
+@import "./datatable.scss";
+@import "./loading.scss";
+
+$body-bg: white;
+
+// swiper --------------------
+@import "swiper/swiper.scss";
+@import "swiper/components/navigation/navigation.scss";
+@import "swiper/components/scrollbar/scrollbar.scss";
+@import "swiper/components/pagination/pagination.scss";
+
+// bootstrap ---------------
+@import "~bootstrap/scss/bootstrap.scss";
+
+// datatable ---------------
+@import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
+@import "react-bootstrap-table2-filter/dist/react-bootstrap-table2-filter.min.css";
+// font
+@import url("https://fonts.googleapis.com/css2?family=Jua&display=swap");
