@@ -49,6 +49,8 @@ const Step2img = () => {
       uploadObj.textTest = [];
       localStorage.setItem("uploadObj", JSON.stringify(uploadObj));
       setSweetAlertShow(true);
+    } else {
+      return alert("최소 4장이상의 이미지가 필요합니다");
     }
   };
   return (
