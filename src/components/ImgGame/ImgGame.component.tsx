@@ -60,6 +60,7 @@ const ImgGame = (props: any) => {
   const [rounds, setRounds] = useState(0 as any);
   const [user, setUser] = useState([] as any);
   const [transition, setTransiton] = useState(false);
+  const [doubleClick, setDoubleClick] = useState(true);
 
   const modalHandler = () => {
     if (count === 0) {
@@ -94,6 +95,7 @@ const ImgGame = (props: any) => {
   });
 
   const clickHandler = (pick: any) => {
+    setDoubleClick(false);
     if (img.length <= 2) {
       if (winners.length === 0) {
         console.log(pick.id);
@@ -106,6 +108,7 @@ const ImgGame = (props: any) => {
             id: pick.id,
           },
         });
+        setTimeout(() => setDoubleClick(true), 2500);
         return;
       } else {
         const updateImg = [...winners, pick];
@@ -116,6 +119,7 @@ const ImgGame = (props: any) => {
         setTimeout(() => setTransiton(false), 1000);
         setTimeout(() => setDisplays([updateImg[0], updateImg[1]]), 2000);
         setWinners([]);
+        setTimeout(() => setDoubleClick(true), 2500);
         return;
       }
     } else if (img.length > 2) {
@@ -125,6 +129,7 @@ const ImgGame = (props: any) => {
       setTimeout(() => setTransiton(false), 1000);
       setTimeout(() => setDisplays([img[2], img[3]]), 2000);
       setImg(img.slice(2));
+      setTimeout(() => setDoubleClick(true), 2500);
       return;
     }
   };
@@ -214,14 +219,17 @@ const ImgGame = (props: any) => {
               return (
                 <Card
                   key={d.id}
-                  onClick={() => clickHandler(d)}
+                  onClick={
+                    doubleClick
+                      ? () => clickHandler(d)
+                      : () => console.log(doubleClick)
+                  }
                   className="card-size"
-                  style={{ backgroundColor: "#ddd", borderColor: "#ddd" }}
                 >
-                  <Card.Header className="card-header">
+                  <Card.Text className="card-text-font">
                     {d.photoName}{" "}
                     {displays.length === 1 ? `우승 횟수 : ${d.winCount}승` : ""}
-                  </Card.Header>
+                  </Card.Text>
                   <Card.Img
                     src={d.photoUrl}
                     alt=""
