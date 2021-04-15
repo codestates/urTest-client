@@ -11,19 +11,6 @@ const TextGame = (props: any) => {
   const isLogin = useReactiveVar(isLoginVar);
   const location = useLocation();
 
-  const token = localStorage.getItem("token");
-  const userId = jwt.verify(
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    //@ts-ignore
-    token,
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    //@ts-ignore
-    process.env.REACT_APP_SECRET_KEY,
-    function (err: any, decoded: any) {
-      return decoded.id;
-    }
-  );
-
   const GET_CONTENTS = gql`
     query getContent($id: Int!) {
       getContent(id: $id) {
@@ -117,6 +104,18 @@ const TextGame = (props: any) => {
   };
 
   const bookMarkBtnHandler = () => {
+    const token = localStorage.getItem("token");
+    const userId = jwt.verify(
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      //@ts-ignore
+      token,
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      //@ts-ignore
+      process.env.REACT_APP_SECRET_KEY,
+      function (err: any, decoded: any) {
+        return decoded.id;
+      }
+    );
     let used = false;
     user.map((el: any) => {
       if (el.userId === userId) {
