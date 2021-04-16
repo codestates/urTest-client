@@ -2,11 +2,46 @@
   position: relative;
   top: 40px;
   height: 100%;
+  font-family: "BGR-B", sans-serif;
+  font-weight: 100;
 }
 
+.vh-92 {
+  height: 92vh;
+}
 .vh-93 {
   height: 93vh;
 }
 body {
   overflow-y: scroll;
+}
+
+.btn-dark {
+  background-color: #2F2E41 !important;
+}
+
+.color-purple-b {
+  background-color: #2F2E41 !important;
+}
+
+.color-purple {
+  background-color: #3F3D57 !important;
+}
+
+.color-turquoise {
+  background-color: #3D96A2 !important;
+}
+.color-turquoise-b {
+  background-color: #2C717A !important;
+}
+
+.btn-info {
+  background-color: #3D96A2 !important;
+}
+.textlink {
+  color: #3D96A2 !important;
+}
+.textlink:hover {
+  text-decoration: none;
+  color: #2C717A !important;
 }

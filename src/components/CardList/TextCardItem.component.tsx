@@ -45,8 +45,12 @@ const TextCardItem = ({ d }: any) => {
                       <span>시작하기</span>
                     </div>
                     <div className="answer-box">
-                      <span>{d.question[0]?.answer[0]?.body}</span>
-                      <span>{d.question[0]?.answer[1]?.body}</span>
+                      <span className="wordbreak">
+                        {d.question[0]?.answer[0]?.body}
+                      </span>
+                      <span className="wordbreak">
+                        {d.question[0]?.answer[1]?.body}
+                      </span>
                     </div>
                   </div>
                 </>
@@ -56,7 +60,7 @@ const TextCardItem = ({ d }: any) => {
 
               <div className="text-header">
                 <p>{d.title}</p>
-                <span>{d.desc}</span>
+                {/* <span>{d.desc}</span> */}
               </div>
             </div>
           </div>

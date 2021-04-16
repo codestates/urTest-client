@@ -119,7 +119,7 @@ const Step3img = () => {
   const columns = [
     {
       dataField: "id",
-      text: "이미지번호",
+      text: "번호",
       headerStyle: {
         width: "10%",
       },
@@ -173,7 +173,7 @@ const Step3img = () => {
               size="lg"
               onClick={onSubmit}
             >
-              Next Step
+              생성 완료
             </Button>
           </Col>
         </Row>

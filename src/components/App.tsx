@@ -103,7 +103,7 @@ const App = () => {
     <>
       <Navbar
         expand={false}
-        className="justify-content-start  header-nav"
+        className="justify-content-start header-nav bg-white"
         fixed="top"
         expanded={false}
         onToggle={(toggleState: boolean) => {
@@ -126,7 +126,7 @@ const App = () => {
                 <Nav.Link>Home</Nav.Link>
               </LinkContainer> */}
             </Nav.Item>
-            <Nav.Item>
+            {/* <Nav.Item>
               <LinkContainer to="/imglist">
                 <Nav.Link>이상형월드컵</Nav.Link>
               </LinkContainer>
@@ -135,7 +135,7 @@ const App = () => {
               <LinkContainer to="/textlist">
                 <Nav.Link>밸런스게임</Nav.Link>
               </LinkContainer>
-            </Nav.Item>
+            </Nav.Item> */}
             <Nav.Item>
               <LinkContainer to="/mytest">
                 <Nav.Link>나의 테스트</Nav.Link>

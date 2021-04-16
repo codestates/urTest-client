@@ -6,7 +6,7 @@ import { useReactiveVar, useMutation, gql } from "@apollo/client";
 import { inputVar } from "../../common/graphql/client";
 import { Form, Button, Col, Row } from "react-bootstrap";
 import SweetAlert from "react-bootstrap-sweetalert";
-import {ArrowRightCircleFill} from "react-bootstrap-icons"
+import { ArrowRightCircleFill } from "react-bootstrap-icons";
 const UPLOAD_CONTENT = gql`
   mutation uploadContent($title: String!, $desc: String!) {
     uploadContent(title: $title, desc: $desc) {
@@ -129,61 +129,81 @@ const Step1 = () => {
   return (
     <>
       <Row className="real justify-content-md-center mt-4 mx-2">
-      <Col md={7} lg={4} className="bg-image3" />
-        <Col md={8} lg={3}className="bg-lightk rounded pb-4">
+        <Col md={7} lg={4} className="bg-image3" />
+        <Col md={8} lg={3} className="bg-lightk rounded pb-4">
           <br></br>
           <div className="upload">
-          <Form className="upload-form" onSubmit={handleSubmit(onSubmit) }>
-            <Form.Row>
-              <Form.Group as={Col}>
-                <Form.Label>제목</Form.Label>
-                <Form.Control
-                  className= "title"
-                  type="text"
-                  placeholder="제목을 작성해주세요"
-                  {...register("title", { required: true, minLength: 5 })}
-                  defaultValue={uploadObj.title}
-                />
-                {errors.title && "제목은 5글자 이상으로 작성해주세요"}
-              </Form.Group>
-            </Form.Row>
-            <Form.Row>
-              <Form.Group as={Col}>
-                <Form.Label>설명</Form.Label>
-                <Form.Control
-                  type="text"
-                  as="textarea"
-                  rows={3}
-                  placeholder="설명을 작성해주세요"
-                  {...register("desc", { required: true, minLength: 5 })}
-                  defaultValue={uploadObj.desc}
-                />
-                {errors.desc && "설명은 5글자 이상으로 작성해주세요"}
-              </Form.Group>
-            </Form.Row>
+            <Form className="upload-form" onSubmit={handleSubmit(onSubmit)}>
+              <Form.Row>
+                <Form.Group as={Col}>
+                  <Form.Label>제목</Form.Label>
+                  <Form.Control
+                    className="title font-bgr"
+                    type="text"
+                    placeholder="제목을 작성해주세요"
+                    {...register("title", { required: true, minLength: 5 })}
+                    defaultValue={uploadObj.title}
+                  />
+                  {errors.title && "제목은 5글자 이상으로 작성해주세요"}
+                </Form.Group>
+              </Form.Row>
+              <Form.Row>
+                <Form.Group as={Col}>
+                  <Form.Label>설명</Form.Label>
+                  <Form.Control
+                    className="font-bgr"
+                    type="text"
+                    as="textarea"
+                    rows={3}
+                    placeholder="설명을 작성해주세요"
+                    {...register("desc", { required: true, minLength: 5 })}
+                    defaultValue={uploadObj.desc}
+                  />
+                  {errors.desc && "설명은 5글자 이상으로 작성해주세요"}
+                </Form.Group>
+              </Form.Row>
 
-            <Form.Row>
-              <Form.Group as={Col} controlId="types">
-                <Form.Label>Types</Form.Label>
-                <Form.Control
-                  as="select"
-                  {...register("type")}
-                  onChange={typeSelected}
-                  custom
-                >
-                  <option value="imggame">이상형 월드컵</option>
-                  <option value="textgame">밸런스게임</option>
-                </Form.Control>
-              </Form.Group>
-            </Form.Row>
-            <br></br>
-            <Button  variant="light" type="submit" size="lg" className="uploadbtn center w-100">
-              {/* <ArrowRightCircleFill width="32"/> */}
-              <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor" className="bi bi-arrow-right-circle-fill" viewBox="0 0 16 16">
-              <path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0zM4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z"/>
-              </svg>
-            </Button>
-          </Form>
+              <Form.Row>
+                <Form.Group as={Col} controlId="types">
+                  <Form.Label>Types</Form.Label>
+                  <Form.Control
+                    as="select"
+                    {...register("type")}
+                    onChange={typeSelected}
+                    custom
+                  >
+                    <option value="imggame">이상형 월드컵</option>
+                    <option value="textgame">밸런스게임</option>
+                  </Form.Control>
+                </Form.Group>
+              </Form.Row>
+              <br></br>
+              <Form.Row>
+                <Form.Group as={Col}>
+                  <Button
+                    variant="dark"
+                    type="submit"
+                    size="lg"
+                    className="uploadbtn center w-100"
+                  >
+                    {/* <ArrowRightCircleFill width="32"/> */}
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="35"
+                      height="35"
+                      fill="currentColor"
+                      className="bi bi-arrow-right"
+                      viewBox="0 0 16 16"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"
+                      />
+                    </svg>
+                  </Button>
+                </Form.Group>
+              </Form.Row>
+            </Form>
           </div>
         </Col>
       </Row>

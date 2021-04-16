@@ -107,7 +107,7 @@ const Signin = () => {
 
       {isLogin ? <Redirect to="/" /> : ""}
       <Container fluid={true}>
-        <Row className = "loginAll">
+        <Row className="loginAll">
           <Col md={7} lg={8} className="bg-image" />
           <Col md={8} lg={4}>
             <div className="login d-flex align-items-center py-5">
@@ -119,6 +119,7 @@ const Signin = () => {
                       <Form.Group controlId="formBasicEmail">
                         <Form.Label className="form-label"></Form.Label>
                         <Form.Control
+                          className="font-bgr"
                           // size="lg"
                           type="email"
                           placeholder="이메일"
@@ -131,6 +132,7 @@ const Signin = () => {
                       <Form.Group controlId="formBasicPassword">
                         <Form.Label></Form.Label>
                         <Form.Control
+                          className="font-bgr"
                           // size="lg"
                           type="password"
                           placeholder="비밀번호를 입력하세요"
@@ -147,7 +149,7 @@ const Signin = () => {
                         variant="info"
                         // size="lg"
                         // block
-                        className="btn-login text-uppercase mb-2 w-100"
+                        className="btn-login text-uppercase mb-2 w-100 font-mg"
                         type="submit"
                         onClick={(e) => signinBtnHandler(e)}
                       >
@@ -161,7 +163,7 @@ const Signin = () => {
                             variant="dark"
                             // size="lg"
                             // block
-                            className="btn-login2  mb-2 w-100"
+                            className="btn-login2  mb-2 w-100 font-mg"
                             type="submit"
                           >
                             Google
@@ -173,7 +175,7 @@ const Signin = () => {
                       />
                       <p className="text-inverse text-center w-100">
                         <LinkContainer to="/signup">
-                          <a> 회원가입</a>
+                          <a className=" textlink"> 회원가입</a>
                         </LinkContainer>
                       </p>
                     </Form>

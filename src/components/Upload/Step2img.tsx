@@ -6,7 +6,6 @@ import Previews from "./Dropzone";
 import { inputVar, uploadVar } from "../../common/graphql/client";
 import SweetAlert from "react-bootstrap-sweetalert";
 import { Col, Row, Button } from "react-bootstrap";
-import {ArrowRightCircleFill} from "react-bootstrap-icons"
 
 const Step2img = () => {
   const [sweetAlertShow, setSweetAlertShow] = useState(false);
@@ -58,18 +57,22 @@ const Step2img = () => {
     <>
       {!input.step1clear ? <Redirect to="/multistep" /> : ""}
       <Row className="justify-content-md-center mt-4 mx-2">
-        <Col md={8}lg={6}className="bg-light rounded pt-3 pb-3">
+        <Col md={8} lg={6} className="bg-light rounded pt-3 pb-3">
           <Previews files={uploadObj.files} />
-          <Button
-            block
-            variant="light"
-            type="submit"
-            size="lg"
-            onClick={onSubmit}
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor" className="bi bi-arrow-right-circle-fill" viewBox="0 0 16 16">
-  <path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0zM4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z"/>
-</svg>
+          <Button block variant="dark" type="submit" onClick={onSubmit}>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="35"
+              height="35"
+              fill="currentColor"
+              className="bi bi-arrow-right"
+              viewBox="0 0 16 16"
+            >
+              <path
+                fillRule="evenodd"
+                d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"
+              />
+            </svg>
           </Button>
         </Col>
       </Row>
