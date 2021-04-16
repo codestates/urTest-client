@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import SwiperCore, { Navigation, Pagination, Scrollbar, A11y } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
-import CardItem from "./CardItem.component";
+import CardItem from "./ImgCardItem.component";
 import { gql, useQuery } from "@apollo/client";
 
 SwiperCore.use([Navigation, Pagination, Scrollbar, A11y]);

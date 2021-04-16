@@ -3,7 +3,7 @@ import { searchState, typeCheck } from "../../common/graphql/client";
 import React, { useEffect, useState } from "react";
 import SwiperCore, { Navigation, Pagination, Scrollbar, A11y } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
-import CardItem from "../CardList/CardItem.component";
+import CardItem from "../CardList/ImgCardItem.component";
 import { gql, useQuery, useReactiveVar, useLazyQuery } from "@apollo/client";
 import Loading from "../Loading/Loading";
 
