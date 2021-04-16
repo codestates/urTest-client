@@ -209,14 +209,6 @@ const ImgGame = (props: any) => {
     return;
   };
 
-<<<<<<< HEAD
-  useEffect(() => {
-    refetch();
-    setBookMark(false);
-  }, [deleteBookMarkBtnHandler]);
-
-=======
->>>>>>> c4bc19376d7c645991ef1f991714f141c0970b37
   return (
     <>
       {start ? (
