@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { gql, useMutation } from "@apollo/client";
 import { Container, Col } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
@@ -13,6 +13,14 @@ const TextCardItem = ({ d }: any) => {
   `;
   const [addViews] = useMutation(ADD_VIEWS);
 
+  const [hasQuestions, setHasQuestions] = useState(false as boolean);
+  useEffect(() => {
+    if (d?.question) {
+      setHasQuestions(true);
+    } else {
+      setHasQuestions(false);
+    }
+  }, []);
   return (
     <Col>
       <Container>
@@ -30,8 +38,26 @@ const TextCardItem = ({ d }: any) => {
             className={location.pathname === "/" ? "home-cards front" : "front"}
           >
             <div className="inner header-items">
-              <p>{d.title}</p>
-              <span>{d.desc}</span>
+              {hasQuestions ? (
+                <>
+                  <div className="content-box2">
+                    <div className="start-game">
+                      <span>시작하기</span>
+                    </div>
+                    <div className="answer-box">
+                      <span>{d.question[0]?.answer[0]?.body}</span>
+                      <span>{d.question[0]?.answer[1]?.body}</span>
+                    </div>
+                  </div>
+                </>
+              ) : (
+                <div></div>
+              )}
+
+              <div className="text-header">
+                <p>{d.title}</p>
+                <span>{d.desc}</span>
+              </div>
             </div>
           </div>
         </LinkContainer>

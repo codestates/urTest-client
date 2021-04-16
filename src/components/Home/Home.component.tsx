@@ -33,6 +33,12 @@ const Home = () => {
         photos {
           photoUrl
         }
+        question {
+          questionBody
+          answer {
+            body
+          }
+        }
       }
     }
   `;
@@ -171,7 +177,7 @@ const Home = () => {
                       <div className="gridbox">
                         {contents.map((el: any, index: number) => {
                           return (
-                            <div className="card-item" key={index}>
+                            <SwiperSlide className="slide-width" key={index}>
                               <Fade bottom>
                                 {el.photos.length === 0 ? (
                                   <TextCardItem d={el} className="card-item" />
@@ -179,7 +185,7 @@ const Home = () => {
                                   <ImgCardItem d={el} className="card-item" />
                                 )}
                               </Fade>
-                            </div>
+                            </SwiperSlide>
                           );
                         })}
                       </div>

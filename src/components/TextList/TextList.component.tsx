@@ -16,6 +16,12 @@ const TextList = () => {
         title
         desc
         type
+        question {
+          questionBody
+          answer {
+            body
+          }
+        }
       }
     }
   `;

@@ -40,20 +40,28 @@ const ImgCardItem = ({ d }: any) => {
             <div className="inner header-items img-header">
               {hasPhotos ? (
                 <>
-                  <div className="img-box">
-                    <img src={d?.photos[0]?.photoUrl} alt="img" />
-                    <img src={d?.photos[1]?.photoUrl} alt="img" />
+                  <div className="content-box">
+                    <div className="start-game">
+                      <span>시작하기</span>
+                    </div>
+                    <div className="img-box">
+                      <img src={d?.photos[0]?.photoUrl} alt="img" />
+                      <img src={d?.photos[1]?.photoUrl} alt="img" />
+                    </div>
                   </div>
                 </>
               ) : (
                 <></>
               )}
-              <p>{d.title}</p>
-              <span>{d.desc}</span>
-              <div className="icon-box">
-                <Heart />
-                <Trophy />
-                <ShareFill />
+
+              <div className="text-box">
+                <p>{d.title}</p>
+                <span>{d.desc}</span>
+                <div className="icon-box">
+                  <Heart />
+                  <Trophy />
+                  <ShareFill />
+                </div>
               </div>
             </div>
           </div>
