@@ -1,11 +1,10 @@
 import React, { useState } from "react";
-import { Container, Row, Col, Form, Button,Image } from "react-bootstrap";
+import { Container, Row, Col, Form, Button, Image } from "react-bootstrap";
 import { GoogleLogin } from "react-google-login";
 import { LinkContainer } from "react-router-bootstrap";
 import { isLoginVar } from "../../common/graphql/client";
 import { useReactiveVar, gql, useMutation } from "@apollo/client";
 import { Redirect } from "react-router-dom";
-import { MDBBtn } from "mdbreact"
 
 const Signin = () => {
   // 전역 변수
@@ -100,8 +99,8 @@ const Signin = () => {
 
   return (
     <>
-         {/* <Image src="http://drive.google.com/uc?export=view&id=1HJXOSa1lG4wdPpGLHeZV6ciiU6-O3hv_" roundedCircle/> */}
-         {/* <Col xs={6} md={5}>
+      {/* <Image src="http://drive.google.com/uc?export=view&id=1HJXOSa1lG4wdPpGLHeZV6ciiU6-O3hv_" roundedCircle/> */}
+      {/* <Col xs={6} md={5}>
             <Image src="undraw.svg" thumbnail/>
          </Col> */}
       {/* http://drive.google.com/uc?export=view&id=1HJXOSa1lG4wdPpGLHeZV6ciiU6-O3hv_ */}
@@ -109,15 +108,12 @@ const Signin = () => {
       {isLogin ? <Redirect to="/" /> : ""}
       <Container fluid={true}>
         <Row>
-          
-         <Col md={8} lg={6} className="bg-image" />
+          <Col md={8} lg={6} className="bg-image" />
           <Col md={8} lg={6}>
             <div className="login d-flex align-items-center py-5">
               <Container>
                 <Row>
-             
                   <Col md={9} lg={5} className="mx-auto">
-             
                     <h2 className="login-heading mb-4">Welcome !</h2>
                     <Form>
                       <Form.Group controlId="formBasicEmail">
@@ -176,7 +172,6 @@ const Signin = () => {
                         cookiePolicy={"single_host_origin"}
                       />
                       <p className="text-inverse text-center">
-                        
                         <LinkContainer to="/signup">
                           <a> 회원가입</a>
                         </LinkContainer>

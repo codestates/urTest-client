@@ -6,6 +6,8 @@ import {
   useHistory,
   useParams,
 } from "react-router-dom";
+import { isLoginVar } from "../common/graphql/client";
+import { useReactiveVar } from "@apollo/client";
 
 // Page ---------------------------------------
 import Home from "./Home/Home.component";
@@ -89,6 +91,14 @@ const App = () => {
     };
   }, [history]);
 
+  const isLogin = useReactiveVar(isLoginVar);
+
+  const logoutHandler = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("uploadObj");
+    isLoginVar(false);
+  };
+
   return (
     <>
       <Navbar
@@ -145,9 +155,15 @@ const App = () => {
               </LinkContainer>
             </Nav.Item>
             <Nav.Item>
-              <LinkContainer to="/Login">
-                <Nav.Link>Login</Nav.Link>
-              </LinkContainer>
+              {isLogin ? (
+                <LinkContainer to="/">
+                  <Nav.Link onClick={() => logoutHandler()}>Logout</Nav.Link>
+                </LinkContainer>
+              ) : (
+                <LinkContainer to="/Login">
+                  <Nav.Link>Login</Nav.Link>
+                </LinkContainer>
+              )}
             </Nav.Item>
           </Nav>
         </Col>

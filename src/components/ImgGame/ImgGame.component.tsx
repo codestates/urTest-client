@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Container, Card, CardDeck, Modal, Button } from "react-bootstrap";
-import { gql, useQuery, useMutation, useReactiveVar } from "@apollo/client";
-import { isLoginVar } from "../../common/graphql/client";
+import { gql, useQuery, useMutation } from "@apollo/client";
 import { LinkContainer } from "react-router-bootstrap";
 import { useLocation } from "react-router-dom";
 import { ShareFill, Heart, Trophy } from "react-bootstrap-icons";
@@ -9,7 +8,6 @@ import jwt from "jsonwebtoken";
 
 const ImgGame = (props: any) => {
   // 전역 변수
-  const isLogin = useReactiveVar(isLoginVar);
   const location = useLocation();
 
   // 쿼리
@@ -101,35 +99,34 @@ const ImgGame = (props: any) => {
         console.log(pick.id);
         setRounds("우승");
         setDisplays([pick]);
-        setTimeout(() => setTransiton(true), 500);
-        setTimeout(() => setTransiton(false), 1000);
+        setTimeout(() => setTransiton(true), 100);
+        setTimeout(() => setTransiton(false), 600);
         addCountPhoto({
           variables: {
             id: pick.id,
           },
         });
-        setTimeout(() => setDoubleClick(true), 2500);
         return;
       } else {
         const updateImg = [...winners, pick];
         setRounds(updateImg.length / 2);
         setImg(updateImg);
         setDisplays([pick]);
-        setTimeout(() => setTransiton(true), 500);
-        setTimeout(() => setTransiton(false), 1000);
-        setTimeout(() => setDisplays([updateImg[0], updateImg[1]]), 2000);
+        setTimeout(() => setTransiton(true), 100);
+        setTimeout(() => setTransiton(false), 600);
+        setTimeout(() => setDisplays([updateImg[0], updateImg[1]]), 1000);
         setWinners([]);
-        setTimeout(() => setDoubleClick(true), 2500);
+        setTimeout(() => setDoubleClick(true), 1100);
         return;
       }
     } else if (img.length > 2) {
       setWinners([...winners, pick]);
       setDisplays([pick]);
-      setTimeout(() => setTransiton(true), 500);
-      setTimeout(() => setTransiton(false), 1000);
-      setTimeout(() => setDisplays([img[2], img[3]]), 2000);
+      setTimeout(() => setTransiton(true), 100);
+      setTimeout(() => setTransiton(false), 600);
+      setTimeout(() => setDisplays([img[2], img[3]]), 1000);
       setImg(img.slice(2));
-      setTimeout(() => setDoubleClick(true), 2500);
+      setTimeout(() => setDoubleClick(true), 1100);
       return;
     }
   };
@@ -204,7 +201,7 @@ const ImgGame = (props: any) => {
         </Modal.Dialog>
       ) : (
         <Container className="mt-5">
-          <h1 className="header-text">
+          <h1 className="header-text mb-3">
             {title}{" "}
             {rounds === "우승"
               ? "우승"
