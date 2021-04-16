@@ -11,7 +11,7 @@
 @import "./datatable.scss";
 @import "./loading.scss";
 
-$body-bg: #ddd;
+$body-bg: white;
 
 // swiper --------------------
 @import "swiper/swiper.scss";
@@ -25,3 +25,5 @@ $body-bg: #ddd;
 // datatable ---------------
 @import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
 @import "react-bootstrap-table2-filter/dist/react-bootstrap-table2-filter.min.css";
+// font
+@import url("https://fonts.googleapis.com/css2?family=Jua&display=swap");

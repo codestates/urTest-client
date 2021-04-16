@@ -36,18 +36,38 @@ h1 {
   justify-content: flex-start;
   align-items: center;
   border-radius: 10px;
+  position: relative;
+}
+.img-header p,
+.img-header span {
+  color: white;
+  position: relative;
+  bottom: 8rem;
+  text-shadow: rgba(0, 0, 0, 1) 1px 0 10px;
+  font-weight: 500;
 }
 .img-box {
   display: flex;
   width: 100%;
-  height: 70%;
+  height: 100%;
 }
 .img-box img {
   width: 50%;
   height: 100%;
   border-radius: 2px;
 }
-
+.icon-box {
+  background-color: white;
+  position: relative;
+  bottom: 7rem;
+  width: 100%;
+  height: 2.5rem;
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 1rem 0;
+}
 .wrapper {
   width: 90%;
   margin: 0 auto;
@@ -81,20 +101,19 @@ h1 {
   cursor: pointer;
   background-size: cover;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.25);
-  background-position: center;
-  -webkit-transition: -webkit-transform 0.7s cubic-bezier(0.4, 0.2, 0.2, 1);
-  transition: -webkit-transform 0.7s cubic-bezier(0.4, 0.2, 0.2, 1);
-  -o-transition: transform 0.7s cubic-bezier(0.4, 0.2, 0.2, 1);
-  transition: transform 0.7s cubic-bezier(0.4, 0.2, 0.2, 1);
-  transition: transform 0.7s cubic-bezier(0.4, 0.2, 0.2, 1),
-    -webkit-transform 0.7s cubic-bezier(0.4, 0.2, 0.2, 1);
-  -webkit-backface-visibility: hidden;
+  // background-position: center;
+  // -webkit-transition: -webkit-transform 0.7s cubic-bezier(0.4, 0.2, 0.2, 1);
+  // transition: -webkit-transform 0.7s cubic-bezier(0.4, 0.2, 0.2, 1);
+  // -o-transition: transform 0.7s cubic-bezier(0.4, 0.2, 0.2, 1);
+  // transition: transform 0.7s cubic-bezier(0.4, 0.2, 0.2, 1);
+  // transition: transform 0.7s cubic-bezier(0.4, 0.2, 0.2, 1),
+  //   -webkit-transform 0.7s cubic-bezier(0.4, 0.2, 0.2, 1);
+  // -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
   text-align: center;
   min-height: 280px;
   height: auto;
   border-radius: 5px;
-  color: #000;
   background-color: #f0f5f9;
   font-size: 1.5rem;
 }
@@ -128,13 +147,6 @@ h1 {
 .front .inner p {
   margin: 0px;
   margin-top: 0.8rem;
-}
-
-.front .inner span {
-  // color: rgba(255, 255, 255, 0.7);
-  color: #000;
-  font-family: "Montserrat";
-  font-weight: 300;
 }
 
 .swiper-wrapper {

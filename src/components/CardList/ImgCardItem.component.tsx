@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { gql, useMutation } from "@apollo/client";
 import { Container, Col } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
+import { ShareFill, Heart, Trophy } from "react-bootstrap-icons";
 const ImgCardItem = ({ d }: any) => {
   const ADD_VIEWS = gql`
     mutation addViews($id: Int!) {
@@ -36,7 +37,7 @@ const ImgCardItem = ({ d }: any) => {
           <div
             className={location.pathname === "/" ? "home-cards front" : "front"}
           >
-            <div className="inner header-items">
+            <div className="inner header-items img-header">
               {hasPhotos ? (
                 <>
                   <div className="img-box">
@@ -49,6 +50,11 @@ const ImgCardItem = ({ d }: any) => {
               )}
               <p>{d.title}</p>
               <span>{d.desc}</span>
+              <div className="icon-box">
+                <Heart />
+                <Trophy />
+                <ShareFill />
+              </div>
             </div>
           </div>
         </LinkContainer>

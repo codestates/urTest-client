@@ -4,23 +4,47 @@
     .card-size {
         height: 300px;
     }
+    .card-deck-transition {
+        width: 100%;
+        margin: 0px auto !important;
+    }
 }
 
 @media (min-width: 576px) {
     .card-size {
         height: 700px;
     }
+    .card-deck-transition {
+        width: 50%;
+        margin: 0px auto !important;
+    }
 }
 
 
 .card-img {
-    position: relative;
     box-shadow: 10px 20px 20px rgba(0,0,0,0.8);
+    cursor: pointer;
+    width: 50%;
+    height: 90%;
 }
 
-.neon {
-    font-family: 'Jua', sans-serif;
-    text-shadow: 0 0 20px #ff005b;
-    margin: 0px;
+.card-img-transition {
+    transform: scale(1.1);
+    transition-property: transform;
+    transition-duration: 0.5s;
 }
+
+.header-text {
+    font-family: 'Jua', sans-serif;
+    font-size: 2rem
+}
+
+.card-text-font {
+    font-family: 'Jua', sans-serif;
+    font-size: 1.4rem;
+    text-align: center;
+    margin:0px auto;
+}
+
+
 

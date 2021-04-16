@@ -130,7 +130,11 @@ const Home = () => {
                 {filterdItem.slice(0, 8).map((el: any, index: number) => {
                   return (
                     <SwiperSlide className="slide-width" key={index}>
-                      <ImgCardItem d={el} className="card-item" />
+                      {el.photos.length === 0 ? (
+                        <TextCardItem d={el} className="card-item" />
+                      ) : (
+                        <ImgCardItem d={el} className="card-item" />
+                      )}
                     </SwiperSlide>
                   );
                 })}

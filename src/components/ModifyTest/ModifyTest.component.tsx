@@ -5,20 +5,23 @@ import BootstrapTable from "react-bootstrap-table-next";
 // @ts-ignore
 import cellEditFactory from "react-bootstrap-table2-editor";
 import { Col, Row, Button, Image } from "react-bootstrap";
-import { useReactiveVar } from "@apollo/client";
-import { inputVar } from "../../common/graphql/client";
-import { Redirect, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import SweetAlert from "react-bootstrap-sweetalert";
+import jwt from "jsonwebtoken";
 
 // 쿼리
 const GET_CONTENTS = gql`
   query getContent($id: Int!) {
     getContent(id: $id) {
+      userId
       photos {
         id
         photoUrl
         photoName
       }
+      title
+      desc
+      type
     }
   }
 `;
@@ -32,12 +35,9 @@ const EDTI_PHOTONAME = gql`
   }
 `;
 
-const Step3img = () => {
+const ModifyTest = (props: any) => {
   const history = useHistory();
-  const [imgSweetAlertSrc, setImgSweetAlertSrc] = useState("");
-  const [imgSweetAlertShow, setImgSweetAlertShow] = useState(false);
   const uploadObjStr = localStorage.getItem("uploadObj");
-  const input = useReactiveVar(inputVar);
   const [sweetAlertShow, setSweetAlertShow] = useState(false);
   const [contentFiles, setContentFiles] = useState([] as any);
   const [editPhotoName] = useMutation(EDTI_PHOTONAME, {
@@ -74,9 +74,29 @@ const Step3img = () => {
 
   useQuery(GET_CONTENTS, {
     variables: {
-      id: uploadObj.contentId,
+      id: +props.gameid,
     },
     onCompleted: async (data) => {
+      const token = localStorage.getItem("token");
+      const userId = jwt.verify(
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        //@ts-ignore
+        token,
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        //@ts-ignore
+        process.env.REACT_APP_SECRET_KEY,
+        function (err: any, decoded: any) {
+          return decoded.id;
+        }
+      );
+      if (data.getContent.userId !== +userId) {
+        history.push("/");
+        return;
+      }
+      if (data.getContent.type !== "imggame") {
+        history.push("/");
+        return;
+      }
       await data.getContent.photos.map((photo: any, idx: number) => {
         uploadObj.files[idx] = {
           id: idx + 1,
@@ -90,24 +110,11 @@ const Step3img = () => {
     },
   });
 
-  const imageFormatter = (cell: any) => {
-    return (
-      <Image
-        onClick={(e) => {
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-          // @ts-ignore
-          setImgSweetAlertSrc(e.target.src);
-          setImgSweetAlertShow(true);
-        }}
-        className="thumb"
-        src={`${cell}`}
-        thumbnail
-      />
-    );
-  };
+  function imageFormatter(cell: any) {
+    return <Image src={`${cell}`} thumbnail />;
+  }
 
   const onAfterSave = async (row: any) => {
-    console.log(row);
     await editPhotoName({
       variables: {
         id: row.photoId,
@@ -147,7 +154,6 @@ const Step3img = () => {
 
   return (
     <>
-      {!input.step2clear ? <Redirect to="/multistep" /> : ""}
       {contentFiles === 0 ? (
         <div>loading</div>
       ) : (
@@ -173,7 +179,7 @@ const Step3img = () => {
               size="lg"
               onClick={onSubmit}
             >
-              Next Step
+              수정 완료
             </Button>
           </Col>
         </Row>
@@ -182,7 +188,7 @@ const Step3img = () => {
         show={sweetAlertShow}
         showConfirm={false}
         success
-        title="테스트 만들기 완료!"
+        title="테스트 수정 완료!"
         onConfirm={() => {
           const uploadReset = {
             title: "",
@@ -227,11 +233,6 @@ const Step3img = () => {
               { id: "16", question: "", answer1: "", answer2: "" },
             ],
           };
-          inputVar({
-            types: "imggame",
-            step1clear: false,
-            step2clear: false,
-          });
           localStorage.setItem("uploadObj", JSON.stringify(uploadReset));
           history.push("/");
         }}
@@ -279,32 +280,14 @@ const Step3img = () => {
               { id: "16", question: "", answer1: "", answer2: "" },
             ],
           };
-          inputVar({
-            types: "imggame",
-            step1clear: false,
-            step2clear: false,
-          });
           localStorage.setItem("uploadObj", JSON.stringify(uploadReset));
           history.push("/");
         }}
       >
         홈화면으로 이동합니다
       </SweetAlert>
-      <SweetAlert
-        title=""
-        show={imgSweetAlertShow}
-        showConfirm={false}
-        onConfirm={() => {
-          setImgSweetAlertShow(false);
-        }}
-        onCancel={() => {
-          setImgSweetAlertShow(false);
-        }}
-      >
-        <Image src={`${imgSweetAlertSrc}`} className="w-100" />
-      </SweetAlert>
     </>
   );
 };
 
-export default Step3img;
+export default ModifyTest;

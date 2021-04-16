@@ -37,7 +37,7 @@ export default class SideDrawer extends React.Component {
               bg="light"
               expand={false}
               variant="light"
-              className="justify-content-start align-content-start d-flex flex-column"
+              className="sidebar justify-content-start align-content-start d-flex flex-column"
             >
               {this.props.children}
             </Navbar>
