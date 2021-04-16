@@ -4,6 +4,7 @@ import { isLoginVar } from "../../common/graphql/client";
 import { LinkContainer } from "react-router-bootstrap";
 import { Container, Card, CardDeck, Button, Nav } from "react-bootstrap";
 import { useLocation } from "react-router-dom";
+import { ShareFill, Heart, Trophy } from "react-bootstrap-icons";
 import jwt from "jsonwebtoken";
 
 const TextGame = (props: any) => {
@@ -48,14 +49,25 @@ const TextGame = (props: any) => {
     }
   `;
 
+  const POST_DELETEBOOKMARK = gql`
+    mutation deleteBookMark($id: Int!) {
+      deleteBookMark(id: $id) {
+        ok
+        error
+      }
+    }
+  `;
+
   const [addCountTxt] = useMutation(POST_TEXT);
   const [addBookMark] = useMutation(POST_BOOKMARK);
+  const [deleteBookMark] = useMutation(POST_DELETEBOOKMARK);
 
-  const [user, setUser] = useState([] as any);
   const [questions, setQuestions] = useState([] as any);
   const [answers, setAnswers] = useState([] as any);
   const [rating, setRating] = useState(false);
   const [lastPick, setLastPick] = useState(false);
+  const [bookMark, setBookMark] = useState(Boolean);
+  const [userBookMark, setUserBookMark] = useState([] as any);
 
   useQuery(GET_CONTENTS, {
     variables: {
@@ -67,7 +79,26 @@ const TextGame = (props: any) => {
         data.getContent.question[0].answer[0],
         data.getContent.question[0].answer[1],
       ]);
-      setUser(data.getContent.bookMarks);
+      setUserBookMark(data.getContent.bookMarks);
+      if (isLogin) {
+        const token = localStorage.getItem("token");
+        const userId = jwt.verify(
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          //@ts-ignore
+          token,
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          //@ts-ignore
+          process.env.REACT_APP_SECRET_KEY,
+          function (err: any, decoded: any) {
+            return decoded.id;
+          }
+        );
+        data.getContent.bookMarks.map((el: any) => {
+          if (el.userId === userId) {
+            setBookMark(true);
+          }
+        });
+      }
     },
   });
 
@@ -100,10 +131,22 @@ const TextGame = (props: any) => {
   };
 
   const copyHandler = () => {
-    alert(`http://localhost:3000${location.pathname}`);
+    alert(`https:urtest.shop${location.pathname}`);
   };
 
   const bookMarkBtnHandler = () => {
+    addBookMark({
+      variables: {
+        id: +props.gameid,
+      },
+    });
+    alert("즐겨찾기가 추가 되었습니다.");
+    setBookMark(true);
+    return;
+  };
+
+  const deleteBookMarkBtnHandler = () => {
+    let result;
     const token = localStorage.getItem("token");
     const userId = jwt.verify(
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -116,25 +159,19 @@ const TextGame = (props: any) => {
         return decoded.id;
       }
     );
-    let used = false;
-    user.map((el: any) => {
+    userBookMark.map((el: any) => {
       if (el.userId === userId) {
-        used = true;
-        return alert("이미 추가된 컨텐츠 입니다.");
+        result = el.id;
       }
-      used = false;
-      return;
     });
-    if (used === false) {
-      addBookMark({
-        variables: {
-          id: +props.gameid,
-        },
-      });
-      alert("즐겨찾기가 추가되었습니다.");
-      // 즐겨찾기로 보내기
-      return;
-    }
+    deleteBookMark({
+      variables: {
+        id: result,
+      },
+    });
+    alert("즐겨찾기가 삭제 되었습니다.");
+    setBookMark(false);
+    return;
   };
 
   return (
@@ -143,17 +180,36 @@ const TextGame = (props: any) => {
         "loading..."
       ) : (
         <Container>
-          <Nav>
+          <div style={{ textAlign: "left" }}>
             {isLogin ? (
-              <Button onClick={bookMarkBtnHandler}>즐겨찾기</Button>
+              bookMark ? (
+                <Button variant="dark" onClick={deleteBookMarkBtnHandler}>
+                  <Heart />
+                </Button>
+              ) : (
+                <Button variant="outline-dark" onClick={bookMarkBtnHandler}>
+                  <Heart />
+                </Button>
+              )
             ) : (
-              ""
+              <LinkContainer to="/login">
+                <Button variant="outline-dark">
+                  <Heart />
+                </Button>
+              </LinkContainer>
             )}
-            <LinkContainer to={`/analytics/${+props.gameid}/`}>
-              <Button>랭킹보기</Button>
+            <LinkContainer
+              to={`/analytics/${+props.gameid}/`}
+              style={{ margin: "4px" }}
+            >
+              <Button variant="outline-dark">
+                <Trophy />
+              </Button>
             </LinkContainer>
-            <Button onClick={() => copyHandler()}>공유하기</Button>
-          </Nav>
+            <Button variant="outline-dark" onClick={() => copyHandler()}>
+              <ShareFill />
+            </Button>
+          </div>
           {lastPick ? (
             <Card>
               <Card.Text>게임이 종료되었습니다.</Card.Text>
