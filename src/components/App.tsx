@@ -122,9 +122,9 @@ const App = () => {
         <Col>
           <Nav>
             <Nav.Item>
-              <LinkContainer to="/" exact>
+              {/* <LinkContainer to="/" exact>
                 <Nav.Link>Home</Nav.Link>
-              </LinkContainer>
+              </LinkContainer> */}
             </Nav.Item>
             <Nav.Item>
               <LinkContainer to="/imglist">

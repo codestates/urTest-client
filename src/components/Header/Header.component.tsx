@@ -111,6 +111,7 @@ const Header = () => {
               aria-describedby="basic-addon1"
               onChange={searchInputHandler}
               onKeyPress={onKeyPress}
+              
             />
             <LinkContainer
               to={
@@ -126,14 +127,14 @@ const Header = () => {
           </InputGroup>
         </Col>
         {isLogin ? (
-          <LinkContainer to="/" className="d-none d-md-block ml-auto">
-            <Button variant="info" onClick={() => logoutHandler()}>
+          <LinkContainer to="/" className="d-none d-md-block ml-auto mt-1">
+            <Button variant="info" size="lg"onClick={() => logoutHandler()}>
               로그아웃
             </Button>
           </LinkContainer>
         ) : (
           <LinkContainer to="/login" className="d-none d-md-block ml-auto mt-1">
-            <Button className="loginheader" variant="info" size="sm">
+            <Button className="loginheader " variant="info" size="lg">
               로그인
             </Button>
           </LinkContainer>
