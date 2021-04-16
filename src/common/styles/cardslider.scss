@@ -25,20 +25,20 @@ h1 {
 }
 
 .text-box {
-  margin-top: 3rem;
+  position: relative;
   width: 100%;
   height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
   line-height: 98%;
+  flex-wrap: wrap;
 }
 .text-box p,
 .text-box span {
-  position: relative;
-  bottom: 8rem;
   font-weight: 500;
+  position: absolute;
+  bottom: 1rem;
+  width: 50%;
 }
 .text-box p {
   color: black;
@@ -52,11 +52,7 @@ h1 {
   opacity: 0.6;
 }
 .img-box {
-  display: flex;
-  justify-content: center;
-  width: 100%;
   height: 70%;
-  border: 2px solid white;
 }
 
 .img-box:hover {
@@ -81,23 +77,25 @@ h1 {
 .answer-box span:first-child {
   border-right: 1px solid black;
 }
-.content-box2 {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
+// .content-box2 {
+//   width: 100%;
+//   height: 100%;
+//   display: flex;
+//   flex-direction: column;
+//   align-items: center;
+// }
 
-.content-box2:hover {
-  .start-game span {
-    display: block;
-    opacity: 1;
-    z-index: 999;
-  }
-}
+// .content-box2:hover {
+//   .start-game span {
+//     display: block;
+//     opacity: 1;
+//     z-index: 999;
+//   }
+// }
 .content-box {
   display: flex;
+  width: 100%;
+  height: 100%;
   flex-direction: column;
   align-items: center;
 }
@@ -225,6 +223,11 @@ h1 {
 .swiper-wrapper {
   right: 1rem;
 }
+@media screen and (max-width: 94rem) {
+  .gridbox {
+    grid-template-columns: repeat(3, minmax(150px, 1fr)) !important;
+  }
+}
 @media screen and (max-width: 64rem) {
   .col {
     width: calc(33.333333% - 2rem);
@@ -244,6 +247,11 @@ h1 {
   }
   .gridbox {
     grid-template-columns: repeat(1, minmax(150px, 1fr)) !important;
+    padding-right: 0rem;
+    margin-left: 1rem;
+  }
+  .swiper-main-title {
+    margin-right: 3rem;
   }
 }
 
@@ -307,6 +315,7 @@ h1 {
   justify-items: center;
   align-items: center;
   grid-template-columns: repeat(4, minmax(150px, 1fr));
+  padding-right: 1rem;
   // grid-template-rows: repeat(3, minmax(150px, 1fr));
 }
 .fluid-item {

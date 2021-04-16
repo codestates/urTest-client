@@ -37,7 +37,7 @@ const ImgCardItem = ({ d }: any) => {
           <div
             className={location.pathname === "/" ? "home-cards front" : "front"}
           >
-            <div className="inner header-items img-header">
+            <div className="inner header-items ">
               {hasPhotos ? (
                 <>
                   <div className="content-box">
