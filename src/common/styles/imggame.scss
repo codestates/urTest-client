@@ -3,6 +3,7 @@
 @media (max-width: 576px) {
     .card-size {
         height: 300px;
+        border-color: #ffff !important;
     }
     .card-deck-transition {
         width: 100%;
@@ -13,6 +14,7 @@
 @media (min-width: 576px) {
     .card-size {
         height: 700px;
+        border-color: #ffff !important;
     }
     .card-deck-transition {
         width: 50%;
