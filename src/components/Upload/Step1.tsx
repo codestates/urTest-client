@@ -6,7 +6,7 @@ import { useReactiveVar, useMutation, gql } from "@apollo/client";
 import { inputVar } from "../../common/graphql/client";
 import { Form, Button, Col, Row } from "react-bootstrap";
 import SweetAlert from "react-bootstrap-sweetalert";
-
+import {ArrowRightCircleFill} from "react-bootstrap-icons"
 const UPLOAD_CONTENT = gql`
   mutation uploadContent($title: String!, $desc: String!) {
     uploadContent(title: $title, desc: $desc) {
@@ -128,9 +128,13 @@ const Step1 = () => {
   };
   return (
     <>
-      <Row className="justify-content-md-center mt-4 mx-2">
-        <Col md={8} className="bg-light rounded pb-4">
-          <Form onSubmit={handleSubmit(onSubmit)}>
+      <Row className="real justify-content-md-center mt-4 mx-2">
+      <Col md={7} lg={4} className="bg-image3" />
+        <Col md={8} lg={3}className="bg-light1 rounded pb-4">
+          <br></br>
+          {/* <h4 className="login-heading mb-4">테스트 만들기</h4> */}
+          <div className="upload">
+          <Form className="upload-form" onSubmit={handleSubmit(onSubmit) }>
             <Form.Row>
               <Form.Group as={Col}>
                 <Form.Label>제목</Form.Label>
@@ -150,7 +154,7 @@ const Step1 = () => {
                   type="text"
                   as="textarea"
                   rows={3}
-                  placeholder="설명"
+                  placeholder="설명을 작성해주세요"
                   {...register("desc", { required: true, minLength: 5 })}
                   defaultValue={uploadObj.desc}
                 />
@@ -172,11 +176,12 @@ const Step1 = () => {
                 </Form.Control>
               </Form.Group>
             </Form.Row>
-
-            <Button block variant="dark" type="submit" size="lg">
-              Next Step
+            <br></br>
+            <Button  variant="light" type="submit" size="lg" className="uploadbtn center w-100">
+              <ArrowRightCircleFill className="right-arrow" />
             </Button>
           </Form>
+          </div>
         </Col>
       </Row>
       <SweetAlert

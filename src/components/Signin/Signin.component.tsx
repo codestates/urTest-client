@@ -1,11 +1,10 @@
 import React, { useState } from "react";
-import { Container, Row, Col, Form, Button, Image } from "react-bootstrap";
+import { Container, Row, Col, Form, Button } from "react-bootstrap";
 import { GoogleLogin } from "react-google-login";
 import { LinkContainer } from "react-router-bootstrap";
 import { isLoginVar } from "../../common/graphql/client";
 import { useReactiveVar, gql, useMutation } from "@apollo/client";
 import { Redirect } from "react-router-dom";
-import { MDBBtn } from "mdbreact";
 
 const Signin = () => {
   // 전역 변수
@@ -109,12 +108,12 @@ const Signin = () => {
       {isLogin ? <Redirect to="/" /> : ""}
       <Container fluid={true}>
         <Row>
-          <Col md={4} lg={4} className="bg-image" />
-          <Col md={8} lg={8}>
+          <Col md={7} lg={8} className="bg-image" />
+          <Col md={8} lg={4}>
             <div className="login d-flex align-items-center py-5">
               <Container>
                 <Row>
-                  <Col md={8} lg={8} className="mx-auto">
+                  <Col md={8} lg={7} className="mx-auto">
                     <h2 className="login-heading mb-4">Welcome !</h2>
                     <Form>
                       <Form.Group controlId="formBasicEmail">

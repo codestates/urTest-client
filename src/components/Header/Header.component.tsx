@@ -62,7 +62,7 @@ const Header = () => {
   return (
     <>
       <Container fluid={true}>
-        <Col xl={2} lg={1} md={4} sm={5} xs={6} className="urBrand">
+        <Col xl={2} lg={2} md={4} sm={5} xs={6} className="urBrand">
           <Navbar.Toggle className="mr-2 sm" aria-controls="basic-navbar-nav" />
           <LinkContainer to="/">
             <Button variant="dark" size="sm" className="home-btn">
@@ -124,8 +124,8 @@ const Header = () => {
         </Col>
         {isLogin ? (
           <LinkContainer to="/" className="d-none d-md-block ml-auto">
-            <Button variant="dark" onClick={() => logoutHandler()}>
-              Logout
+            <Button variant="info" onClick={() => logoutHandler()}>
+              로그아웃
             </Button>
           </LinkContainer>
         ) : (
