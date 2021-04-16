@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Container, Card, CardDeck, Modal, Button } from "react-bootstrap";
-import { gql, useQuery, useMutation } from "@apollo/client";
+import { gql, useQuery, useMutation, useReactiveVar } from "@apollo/client";
+import { isLoginVar } from "../../common/graphql/client";
 import { LinkContainer } from "react-router-bootstrap";
 import { useLocation } from "react-router-dom";
 import { ShareFill, Heart, Trophy } from "react-bootstrap-icons";
@@ -9,12 +10,14 @@ import jwt from "jsonwebtoken";
 const ImgGame = (props: any) => {
   // 전역 변수
   const location = useLocation();
+  const isLogin = useReactiveVar(isLoginVar);
 
   // 쿼리
   const GET_CONTENTS = gql`
     query getContent($id: Int!) {
       getContent(id: $id) {
         bookMarks {
+          id
           userId
         }
         title
@@ -45,7 +48,18 @@ const ImgGame = (props: any) => {
       }
     }
   `;
+
+  const POST_DELETEBOOKMARK = gql`
+    mutation deleteBookMark($id: Int!) {
+      deleteBookMark(id: $id) {
+        ok
+        error
+      }
+    }
+  `;
+
   const [addBookMark] = useMutation(POST_BOOKMARK);
+  const [deleteBookMark] = useMutation(POST_DELETEBOOKMARK);
   const [addCountPhoto] = useMutation(POST_WINCOUNT);
 
   const [Data, setData] = useState([] as any);
@@ -56,9 +70,10 @@ const ImgGame = (props: any) => {
   const [displays, setDisplays] = useState([] as any[]);
   const [winners, setWinners] = useState([] as any[]);
   const [rounds, setRounds] = useState(0 as any);
-  const [user, setUser] = useState([] as any);
   const [transition, setTransiton] = useState(false);
   const [doubleClick, setDoubleClick] = useState(true);
+  const [bookMark, setBookMark] = useState(Boolean);
+  const [userBookMark, setUserBookMark] = useState([] as any);
 
   const modalHandler = () => {
     if (count === 0) {
@@ -81,14 +96,33 @@ const ImgGame = (props: any) => {
     setCount(8);
   };
 
-  useQuery(GET_CONTENTS, {
+  const { refetch } = useQuery(GET_CONTENTS, {
     variables: {
       id: +props.gameid,
     },
     onCompleted: (data) => {
       setData(data.getContent);
       setTitle(data.getContent.title);
-      setUser(data.getContent.bookMarks);
+      setUserBookMark(data.getContent.bookMarks);
+      if (isLogin) {
+        const token = localStorage.getItem("token");
+        const userId = jwt.verify(
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          //@ts-ignore
+          token,
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          //@ts-ignore
+          process.env.REACT_APP_SECRET_KEY,
+          function (err: any, decoded: any) {
+            return decoded.id;
+          }
+        );
+        data.getContent.bookMarks.map((el: any) => {
+          if (el.userId === userId) {
+            setBookMark(true);
+          }
+        });
+      }
     },
   });
 
@@ -136,6 +170,18 @@ const ImgGame = (props: any) => {
   };
 
   const bookMarkBtnHandler = () => {
+    addBookMark({
+      variables: {
+        id: +props.gameid,
+      },
+    });
+    alert("즐겨찾기가 추가 되었습니다.");
+    setBookMark(true);
+    return;
+  };
+
+  const deleteBookMarkBtnHandler = () => {
+    let result;
     const token = localStorage.getItem("token");
     const userId = jwt.verify(
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -148,53 +194,86 @@ const ImgGame = (props: any) => {
         return decoded.id;
       }
     );
-    let used = false;
-    user.map((el: any) => {
+    userBookMark.map((el: any) => {
       if (el.userId === userId) {
-        used = true;
-        return alert("이미 추가된 컨텐츠 입니다.");
+        result = el.id;
       }
-      used = false;
-      return;
     });
-    if (used === false) {
-      addBookMark({
-        variables: {
-          id: +props.gameid,
-        },
-      });
-      alert("즐겨찾기가 추가되었습니다.");
-      // 즐겨찾기로 보내기
-      return;
-    }
+    deleteBookMark({
+      variables: {
+        id: result,
+      },
+    });
+    alert("즐겨찾기가 삭제 되었습니다.");
+    setBookMark(false);
+    return;
   };
+
+  // useEffect(() => {
+  //   refetch();
+  //   setBookMark(Boolean);
+  // }, [deleteBookMarkBtnHandler, bookMarkBtnHandler]);
 
   return (
     <>
       {start ? (
         <Modal.Dialog>
-          <Modal.Header closeButton>
+          <Modal.Header>
             <Modal.Title>
               {title} {count}강
             </Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <Button onClick={() => fourCountHandler()}>4강</Button>
-            <Button onClick={() => eightCountHandler()}>8강</Button>
+            <Button
+              variant="outline-dark"
+              onClick={() => fourCountHandler()}
+              style={{ margin: "4px" }}
+            >
+              4강
+            </Button>
+            <Button
+              variant="outline-dark"
+              onClick={() => eightCountHandler()}
+              style={{ margin: "4px" }}
+            >
+              8강
+            </Button>
           </Modal.Body>
           <Modal.Footer>
-            <Button variant="outline-Light" onClick={bookMarkBtnHandler}>
-              {<Heart />}
-            </Button>
+            {isLogin ? (
+              bookMark ? (
+                <Button
+                  variant="dark"
+                  onClick={deleteBookMarkBtnHandler}
+                  style={{ margin: "4px" }}
+                >
+                  <Heart />
+                </Button>
+              ) : (
+                <Button
+                  variant="outline-dark"
+                  onClick={bookMarkBtnHandler}
+                  style={{ margin: "4px" }}
+                >
+                  <Heart />
+                </Button>
+              )
+            ) : (
+              <LinkContainer to="/login">
+                <Button variant="outline-dark">
+                  <Heart />
+                </Button>
+              </LinkContainer>
+            )}
             <LinkContainer to={`/analytics/${+props.gameid}/`}>
-              <Button variant="outline-Light">
+              <Button variant="outline-dark">
                 <Trophy />
               </Button>
             </LinkContainer>
-            <Button variant="outline-Light">
-              <ShareFill onClick={() => copyHandler()} />
+            <Button variant="outline-dark" onClick={() => copyHandler()}>
+              <ShareFill />
             </Button>
-            <Button variant="primary" onClick={() => modalHandler()}>
+            <Button variant="outline-dark" onClick={() => modalHandler()}>
               시작하기
             </Button>
           </Modal.Footer>
@@ -236,6 +315,39 @@ const ImgGame = (props: any) => {
               );
             })}
           </CardDeck>
+          {rounds === "우승" ? (
+            <div style={{ textAlign: "center" }}>
+              {isLogin ? (
+                <Button
+                  variant="outline-dark"
+                  onClick={bookMarkBtnHandler}
+                  style={{ margin: "4px" }}
+                >
+                  <Heart />
+                </Button>
+              ) : (
+                <LinkContainer to="/login" style={{ margin: "4px" }}>
+                  <Button variant="outline-dark">
+                    <Heart />
+                  </Button>
+                </LinkContainer>
+              )}
+              <LinkContainer to={`/analytics/${+props.gameid}/`}>
+                <Button variant="outline-dark" style={{ margin: "4px" }}>
+                  <Trophy />
+                </Button>
+              </LinkContainer>
+              <Button
+                variant="outline-dark"
+                onClick={() => copyHandler()}
+                style={{ margin: "4px" }}
+              >
+                <ShareFill />
+              </Button>
+            </div>
+          ) : (
+            ""
+          )}
         </Container>
       )}
     </>
