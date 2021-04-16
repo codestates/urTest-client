@@ -153,9 +153,11 @@ const Mypage = () => {
     <>
       {!isLogin ? <Redirect to="/login" /> : ""}
       <Row className="justify-content-md-center mt-4 mx-3">
-        <Col md={8} className="bg-light rounded pb-4">
+      <Col md={7} lg={4} className="bg-image2" />
+        <Col md={8}lg={3}className="bg-light rounded pb-4">
           <Form>
             <Form.Group controlId="formBasicEmail">
+              <br></br>
               <Form.Label>이메일</Form.Label>
               <Form.Control
                 disabled
@@ -189,19 +191,19 @@ const Mypage = () => {
               </Form.Label>
             </Form.Group>
             <Row className="justify-content-between">
-              <Button
-                variant="danger"
-                size="lg"
-                className="btn-login text-uppercase font-weight-bold mb-2 ml-5"
-                type="submit"
-                onClick={(e) => deleteBtnHandler(e)}
-              >
-                회원탈퇴
+            <Button
+              variant="dark"
+              size="lg"
+              className="btn-login text-uppercase font-weight-bold mb-4 ml-5 mr-5 w-100"
+              type="submit"
+              onClick={(e) => deleteBtnHandler(e)}
+            >
+              회원탈퇴
               </Button>
               <Button
                 variant="dark"
                 size="lg"
-                className="btn-login text-uppercase font-weight-bold mb-2 mr-5"
+                className="btn-login2 text-uppercase font-weight-bold mb-3 ml-5 mr-5 w-100"
                 type="submit"
                 onClick={(e) => modifyBtnHandler(e)}
               >

@@ -9,7 +9,7 @@ import BootstrapTable from "react-bootstrap-table-next";
 import cellEditFactory from "react-bootstrap-table2-editor";
 import { Col, Row, Button } from "react-bootstrap";
 import SweetAlert from "react-bootstrap-sweetalert";
-
+import {ArrowRightCircleFill} from "react-bootstrap-icons"
 const UPLOAD_TEXT = gql`
   mutation uploadText($title: String, $desc: String, $textTest: [data]) {
     uploadText(title: $title, desc: $desc, textTest: $textTest) {
@@ -92,7 +92,7 @@ const Step2img = () => {
     <>
       {!input.step1clear ? <Redirect to="/multistep" /> : ""}
       <Row className="justify-content-md-center mt-4 mx-2">
-        <Col md={8} className="bg-light rounded pt-3 pb-3">
+        <Col md={8} lg={7} className="bg-light3 rounded pt-3 pb-3">
           <>
             <BootstrapTable
               keyField="id"
@@ -105,12 +105,12 @@ const Step2img = () => {
           </>
           <Button
             block
-            variant="dark"
+            variant="light"
             type="submit"
             size="lg"
             onClick={onSubmit}
           >
-            Next Step
+            <ArrowRightCircleFill/>
           </Button>
         </Col>
       </Row>
