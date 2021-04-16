@@ -166,7 +166,7 @@ const ImgGame = (props: any) => {
   };
 
   const copyHandler = () => {
-    alert(`http://localhost:3000${location.pathname}`);
+    alert(`https://urtest.shop${location.pathname}`);
   };
 
   const bookMarkBtnHandler = () => {
@@ -209,11 +209,14 @@ const ImgGame = (props: any) => {
     return;
   };
 
+<<<<<<< HEAD
   useEffect(() => {
     refetch();
     setBookMark(false);
   }, [deleteBookMarkBtnHandler]);
 
+=======
+>>>>>>> c4bc19376d7c645991ef1f991714f141c0970b37
   return (
     <>
       {start ? (
@@ -318,30 +321,36 @@ const ImgGame = (props: any) => {
           {rounds === "우승" ? (
             <div style={{ textAlign: "center" }}>
               {isLogin ? (
-                <Button
-                  variant="outline-dark"
-                  onClick={bookMarkBtnHandler}
-                  style={{ margin: "4px" }}
-                >
-                  <Heart />
-                </Button>
+                bookMark ? (
+                  <Button
+                    variant="dark"
+                    onClick={deleteBookMarkBtnHandler}
+                    style={{ margin: "4px" }}
+                  >
+                    <Heart />
+                  </Button>
+                ) : (
+                  <Button
+                    variant="outline-dark"
+                    onClick={bookMarkBtnHandler}
+                    style={{ margin: "4px" }}
+                  >
+                    <Heart />
+                  </Button>
+                )
               ) : (
-                <LinkContainer to="/login" style={{ margin: "4px" }}>
+                <LinkContainer to="/login">
                   <Button variant="outline-dark">
                     <Heart />
                   </Button>
                 </LinkContainer>
               )}
               <LinkContainer to={`/analytics/${+props.gameid}/`}>
-                <Button variant="outline-dark" style={{ margin: "4px" }}>
+                <Button variant="outline-dark">
                   <Trophy />
                 </Button>
               </LinkContainer>
-              <Button
-                variant="outline-dark"
-                onClick={() => copyHandler()}
-                style={{ margin: "4px" }}
-              >
+              <Button variant="outline-dark" onClick={() => copyHandler()}>
                 <ShareFill />
               </Button>
             </div>
