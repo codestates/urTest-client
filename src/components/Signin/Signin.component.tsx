@@ -107,7 +107,7 @@ const Signin = () => {
 
       {isLogin ? <Redirect to="/" /> : ""}
       <Container fluid={true}>
-        <Row className = "loginAll">
+        <Row className="loginAll">
           <Col md={7} lg={8} className="bg-image" />
           <Col md={8} lg={4}>
             <div className="login d-flex align-items-center py-5">
@@ -175,7 +175,7 @@ const Signin = () => {
                       />
                       <p className="text-inverse text-center w-100">
                         <LinkContainer to="/signup">
-                          <a> 회원가입</a>
+                          <a className=" textlink"> 회원가입</a>
                         </LinkContainer>
                       </p>
                     </Form>

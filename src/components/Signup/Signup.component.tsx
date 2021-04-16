@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
 import { gql, useMutation } from "@apollo/client";
+import { LinkContainer } from "react-router-bootstrap";
 import { Redirect } from "react-router-dom";
 
 const Signup = () => {
@@ -124,6 +125,11 @@ const Signup = () => {
                       >
                         Sign Up
                       </Button>
+                      <p className="text-inverse text-center w-100">
+                        <LinkContainer to="/login">
+                          <a className="textlink">로그인 하러가기</a>
+                        </LinkContainer>
+                      </p>
                     </Form>
                   </Col>
                 </Row>
