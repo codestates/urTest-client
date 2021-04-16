@@ -196,7 +196,6 @@ const Mypage = () => {
             <Row className="justify-content-between">
               <Button
                 variant="dark"
-                size="lg"
                 className="btn-login text-uppercase font-weight-bold mb-4 ml-5 mr-5 w-100"
                 type="submit"
                 onClick={(e) => deleteBtnHandler(e)}
@@ -205,8 +204,8 @@ const Mypage = () => {
               </Button>
               <Button
                 variant="dark"
-                size="lg"
-                className="btn-login2 text-uppercase font-weight-bold mb-3 ml-5 mr-5 w-100"
+                // size="lg"
+                className="btn-login2 font-weight-bold mb-3 ml-5 mr-5 w-100"
                 type="submit"
                 onClick={(e) => modifyBtnHandler(e)}
               >
