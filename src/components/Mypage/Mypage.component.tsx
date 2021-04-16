@@ -152,14 +152,15 @@ const Mypage = () => {
   return (
     <>
       {!isLogin ? <Redirect to="/login" /> : ""}
-      <Row className="justify-content-md-center mt-4 mx-3">
-      <Col md={7} lg={4} className="bg-image2" />
-        <Col md={8}lg={3}className="bg-light rounded pb-4">
+      <Row className="justify-content-md-center mt-4 mx-3 vh-92">
+        <Col md={7} lg={4} className="bg-image2" />
+        <Col md={8} lg={3} className="bg-light rounded pb-4">
           <Form>
             <Form.Group controlId="formBasicEmail">
               <br></br>
               <Form.Label>이메일</Form.Label>
               <Form.Control
+                className="font-bgr"
                 disabled
                 type="email"
                 placeholder={email}
@@ -169,18 +170,20 @@ const Mypage = () => {
             <Form.Group controlId="formBasicPassword" className="mt-4">
               <Form.Label>현재 비밀번호</Form.Label>
               <Form.Control
+                className="font-bgr"
                 type="password"
                 placeholder="Password"
                 name="user_password"
                 onChange={(e) => inputHandler(e)}
               />
-              <Form.Label className="mt-1 text-danger fs-20">
+              <Form.Label className="mt-1 text-danger fs-20 font-bgr">
                 {isOk ? " " : "* Password 인증에 실패하였습니다"}
               </Form.Label>
             </Form.Group>
             <Form.Group controlId="formBasicPassword">
               <Form.Label>변경할 비밀번호</Form.Label>
               <Form.Control
+                className="font-bgr"
                 type="password"
                 placeholder="Password"
                 name="user_change_password"
@@ -191,14 +194,14 @@ const Mypage = () => {
               </Form.Label>
             </Form.Group>
             <Row className="justify-content-between">
-            <Button
-              variant="dark"
-              size="lg"
-              className="btn-login text-uppercase font-weight-bold mb-4 ml-5 mr-5 w-100"
-              type="submit"
-              onClick={(e) => deleteBtnHandler(e)}
-            >
-              회원탈퇴
+              <Button
+                variant="dark"
+                size="lg"
+                className="btn-login text-uppercase font-weight-bold mb-4 ml-5 mr-5 w-100"
+                type="submit"
+                onClick={(e) => deleteBtnHandler(e)}
+              >
+                회원탈퇴
               </Button>
               <Button
                 variant="dark"

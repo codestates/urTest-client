@@ -105,32 +105,40 @@ const Header = () => {
         <Col xl={9} lg={4} md={5} sm={5} xs={6} className="nav mt-1 mr-auto">
           <InputGroup size="sm">
             <FormControl
+              className="font-bgr"
               value={searchInput}
-              size="lg"
+              size="sm"
               required
               placeholder="검색어를 입력해주세요"
               aria-describedby="basic-addon1"
               onChange={searchInputHandler}
               onKeyPress={onKeyPress}
             />
-            <LinkContainer to={searchInput ? `/searchlist/${searchInput}` : ""}>
-              <InputGroup.Append>
+            <InputGroup.Append>
+              <LinkContainer
+                to={searchInput ? `/searchlist/${searchInput}` : ""}
+              >
                 <Button variant="dark" onClick={searchBtnHandler}>
                   <Search />
                 </Button>
-              </InputGroup.Append>
-            </LinkContainer>
+              </LinkContainer>
+            </InputGroup.Append>
           </InputGroup>
         </Col>
         {isLogin ? (
-          <LinkContainer to="/" className="d-none d-md-block ml-auto">
-            <Button variant="info" onClick={() => logoutHandler()}>
+          <LinkContainer to="/" className="d-none d-md-block ml-auto mt-1">
+            <Button
+              variant="info"
+              className="font-mg"
+              onClick={() => logoutHandler()}
+              size="sm"
+            >
               로그아웃
             </Button>
           </LinkContainer>
         ) : (
           <LinkContainer to="/login" className="d-none d-md-block ml-auto mt-1">
-            <Button className="loginheader" variant="info" size="sm">
+            <Button className="font-mg" variant="info" size="sm">
               로그인
             </Button>
           </LinkContainer>

@@ -9,7 +9,7 @@
 }
 
 .nav {
-  font-family: "Jua", sans-serif;
+  font-family: "MG", sans-serif;
 }
 
 .loginheader {
@@ -18,4 +18,13 @@
 }
 .home-btn {
   background-image: url("home.png");
+}
+
+.form-control:focus {
+  border-color: #6c757d !important;
+  box-shadow: 0 0 0 0.1rem #6c757d !important;
+}
+
+.btn-dark {
+  background-color: #3f3d57;
 }

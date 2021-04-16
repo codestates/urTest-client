@@ -56,7 +56,7 @@ const ImgCardItem = ({ d }: any) => {
 
               <div className="text-box">
                 <p>{d.title}</p>
-                <span>{d.desc}</span>
+                {/* <span>{d.desc}</span> */}
                 <div className="icon-box">
                   <Heart />
                   <Trophy />

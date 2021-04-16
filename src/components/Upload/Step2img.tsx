@@ -6,7 +6,7 @@ import Previews from "./Dropzone";
 import { inputVar, uploadVar } from "../../common/graphql/client";
 import SweetAlert from "react-bootstrap-sweetalert";
 import { Col, Row, Button } from "react-bootstrap";
-import {ArrowRightCircleFill} from "react-bootstrap-icons"
+import { ArrowRightCircleFill } from "react-bootstrap-icons";
 
 const Step2img = () => {
   const [sweetAlertShow, setSweetAlertShow] = useState(false);
@@ -58,7 +58,7 @@ const Step2img = () => {
     <>
       {!input.step1clear ? <Redirect to="/multistep" /> : ""}
       <Row className="justify-content-md-center mt-4 mx-2">
-        <Col md={8}lg={6}className="bg-light rounded pt-3 pb-3">
+        <Col md={8} lg={6} className="bg-light rounded pt-3 pb-3">
           <Previews files={uploadObj.files} />
           <Button
             block
@@ -67,7 +67,7 @@ const Step2img = () => {
             size="lg"
             onClick={onSubmit}
           >
-           <ArrowRightCircleFill/>
+            <ArrowRightCircleFill />
           </Button>
         </Col>
       </Row>
