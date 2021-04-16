@@ -103,7 +103,7 @@ const App = () => {
     <>
       <Navbar
         expand={false}
-        className="justify-content-start  header-nav"
+        className="justify-content-start header-nav bg-white"
         fixed="top"
         expanded={false}
         onToggle={(toggleState: boolean) => {

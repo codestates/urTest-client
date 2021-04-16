@@ -61,8 +61,8 @@ const Header = () => {
 
   return (
     <>
-      <Container fluid={true}>
-        <Col xl={2} lg={2} md={4} sm={5} xs={6} className="urBrand">
+      <Container fluid={true} className="sm-pd-0">
+        <Col xl={2} lg={2} md={3} sm={4} xs={5} className="urBrand">
           <Navbar.Toggle className="mr-2 sm" aria-controls="basic-navbar-nav" />
           <LinkContainer to="/">
             <Button variant="dark" size="sm" className="home-btn">
@@ -102,7 +102,7 @@ const Header = () => {
             </Nav>
           </Navbar.Collapse>
         </Col> */}
-        <Col xl={9} lg={4} md={5} sm={5} xs={6} className="nav mt-1 mr-auto">
+        <Col xl={9} lg={9} md={8} sm={7} xs={7} className="nav mt-1 mr-auto">
           <InputGroup size="sm">
             <FormControl
               className="font-bgr"

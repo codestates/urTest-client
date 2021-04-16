@@ -28,3 +28,12 @@
 .d-none {
   font-family: "Jua", sans-serif;
 }
+
+
+
+/* Medium devices (tablets, 768px and up) */
+@media (max-width: 768px) {
+  .sm-pd-0 {
+    padding: 0 0 !important;
+  }
+}
