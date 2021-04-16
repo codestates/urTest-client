@@ -55,6 +55,7 @@ const Header = () => {
     if (e.key === "Enter" && searchInput !== "") {
       searchBtnHandler();
       history.push(`/searchlist/${searchInput}`);
+      return;
     }
   };
 
@@ -113,11 +114,7 @@ const Header = () => {
               onKeyPress={onKeyPress}
               
             />
-            <LinkContainer
-              to={
-                searchInput ? `/searchlist/${searchInput}` : location.pathname
-              }
-            >
+            <LinkContainer to={searchInput ? `/searchlist/${searchInput}` : ""}>
               <InputGroup.Append>
                 <Button variant="dark" onClick={searchBtnHandler}>
                   <Search />
