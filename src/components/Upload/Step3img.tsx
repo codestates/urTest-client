@@ -34,6 +34,8 @@ const EDTI_PHOTONAME = gql`
 
 const Step3img = () => {
   const history = useHistory();
+  const [imgSweetAlertSrc, setImgSweetAlertSrc] = useState("");
+  const [imgSweetAlertShow, setImgSweetAlertShow] = useState(false);
   const uploadObjStr = localStorage.getItem("uploadObj");
   const input = useReactiveVar(inputVar);
   const [sweetAlertShow, setSweetAlertShow] = useState(false);
@@ -88,9 +90,21 @@ const Step3img = () => {
     },
   });
 
-  function imageFormatter(cell: any) {
-    return <Image src={`${cell}`} thumbnail />;
-  }
+  const imageFormatter = (cell: any) => {
+    return (
+      <Image
+        onClick={(e) => {
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore
+          setImgSweetAlertSrc(e.target.src);
+          setImgSweetAlertShow(true);
+        }}
+        className="thumb"
+        src={`${cell}`}
+        thumbnail
+      />
+    );
+  };
 
   const onAfterSave = async (row: any) => {
     console.log(row);
@@ -275,6 +289,19 @@ const Step3img = () => {
         }}
       >
         홈화면으로 이동합니다
+      </SweetAlert>
+      <SweetAlert
+        title=""
+        show={imgSweetAlertShow}
+        showConfirm={false}
+        onConfirm={() => {
+          setImgSweetAlertShow(false);
+        }}
+        onCancel={() => {
+          setImgSweetAlertShow(false);
+        }}
+      >
+        <Image src={`${imgSweetAlertSrc}`} className="w-100" />
       </SweetAlert>
     </>
   );

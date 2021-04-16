@@ -5,6 +5,7 @@ import { LinkContainer } from "react-router-bootstrap";
 import { isLoginVar } from "../../common/graphql/client";
 import { useReactiveVar, gql, useMutation } from "@apollo/client";
 import { Redirect } from "react-router-dom";
+import { MDBBtn } from "mdbreact";
 
 const Signin = () => {
   // 전역 변수
@@ -108,12 +109,12 @@ const Signin = () => {
       {isLogin ? <Redirect to="/" /> : ""}
       <Container fluid={true}>
         <Row>
-          <Col md={8} lg={6} className="bg-image" />
-          <Col md={8} lg={6}>
+          <Col md={7} lg={8} className="bg-image" />
+          <Col md={8} lg={4}>
             <div className="login d-flex align-items-center py-5">
               <Container>
                 <Row>
-                  <Col md={9} lg={5} className="mx-auto">
+                  <Col md={8} lg={7} className="mx-auto">
                     <h2 className="login-heading mb-4">Welcome !</h2>
                     <Form>
                       <Form.Group controlId="formBasicEmail">
@@ -147,7 +148,7 @@ const Signin = () => {
                         variant="info"
                         // size="lg"
                         // block
-                        className="btn-login text-uppercase mb-2"
+                        className="btn-login text-uppercase mb-2 w-100"
                         type="submit"
                         onClick={(e) => signinBtnHandler(e)}
                       >
@@ -161,7 +162,7 @@ const Signin = () => {
                             variant="dark"
                             // size="lg"
                             // block
-                            className="btn-login2  mb-2"
+                            className="btn-login2  mb-2 w-100"
                             type="submit"
                           >
                             Google
@@ -171,7 +172,7 @@ const Signin = () => {
                         onFailure={responseGoogle}
                         cookiePolicy={"single_host_origin"}
                       />
-                      <p className="text-inverse text-center">
+                      <p className="text-inverse text-center w-100">
                         <LinkContainer to="/signup">
                           <a> 회원가입</a>
                         </LinkContainer>
