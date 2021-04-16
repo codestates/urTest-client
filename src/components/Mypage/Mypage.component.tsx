@@ -7,100 +7,152 @@ import { useReactiveVar, gql, useMutation, useQuery } from "@apollo/client";
 import { isLoginVar } from "../../common/graphql/client";
 import { useHistory } from "react-router-dom";
 
+const GET_PROFILE = gql`
+  query getProfile($id: Int!) {
+    getProfile(id: $id) {
+      id
+      email
+    }
+  }
+`;
+const EDIT_PROFILE = gql`
+  mutation editProfile($email: String, $password: String, $userName: String) {
+    editProfile(email: $email, password: $password, userName: $userName) {
+      error
+      ok
+    }
+  }
+`;
+
+const DELETE_ACCOUNT = gql`
+  mutation deleteAccount($id: Int!) {
+    deleteAccount(id: $id) {
+      error
+      ok
+    }
+  }
+`;
+
+const POST_SIGNIN = gql`
+  mutation login($email: String!, $password: String!) {
+    login(email: $email, password: $password) {
+      ok
+      error
+      token
+    }
+  }
+`;
+
 const Mypage = () => {
-  //
-  const isLogin = useReactiveVar(isLoginVar);
-  //
-  const token = localStorage.getItem("token");
-  const userId = jwt.verify(
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    //@ts-ignore
-    token,
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    //@ts-ignore
-    process.env.REACT_APP_SECRET_KEY,
-    function (err: any, decoded: any) {
-      return decoded.id;
-    }
-  );
-  //
-  const GET_PROFILE = gql`
-    query getProfile($id: Int!) {
-      getProfile(id: $id) {
-        id
-        email
-      }
-    }
-  `;
-
-  const [email, setEmail] = useState();
-  useQuery(GET_PROFILE, {
-    variables: {
-      id: userId,
-    },
-    onCompleted: (data) => {
-      setEmail(data.getProfile.email);
-    },
-  });
-
   const history = useHistory();
+  const isLogin = useReactiveVar(isLoginVar);
+  const [email, setEmail] = useState();
   const [inputs, setInputs] = useState({
     user_password: "",
     user_confirm_password: "",
     user_change_password: "",
     user_id: 0,
   });
+  const [isOk, setIsOk] = useState(true);
+  const [isPwdOk, setPwdOk] = useState(true);
 
-  const { user_password, user_confirm_password, user_change_password } = inputs;
+  const [login] = useMutation(POST_SIGNIN, {
+    onCompleted: (data) => {
+      if (data.login.ok === true) {
+        setIsOk(true);
+        return;
+      }
+      setIsOk(false);
+      return;
+    },
+  });
+  const [deleteAccount] = useMutation(DELETE_ACCOUNT, {
+    onCompleted: () => {
+      history.push("/");
+      localStorage.removeItem("token");
+      localStorage.removeItem("uploadObj");
+      isLoginVar(false);
+      return;
+    },
+  });
+  const [editProfile] = useMutation(EDIT_PROFILE, {
+    onCompleted: (data) => {
+      if (data.editProfile.ok === true) {
+        setSweetAlertShow(true);
+        return;
+      }
+      alert("수정 실패");
+      return;
+    },
+  });
+  const token = localStorage.getItem("token");
+  if (!token) {
+    history.push("/login");
+  } else {
+    const userId = jwt.verify(
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      //@ts-ignore
+      token,
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      //@ts-ignore
+      process.env.REACT_APP_SECRET_KEY,
+      function (err: any, decoded: any) {
+        return decoded.id;
+      }
+    );
+    useQuery(GET_PROFILE, {
+      variables: {
+        id: userId,
+      },
+      onCompleted: (data) => {
+        setEmail(data.getProfile.email);
+      },
+    });
+  }
+  const { user_password, user_change_password } = inputs;
   const [sweetAlertShow, setSweetAlertShow] = useState(false);
-  const [validation, setValidation] = useState(true);
+  const [deleteAlertShow, setDeleteAlertShow] = useState(false);
   const inputHandler = (e: any) => {
     const { name, value } = e.target;
     setInputs({
       ...inputs,
       [name]: value,
     });
+    !user_change_password ? setPwdOk(false) : setPwdOk(true);
   };
 
-  const modifyBtnHandler = (e: any) => {
+  const modifyBtnHandler = async (e: any) => {
     e.preventDefault();
-    if (user_password === user_confirm_password) {
-      console.log("통과");
-      setValidation(true);
-      return;
+    await login({
+      variables: {
+        email: email,
+        password: user_password,
+      },
+    });
+
+    if (user_change_password.length > 0 && isOk) {
+      await editProfile({
+        variables: {
+          email: email,
+          password: user_change_password,
+          userName: "null",
+        },
+      });
+    } else {
+      setPwdOk(false);
     }
-    setValidation(false);
-    return;
   };
 
   const deleteBtnHandler = (e: any) => {
     e.preventDefault();
-    if (user_password === user_confirm_password) {
-      const token = localStorage.getItem("token");
-      const userId = jwt.verify(
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        //@ts-ignore
-        token,
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        //@ts-ignore
-        process.env.REACT_APP_SECRET_KEY,
-        function (err: any, decoded: any) {
-          return decoded.id;
-        }
-      );
-      console.log(userId);
-      console.log("통과");
-      setValidation(true);
-      return;
-    }
-    setValidation(false);
+    setDeleteAlertShow(true);
     return;
   };
 
   return (
     <>
-      {!isLogin ? <Redirect to="/" /> : ""}
-      <Row className="justify-content-md-center mt-4">
+      {!isLogin ? <Redirect to="/login" /> : ""}
+      <Row className="justify-content-md-center mt-4 mx-3">
         <Col md={8} className="bg-light rounded pb-4">
           <Form>
             <Form.Group controlId="formBasicEmail">
@@ -112,7 +164,7 @@ const Mypage = () => {
                 name="user_email"
               />
             </Form.Group>
-            <Form.Group controlId="formBasicPassword">
+            <Form.Group controlId="formBasicPassword" className="mt-4">
               <Form.Label>현재 비밀번호</Form.Label>
               <Form.Control
                 type="password"
@@ -120,17 +172,8 @@ const Mypage = () => {
                 name="user_password"
                 onChange={(e) => inputHandler(e)}
               />
-            </Form.Group>
-            <Form.Group controlId="formBasicPassword">
-              <Form.Label>비밀번호 확인</Form.Label>
-              <Form.Control
-                type="password"
-                placeholder="Password"
-                name="user_confirm_password"
-                onChange={(e) => inputHandler(e)}
-              />
-              <Form.Label className="mt-1 text-danger">
-                {!validation ? "* Confirm Password" : ""}
+              <Form.Label className="mt-1 text-danger fs-20">
+                {isOk ? " " : "* Password 인증에 실패하였습니다"}
               </Form.Label>
             </Form.Group>
             <Form.Group controlId="formBasicPassword">
@@ -141,14 +184,17 @@ const Mypage = () => {
                 name="user_change_password"
                 onChange={(e) => inputHandler(e)}
               />
+              <Form.Label className="mt-1 text-danger fs-20">
+                {isPwdOk ? " " : "변경할 패스워드를 입력해주세요"}
+              </Form.Label>
             </Form.Group>
             <Row className="justify-content-between">
               <Button
-                variant="warning"
+                variant="danger"
                 size="lg"
                 className="btn-login text-uppercase font-weight-bold mb-2 ml-5"
                 type="submit"
-                onClick={(e) => modifyBtnHandler(e)}
+                onClick={(e) => deleteBtnHandler(e)}
               >
                 회원탈퇴
               </Button>
@@ -157,7 +203,7 @@ const Mypage = () => {
                 size="lg"
                 className="btn-login text-uppercase font-weight-bold mb-2 mr-5"
                 type="submit"
-                onClick={(e) => deleteBtnHandler(e)}
+                onClick={(e) => modifyBtnHandler(e)}
               >
                 수정하기
               </Button>
@@ -169,15 +215,67 @@ const Mypage = () => {
         show={sweetAlertShow}
         showConfirm={false}
         success
-        title="완료완료"
+        title="수정완료"
         onConfirm={() => {
-          history.push("/");
+          setInputs({
+            user_password: "",
+            user_confirm_password: "",
+            user_change_password: "",
+            user_id: 0,
+          });
+          Array.from(document.querySelectorAll("#formBasicPassword")).forEach(
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            //@ts-ignore
+            (input) => (input.value = "")
+          );
+          setSweetAlertShow(false);
         }}
         onCancel={() => {
-          history.push("/");
+          setInputs({
+            user_password: "",
+            user_confirm_password: "",
+            user_change_password: "",
+            user_id: 0,
+          });
+          Array.from(document.querySelectorAll("#formBasicPassword")).forEach(
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            //@ts-ignore
+            (input) => (input.value = "")
+          );
+          setSweetAlertShow(false);
         }}
       >
-        홈으로 이동합니다
+        패스워드가 변경되었습니다.
+      </SweetAlert>
+      <SweetAlert
+        show={deleteAlertShow}
+        danger
+        title="회원탈퇴"
+        confirmBtnBsStyle={"danger"}
+        onConfirm={() => {
+          const userId = jwt.verify(
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            //@ts-ignore
+            token,
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            //@ts-ignore
+            process.env.REACT_APP_SECRET_KEY,
+            function (err: any, decoded: any) {
+              return decoded.id;
+            }
+          );
+          deleteAccount({
+            variables: {
+              id: userId,
+            },
+          });
+          setDeleteAlertShow(false);
+        }}
+        onCancel={() => {
+          setDeleteAlertShow(false);
+        }}
+      >
+        정말로 탈퇴하시겠습니까?
       </SweetAlert>
     </>
   );
