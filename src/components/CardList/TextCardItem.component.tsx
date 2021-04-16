@@ -40,7 +40,7 @@ const TextCardItem = ({ d }: any) => {
             <div className="inner header-items">
               {hasQuestions ? (
                 <>
-                  <div className="content-box2">
+                  <div className="content-box">
                     <div className="start-game">
                       <span>시작하기</span>
                     </div>
@@ -51,7 +51,7 @@ const TextCardItem = ({ d }: any) => {
                   </div>
                 </>
               ) : (
-                <div></div>
+                <></>
               )}
 
               <div className="text-header">
