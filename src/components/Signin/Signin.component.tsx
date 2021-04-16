@@ -109,12 +109,12 @@ const Signin = () => {
       {isLogin ? <Redirect to="/" /> : ""}
       <Container fluid={true}>
         <Row>
-          <Col md={4} lg={4} className="bg-image" />
-          <Col md={8} lg={8}>
+          <Col md={7} lg={8} className="bg-image" />
+          <Col md={8} lg={4}>
             <div className="login d-flex align-items-center py-5">
               <Container>
                 <Row>
-                  <Col md={8} lg={8} className="mx-auto">
+                  <Col md={8} lg={7} className="mx-auto">
                     <h2 className="login-heading mb-4">Welcome !</h2>
                     <Form>
                       <Form.Group controlId="formBasicEmail">
