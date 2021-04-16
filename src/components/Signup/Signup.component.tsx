@@ -71,38 +71,38 @@ const Signup = () => {
     <React.Fragment>
       {signUpOk ? <Redirect to="/login" /> : ""}
       <Container fluid={true}>
-        <Row>
-          <Col md={4} lg={6} className="bg-image2" />
-          <Col md={8} lg={6}>
+        <Row className="signupall">
+          <Col md={4} lg={8} className="bg-image" />
+          <Col md={8} lg={4}>
             <div className="login d-flex align-items-center py-5">
               <Container>
                 <Row>
                   <Col md={9} lg={8} className="mx-auto">
-                    <h3 className="login-heading mb-4">Sign Up</h3>
+                    <h3 className="login-heading mb-4">회원가입</h3>
                     <Form>
                       <Form.Group controlId="formBasicEmail">
-                        <Form.Label>Email</Form.Label>
+                        <Form.Label></Form.Label>
                         <Form.Control
                           type="email"
-                          placeholder="Email"
+                          placeholder="이메일"
                           name="user_email"
                           onChange={(e) => inputHandler(e)}
                         />
                       </Form.Group>
                       <Form.Group controlId="formBasicPassword">
-                        <Form.Label>Password</Form.Label>
+                        <Form.Label></Form.Label>
                         <Form.Control
                           type="password"
-                          placeholder="Password"
+                          placeholder="비밀번호를 입력해주세요"
                           name="user_password"
                           onChange={(e) => inputHandler(e)}
                         />
                       </Form.Group>
                       <Form.Group controlId="formBasicPassword">
-                        <Form.Label>Confirm Password</Form.Label>
+                        <Form.Label></Form.Label>
                         <Form.Control
                           type="password"
-                          placeholder="Password"
+                          placeholder="비밀번호 확인"
                           name="user_confirm_password"
                           onChange={(e) => inputHandler(e)}
                         />
@@ -118,7 +118,7 @@ const Signup = () => {
                         variant="dark"
                         size="lg"
                         block
-                        className="btn-login text-uppercase font-weight-bold mb-2"
+                        className="btn-login text-uppercase font-weight-bold mb-2 w-100"
                         type="submit"
                         onClick={(e) => signupBtnHandler(e)}
                       >

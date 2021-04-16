@@ -152,10 +152,11 @@ const Mypage = () => {
   return (
     <>
       {!isLogin ? <Redirect to="/login" /> : ""}
-      <Row className="justify-content-md-center mt-4 mx-3">
+      <Row className="userinfo justify-content-md-center">
+
       <Col md={7} lg={4} className="bg-image2" />
         <Col md={8}lg={3}className="bg-light rounded pb-4">
-          <Form>
+          <Form className="form">
             <Form.Group controlId="formBasicEmail">
               <br></br>
               <Form.Label>이메일</Form.Label>
@@ -190,11 +191,11 @@ const Mypage = () => {
                 {isPwdOk ? " " : "변경할 패스워드를 입력해주세요"}
               </Form.Label>
             </Form.Group>
-            <Row className="justify-content-between">
+            <Row className="buttons justify-content-between">
             <Button
               variant="dark"
-              size="lg"
-              className="btn-login text-uppercase font-weight-bold mb-4 ml-5 mr-5 w-100"
+              // size="lg"
+              className="btn-login rounded font-weight-bold mb-4 ml-5 mr-5 w-100"
               type="submit"
               onClick={(e) => deleteBtnHandler(e)}
             >
@@ -202,8 +203,8 @@ const Mypage = () => {
               </Button>
               <Button
                 variant="dark"
-                size="lg"
-                className="btn-login2 text-uppercase font-weight-bold mb-3 ml-5 mr-5 w-100"
+                // size="lg"
+                className="btn-login2 font-weight-bold mb-3 ml-5 mr-5 w-100"
                 type="submit"
                 onClick={(e) => modifyBtnHandler(e)}
               >
