@@ -55,6 +55,15 @@ const Signin = () => {
     },
   });
 
+  const onSubmit = (e: any) => {
+    e.preventDefault();
+    login({
+      variables: {
+        email: user_email,
+        password: user_password,
+      },
+    });
+  };
   const signinBtnHandler = (e: any) => {
     e.preventDefault();
     login({
@@ -118,7 +127,7 @@ const Signin = () => {
                 <Row>
                   <Col md={8} lg={7} className="mx-auto">
                     <h2 className="login-heading mb-4">Welcome !</h2>
-                    <Form>
+                    <Form onSubmit={onSubmit}>
                       <Form.Group controlId="formBasicEmail">
                         <Form.Label className="form-label"></Form.Label>
                         <Form.Control
@@ -183,11 +192,14 @@ const Signin = () => {
                         onFailure={responseGoogle}
                         cookiePolicy={"single_host_origin"}
                       />
-                      <p className="text-inverse text-center w-100">
-                        <LinkContainer to="/signup">
-                          <a className=" textlink"> 회원가입</a>
-                        </LinkContainer>
-                      </p>
+                      <LinkContainer to="/signup">
+                        <AwesomeButton
+                          type="link"
+                          className="mt-2 text-inverse w-100 a-urtest font-size-1"
+                        >
+                          회원가입
+                        </AwesomeButton>
+                      </LinkContainer>
                     </Form>
                   </Col>
                 </Row>

@@ -12,6 +12,11 @@
     .card-start-size {
         height: 200px;
     }
+    
+    .title-reposition {
+        margin-top: -1rem;
+        margin-bottom: 0;
+    }
 }
 
 @media (min-width: 576px) {
@@ -25,6 +30,11 @@
     }
     .card-start-size {
         height: 400px;
+    }
+    
+    .title-reposition {
+        margin-top: -1rem;
+        margin-bottom: 1rem;
     }
 }
 
