@@ -22,7 +22,7 @@
   text-align: center;
   display: flex;
   justify-content: center;
-  min-height: 93.5vh;
+  min-height: 88.5vh;
   overflow: hidden;
   background-color: #1f2937;
 }
@@ -48,26 +48,22 @@
 
 .aws-btn.btn-tinder-reset {
   position: relative;
-  left: 20%;
   bottom: 6rem;
 }
 .aws-btn.btn-tinder-viewall {
   position: relative;
-  left: 40%;
   bottom: 6rem;
 }
 .aws-btn.btn-tinder-imglist {
   position: relative;
-  left: 60%;
   bottom: 6rem;
 }
 .aws-btn.btn-tinder-textlist {
   position: relative;
-  left: 80%;
   bottom: 6rem;
 }
-.tinder-btn-wrapper {
-  bottom: 1rem;
+.tinder-wrapper {
+  background-color: #1f2937;
 }
 
 @keyframes popup {
