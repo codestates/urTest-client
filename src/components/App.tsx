@@ -8,6 +8,7 @@ import {
 } from "react-router-dom";
 import { isLoginVar } from "../common/graphql/client";
 import { useReactiveVar } from "@apollo/client";
+import SweetAlert from "react-bootstrap-sweetalert";
 
 // Page ---------------------------------------
 import Home from "./Home/Home.component";
@@ -81,6 +82,8 @@ const ModifyTGameId = () => {
 
 const App = () => {
   const [isSideBarOpen, setSideBarState] = useState(false);
+  const [sweetAlertShow, setSweetAlertShow] = useState(false);
+
   const history = useHistory();
   useEffect(() => {
     const deregisterListener = history.listen(() => {
@@ -92,6 +95,11 @@ const App = () => {
   }, [history]);
 
   const isLogin = useReactiveVar(isLoginVar);
+
+  const needLogin = () => {
+    setSideBarState(false);
+    setSweetAlertShow(true);
+  };
 
   const logoutHandler = () => {
     localStorage.removeItem("token");
@@ -137,22 +145,38 @@ const App = () => {
               </LinkContainer>
             </Nav.Item> */}
             <Nav.Item>
-              <LinkContainer to="/mytest">
-                <Nav.Link>나의 테스트</Nav.Link>
-              </LinkContainer>
+              {isLogin ? (
+                <LinkContainer to="/mytest">
+                  <Nav.Link>나의 테스트</Nav.Link>
+                </LinkContainer>
+              ) : (
+                <Nav.Link onClick={needLogin}>나의테스트</Nav.Link>
+              )}
             </Nav.Item>
             <Nav.Item>
-              <LinkContainer to="/mypage">
-                <Nav.Link>정보수정</Nav.Link>
-              </LinkContainer>
+              {isLogin ? (
+                <LinkContainer to="/mypage">
+                  <Nav.Link>정보수정</Nav.Link>
+                </LinkContainer>
+              ) : (
+                <Nav.Link onClick={needLogin}>정보수정</Nav.Link>
+              )}
             </Nav.Item>
-            <LinkContainer to="/">
-              <Nav.Link>즐겨찾기</Nav.Link>
-            </LinkContainer>
-            <Nav.Item>
-              <LinkContainer to="/multistep">
-                <Nav.Link>테스트 만들기</Nav.Link>
+            {isLogin ? (
+              <LinkContainer to="/">
+                <Nav.Link>즐겨찾기</Nav.Link>
               </LinkContainer>
+            ) : (
+              <Nav.Link onClick={needLogin}>즐겨찾기</Nav.Link>
+            )}
+            <Nav.Item>
+              {isLogin ? (
+                <LinkContainer to="/multistep">
+                  <Nav.Link>테스트 만들기</Nav.Link>
+                </LinkContainer>
+              ) : (
+                <Nav.Link onClick={needLogin}>테스트 만들기</Nav.Link>
+              )}
             </Nav.Item>
             <Nav.Item>
               {isLogin ? (
@@ -179,15 +203,39 @@ const App = () => {
           <Route path="/searchlist" component={SearchList} />
           <Route path="/login" component={Signin} />
           <Route path="/signup" component={Signup} />
-          <Route path="/multistep" component={Multistep} />
-          <Route path="/mypage" component={Mypage} />
-          <Route path="/mytest" component={MyTest} />
-          <Route path="/modifytest/:id/" component={ModifyGameId} />
-          <Route path="/modifytext/:id/" component={ModifyTGameId} />
+          {isLogin ? (
+            <>
+              <Route path="/multistep" component={Multistep} />
+              <Route path="/mypage" component={Mypage} />
+              <Route path="/mytest" component={MyTest} />
+              <Route path="/modifytest/:id/" component={ModifyGameId} />
+              <Route path="/modifytext/:id/" component={ModifyTGameId} />
+            </>
+          ) : (
+            <></>
+          )}
           <Route path="/*">
             <NoMatch />
           </Route>
         </Switch>
+        <SweetAlert
+          show={sweetAlertShow}
+          showConfirm={false}
+          success
+          title="로그인이 필요해요"
+          onConfirm={() => {
+            history.push("/login");
+            setSweetAlertShow(false);
+            return;
+          }}
+          onCancel={() => {
+            history.push("/login");
+            setSweetAlertShow(false);
+            return;
+          }}
+        >
+          기다리고 있을게요!
+        </SweetAlert>
       </div>
     </>
   );

@@ -17,7 +17,7 @@
   height: 93vh;
 }
 body {
-  overflow-y: scroll;
+  // overflow-y: scroll;
 }
 
 .btn-dark {
@@ -41,13 +41,6 @@ body {
 
 .btn-info {
   background-color: #3d96a2 !important;
-}
-.textlink {
-  color: #3d96a2 !important;
-}
-.textlink:hover {
-  text-decoration: none;
-  color: #2c717a !important;
 }
 
 .bg-image4 {
