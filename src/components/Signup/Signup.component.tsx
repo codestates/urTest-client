@@ -72,7 +72,7 @@ const Signup = () => {
     <React.Fragment>
       {signUpOk ? <Redirect to="/login" /> : ""}
       <Container fluid={true}>
-        <Row >
+        <Row  className="signup-dwn">
           <Col md={7} lg={8} className="up-image" />
           <Col md={8} lg={4}>
             <div className="login d-flex align-items-center py-5">
