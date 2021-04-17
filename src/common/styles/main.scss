@@ -6,6 +6,10 @@
   font-weight: 100;
 }
 
+.vh-89 {
+  height: 89vh;
+}
+
 .vh-92 {
   height: 92vh;
 }
@@ -44,4 +48,10 @@ body {
 .textlink:hover {
   text-decoration: none;
   color: #2C717A !important;
+}
+
+.bg-image4 {
+  background-image: url("404.svg");
+  background-size: cover;
+  background-position: center;
 }

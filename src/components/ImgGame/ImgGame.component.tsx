@@ -212,67 +212,69 @@ const ImgGame = (props: any) => {
   return (
     <>
       {start ? (
-        <Modal.Dialog>
-          <Modal.Header>
-            <Modal.Title>
-              {title} {count}강
-            </Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <Button
-              variant="outline-dark"
-              onClick={() => fourCountHandler()}
-              style={{ margin: "4px" }}
-            >
-              4강
-            </Button>
-            <Button
-              variant="outline-dark"
-              onClick={() => eightCountHandler()}
-              style={{ margin: "4px" }}
-            >
-              8강
-            </Button>
-          </Modal.Body>
-          <Modal.Footer>
-            {isLogin ? (
-              bookMark ? (
-                <Button
-                  variant="dark"
-                  onClick={deleteBookMarkBtnHandler}
-                  style={{ margin: "4px" }}
-                >
-                  <Heart />
-                </Button>
+        <Container fluid className="mt-5 vh-89">
+          <Modal.Dialog>
+            <Modal.Header>
+              <Modal.Title>
+                {title} {count}강
+              </Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <Button
+                variant="outline-dark"
+                onClick={() => fourCountHandler()}
+                style={{ margin: "4px" }}
+              >
+                4강
+              </Button>
+              <Button
+                variant="outline-dark"
+                onClick={() => eightCountHandler()}
+                style={{ margin: "4px" }}
+              >
+                8강
+              </Button>
+            </Modal.Body>
+            <Modal.Footer>
+              {isLogin ? (
+                bookMark ? (
+                  <Button
+                    variant="dark"
+                    onClick={deleteBookMarkBtnHandler}
+                    style={{ margin: "4px" }}
+                  >
+                    <Heart />
+                  </Button>
+                ) : (
+                  <Button
+                    variant="outline-dark"
+                    onClick={bookMarkBtnHandler}
+                    style={{ margin: "4px" }}
+                  >
+                    <Heart />
+                  </Button>
+                )
               ) : (
-                <Button
-                  variant="outline-dark"
-                  onClick={bookMarkBtnHandler}
-                  style={{ margin: "4px" }}
-                >
-                  <Heart />
-                </Button>
-              )
-            ) : (
-              <LinkContainer to="/login">
+                <LinkContainer to="/login">
+                  <Button variant="outline-dark">
+                    <Heart />
+                  </Button>
+                </LinkContainer>
+              )}
+              <LinkContainer to={`/analytics/${+props.gameid}/`}>
                 <Button variant="outline-dark">
-                  <Heart />
+                  <Trophy />
                 </Button>
               </LinkContainer>
-            )}
-            <LinkContainer to={`/analytics/${+props.gameid}/`}>
-              <Button variant="outline-dark">
-                <Trophy />
+              <Button variant="outline-dark" onClick={() => copyHandler()}>
+                <ShareFill />
               </Button>
-            </LinkContainer>
-            <Button variant="outline-dark" onClick={() => copyHandler()}>
-              <ShareFill />
-            </Button>
-            <Button variant="outline-dark" onClick={() => modalHandler()}>
-              시작하기
-            </Button>
-          </Modal.Footer>
-        </Modal.Dialog>
+              <Button variant="outline-dark" onClick={() => modalHandler()}>
+                시작하기
+              </Button>
+            </Modal.Footer>
+          </Modal.Dialog>
+        </Container>
       ) : (
         <Container className="mt-5">
           <h1 className="header-text mb-3">

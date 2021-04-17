@@ -1,0 +1,55 @@
+.aws-btn {
+
+  --button-default-height: 2.7rem;
+  --button-default-font-size: 1.2rem;
+  --button-default-border-radius: 0.5rem;
+  --button-horizontal-padding: 0.2rem;
+  --button-raise-level: 0.3rem;
+  --button-hover-pressure: 2;
+  --transform-speed: 0.185s;
+  --button-primary-color: #3f3d57;
+  --button-primary-color-dark: #2f2e41;
+  --button-primary-color-light: #ffffff;
+  --button-primary-color-hover: #3f3d57;
+  --button-primary-color-active: #3f3d57;
+  --button-primary-border: none;
+  --button-secondary-color: #4bb5c3;
+  --button-secondary-color-dark: #3d96a2;
+  --button-secondary-color-light: #ffffff;
+  --button-secondary-color-hover: #4bb5c3;
+  --button-secondary-color-active: #4bb5c3;
+  --button-secondary-border: none;
+  --button-anchor-color: #ffffff;
+  --button-anchor-color-dark: #2f2e41;
+  --button-anchor-color-light: #2f2e41;
+  --button-anchor-color-hover: #ffffff;
+  --button-anchor-color-active: #ffffff;
+  --button-anchor-border: 0px solid #ffffff;
+  }
+
+.btn.btn-urtest {
+  color:#fff;
+  font-size: 1.2rem;
+}
+.btn.btn-urtest:focus {
+  color:#fff;
+  box-shadow: none;
+}
+
+.btn.btn-urtest:hover {
+  color:#fff;
+}
+
+.btn.btn-urtest:active {
+  color:#fff;
+}
+
+.font-size-1-1 {
+  font-size: 1.1rem;
+}
+.font-size-1-2 {
+  font-size: 1.2rem;
+}
+.font-size-1-3 {
+  font-size: 1.3rem;
+}
