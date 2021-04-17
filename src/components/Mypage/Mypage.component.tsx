@@ -153,7 +153,8 @@ const Mypage = () => {
     <>
       {!isLogin ? <Redirect to="/login" /> : ""}
       <Container className="vh-92">
-        <Row className="justify-content-md-center mt-4 mx-3">
+        <Container className="mypage-point" >
+        <Row className=" justify-content-md-center mt-4 mx-3">
           <Col md={5} lg={8} className="bg-image2" />
           <Col md={7} lg={4} className="rounded pb-4">
             <Form>
@@ -216,6 +217,7 @@ const Mypage = () => {
             </Form>
           </Col>
         </Row>
+        </Container>
       </Container>
       <SweetAlert
         show={sweetAlertShow}
