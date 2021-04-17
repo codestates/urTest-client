@@ -145,18 +145,30 @@ const App = () => {
               </LinkContainer>
             </Nav.Item> */}
             <Nav.Item>
-              <LinkContainer to="/mytest">
-                <Nav.Link>나의 테스트</Nav.Link>
-              </LinkContainer>
+              {isLogin ? (
+                <LinkContainer to="/mytest">
+                  <Nav.Link>나의 테스트</Nav.Link>
+                </LinkContainer>
+              ) : (
+                <Nav.Link onClick={needLogin}>나의테스트</Nav.Link>
+              )}
             </Nav.Item>
             <Nav.Item>
-              <LinkContainer to="/mypage">
-                <Nav.Link>정보수정</Nav.Link>
-              </LinkContainer>
+              {isLogin ? (
+                <LinkContainer to="/mypage">
+                  <Nav.Link>정보수정</Nav.Link>
+                </LinkContainer>
+              ) : (
+                <Nav.Link onClick={needLogin}>정보수정</Nav.Link>
+              )}
             </Nav.Item>
-            <LinkContainer to="/">
-              <Nav.Link>즐겨찾기</Nav.Link>
-            </LinkContainer>
+            {isLogin ? (
+              <LinkContainer to="/">
+                <Nav.Link>즐겨찾기</Nav.Link>
+              </LinkContainer>
+            ) : (
+              <Nav.Link onClick={needLogin}>즐겨찾기</Nav.Link>
+            )}
             <Nav.Item>
               {isLogin ? (
                 <LinkContainer to="/multistep">
@@ -191,11 +203,17 @@ const App = () => {
           <Route path="/searchlist" component={SearchList} />
           <Route path="/login" component={Signin} />
           <Route path="/signup" component={Signup} />
-          <Route path="/multistep" component={Multistep} />
-          <Route path="/mypage" component={Mypage} />
-          <Route path="/mytest" component={MyTest} />
-          <Route path="/modifytest/:id/" component={ModifyGameId} />
-          <Route path="/modifytext/:id/" component={ModifyTGameId} />
+          {isLogin ? (
+            <>
+              <Route path="/multistep" component={Multistep} />
+              <Route path="/mypage" component={Mypage} />
+              <Route path="/mytest" component={MyTest} />
+              <Route path="/modifytest/:id/" component={ModifyGameId} />
+              <Route path="/modifytext/:id/" component={ModifyTGameId} />
+            </>
+          ) : (
+            <></>
+          )}
           <Route path="/*">
             <NoMatch />
           </Route>
@@ -216,7 +234,7 @@ const App = () => {
             return;
           }}
         >
-          재밌는 기능들이 기다리고 있어요!
+          기다리고 있을게요!
         </SweetAlert>
       </div>
     </>
