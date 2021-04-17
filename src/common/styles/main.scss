@@ -1,9 +1,13 @@
 .main {
   position: relative;
-  top: 107px;
+  top: 40px;
   height: 100%;
   font-family: "BGR-B", sans-serif;
   font-weight: 100;
+}
+
+.vh-89 {
+  height: 89vh;
 }
 
 .vh-92 {
@@ -43,5 +47,11 @@ body {
 }
 .textlink:hover {
   text-decoration: none;
-  color: #2c717a !important;
+  color: #2C717A !important;
+}
+
+.bg-image4 {
+  background-image: url("404.svg");
+  background-size: cover;
+  background-position: center;
 }

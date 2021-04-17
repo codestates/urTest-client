@@ -41,7 +41,7 @@ const ImgCardItem = ({ d }: any) => {
           transform: `rotate(${Math.random() * (5 - -5) + -5}deg)`,
         }}
       >
-        <div className="inner header-items ">
+        <div className="inner header-items">
           {hasPhotos ? (
             <>
               <div className="content-box">

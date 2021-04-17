@@ -27,7 +27,7 @@ import ModifyTest from "./ModifyTest/ModifyTest.component";
 import MyTest from "./MyTest/MyTest.component";
 import ModifyTestT from "./ModifyTest/ModifyTestT.component";
 // bootstrap ---------------------------
-import { Nav, Navbar, Col } from "react-bootstrap";
+import { Nav, Navbar, Col, Row, Container } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 
 const SideDrawerBrand = () => (
@@ -40,11 +40,11 @@ const NoMatch = () => {
   const location = useLocation();
 
   return (
-    <div>
-      <h3 className="no-match">
-        <code>{location.pathname}</code> 페이지가 존재하지 않습니다.
-      </h3>
-    </div>
+    <Container fluid className="vh-93">
+      <Row className="h-100">
+        <Col className="bg-image4"></Col>
+      </Row>
+    </Container>
   );
 };
 
