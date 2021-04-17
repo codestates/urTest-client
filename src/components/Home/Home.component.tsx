@@ -11,7 +11,7 @@ import TextCardItem from "../CardList/TextCardItem.component";
 import ImgCardItem from "../CardList/ImgCardItem.component";
 import TinderImgCardItem from "../CardList/TinderImgCard.component";
 import TinderTextCardItem from "../CardList/TinderTextCard.component";
-import { Container } from "react-bootstrap";
+import { Container, Button, Row } from "react-bootstrap";
 import { gql, useQuery, useReactiveVar } from "@apollo/client";
 import { searchState } from "../../common/graphql/client";
 import Loading from "../Loading/Loading";
@@ -21,6 +21,10 @@ import "swiper/components/effect-fade/effect-fade.scss";
 import TextList from "../TextList/TextList.component";
 import Fade from "react-reveal/Fade";
 import TinderCard from "react-tinder-card";
+import { Fade as Afade } from "react-awesome-reveal";
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//@ts-ignore
+import { AwesomeButton } from "react-awesome-button";
 
 SwiperCore.use([Navigation, Pagination, Scrollbar, A11y, EffectFade]);
 
@@ -45,7 +49,7 @@ const Home = () => {
       }
     }
   `;
-  const [viewAll, setViewAll] = useState(true);
+  const [viewAll, setViewAll] = useState(false);
   const [contents, setContents] = useState([] as any);
   const [btnState, setBtnState] = useState("all" as string);
   // tinder ---------
@@ -115,23 +119,9 @@ const Home = () => {
     );
     // setCharacters(charactersState);
   };
-
-  // const swipe = (dir: any) => {
-  //   const cardsLeft = characters.filter(
-  //     (person: any) => !alreadyRemoved.includes(person.name)
-  //   );
-  //   if (cardsLeft.length) {
-  //     const toBeRemoved = cardsLeft[cardsLeft.length - 1].name; // Find the card object to be removed
-  //     const index = contents
-  //       .map((person: any) => person.name)
-  //       .indexOf(toBeRemoved); // Find the index of which to make the reference to
-  //     alreadyRemoved.push(toBeRemoved); // Make sure the next card gets removed next time if this card do not have time to exit the screen
-  //     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  //     // @ts-ignore
-  //     childRefs[index].current.swipe(dir); // Swipe the card!
-  //   }
-  // };
-
+  const tinderViewAllBtnHandler = (e: any) => {
+    console.log(e);
+  };
   return (
     <>
       {filterdItem.length === 0 ? (
@@ -139,39 +129,102 @@ const Home = () => {
       ) : (
         <>
           {!viewAll ? (
-            <div className="tinder-root">
-              <div className="tinder-div1">
-                <div className="tinder-div2">
-                  <div className="tinder-card-container">
-                    {characters.map((character: any, index: any) => (
-                      <>
-                        <TinderCard
-                          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                          // @ts-ignore
-                          ref={childRefs[index]}
-                          className="swipe"
-                          key={character.id}
-                          onSwipe={(dir) => swiped(dir, character.id)}
-                          onCardLeftScreen={() => outOfFrame(character.id)}
-                        >
-                          {character.photos.length === 0 ? (
-                            <TinderTextCardItem
-                              d={character}
-                              className="tinder-card animate__pulse"
-                            />
-                          ) : (
-                            <TinderImgCardItem
-                              d={character}
-                              className="tinder-card"
-                            />
-                          )}
-                        </TinderCard>
-                      </>
-                    ))}
+            <>
+              <div className="tinder-root">
+                <div className="tinder-div1">
+                  <div className="tinder-div2">
+                    <div className="tinder-card-container">
+                      {characters.map((character: any, index: any) => (
+                        <>
+                          <TinderCard
+                            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                            // @ts-ignore
+                            ref={childRefs[index]}
+                            className="swipe"
+                            key={character.id}
+                            onSwipe={(dir) => swiped(dir, character.id)}
+                            onCardLeftScreen={() => outOfFrame(character.id)}
+                          >
+                            {character.photos.length === 0 ? (
+                              <TinderTextCardItem
+                                d={character}
+                                className="tinder-card animate__pulse"
+                              />
+                            ) : (
+                              <TinderImgCardItem
+                                d={character}
+                                className="tinder-card"
+                              />
+                            )}
+                          </TinderCard>
+                        </>
+                      ))}
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
+              <Row className="position-absolute tinder-btn-wrapper w-100">
+                <Afade direction="up" cascade triggerOnce>
+                  <AwesomeButton
+                    type="link"
+                    className="font-jua pd-0 btn-tinder-reset"
+                  >
+                    <Button
+                      variant="tinder-urtest"
+                      type="button"
+                      onClick={(e) => tinderViewAllBtnHandler(e)}
+                    >
+                      test1
+                    </Button>
+                  </AwesomeButton>
+                  <AwesomeButton
+                    type="link"
+                    className="font-jua pd-0 btn-tinder-viewall"
+                  >
+                    <Button
+                      variant="tinder-urtest"
+                      // size="lg"
+                      // block
+
+                      type="button"
+                      onClick={(e) => tinderViewAllBtnHandler(e)}
+                    >
+                      test1
+                    </Button>
+                  </AwesomeButton>
+                  <AwesomeButton
+                    type="link"
+                    className="font-jua pd-0 btn-tinder-imglist"
+                  >
+                    <Button
+                      variant="tinder-urtest"
+                      // size="lg"
+                      // block
+
+                      type="button"
+                      onClick={(e) => tinderViewAllBtnHandler(e)}
+                    >
+                      test1
+                    </Button>
+                  </AwesomeButton>
+                  <AwesomeButton
+                    type="link"
+                    className="font-jua pd-0 btn-tinder-textlist"
+                  >
+                    <Button
+                      variant="tinder-urtest"
+                      // size="lg"
+                      // block
+
+                      type="button"
+                      onClick={(e) => tinderViewAllBtnHandler(e)}
+                    >
+                      test1
+                    </Button>
+                  </AwesomeButton>
+                </Afade>
+              </Row>
+            </>
           ) : contents.item === 0 ? (
             <Loading />
           ) : (

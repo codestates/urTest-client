@@ -1,8 +1,5 @@
-
-
 .swipe {
   position: absolute;
-  
 }
 
 .tinder-card-container {
@@ -27,7 +24,7 @@
   justify-content: center;
   min-height: 93.5vh;
   overflow: hidden;
-  background-color: #1F2937;
+  background-color: #1f2937;
 }
 
 .tinder-div1 {
@@ -49,12 +46,50 @@
   height: 100%;
 }
 
+.aws-btn.btn-tinder-reset {
+  position: relative;
+  left: 20%;
+  bottom: 6rem;
+}
+.aws-btn.btn-tinder-viewall {
+  position: relative;
+  left: 40%;
+  bottom: 6rem;
+}
+.aws-btn.btn-tinder-imglist {
+  position: relative;
+  left: 60%;
+  bottom: 6rem;
+}
+.aws-btn.btn-tinder-textlist {
+  position: relative;
+  left: 80%;
+  bottom: 6rem;
+}
+.tinder-btn-wrapper {
+  bottom: 1rem;
+}
+
 @keyframes popup {
-  0%   { transform: scale(1,1) }
-  10%  { transform: scale(1.1,1.1) }
-  30%  { transform: scale(.9,.9) }
-  50%  { transform: scale(1,1) }
-  57%  { transform: scale(1,1) }
-  64%  { transform: scale(1,1) }
-  100% { transform: scale(1,1) }
+  0% {
+    transform: scale(1, 1);
+  }
+  10% {
+    transform: scale(1.1, 1.1);
+  }
+  30% {
+    transform: scale(0.9, 0.9);
+  }
+  50% {
+    transform: scale(1, 1);
+  }
+  57% {
+    transform: scale(1, 1);
+  }
+  64% {
+    transform: scale(1, 1);
+  }
+  100% {
+    transform: scale(1, 1);
+  }
 }
