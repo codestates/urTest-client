@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { Container, Card, CardDeck, Modal, Button } from "react-bootstrap";
+import React, { useState } from "react";
+import { Container, Card, CardDeck, Button, Row, Col } from "react-bootstrap";
 import { gql, useQuery, useMutation, useReactiveVar } from "@apollo/client";
 import { isLoginVar } from "../../common/graphql/client";
 import { LinkContainer } from "react-router-bootstrap";
@@ -234,100 +234,117 @@ const ImgGame = (props: any) => {
   return (
     <>
       {start ? (
-        <Modal.Dialog>
-          <Modal.Header>
-            <Modal.Title>
-              {title} {count}강
-            </Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            {console.log(Data.photos)}
-            {Data.length !== 0 && Data.photos.length >= 4 ? (
-              <Button
-                variant="outline-dark"
-                onClick={() => fourCountHandler()}
-                style={{ margin: "4px" }}
-              >
-                4강
-              </Button>
-            ) : (
-              ""
-            )}
-            {Data.length !== 0 && Data.photos.length >= 8 ? (
-              <Button
-                variant="outline-dark"
-                onClick={() => eightCountHandler()}
-                style={{ margin: "4px" }}
-              >
-                8강
-              </Button>
-            ) : (
-              ""
-            )}
-            {Data.length !== 0 && Data.photos.length >= 16 ? (
-              <Button
-                variant="outline-dark"
-                onClick={() => oneTwoCountHandler()}
-                style={{ margin: "4px" }}
-              >
-                16강
-              </Button>
-            ) : (
-              ""
-            )}
-            {Data.length !== 0 && Data.photos.length >= 32 ? (
-              <Button
-                variant="outline-dark"
-                onClick={() => threeTwoCountHandler()}
-                style={{ margin: "4px" }}
-              >
-                32강
-              </Button>
-            ) : (
-              ""
-            )}
-            {Data.length !== 0 && Data.photos.length >= 64 ? (
-              <Button
-                variant="outline-dark"
-                onClick={() => sixFourCountHandler()}
-                style={{ margin: "4px" }}
-              >
-                64강
-              </Button>
-            ) : (
-              ""
-            )}
-          </Modal.Body>
-          <Modal.Footer>
-            {isLogin ? (
-              bookMark ? (
-                <Button
-                  variant="dark"
-                  onClick={deleteBookMarkBtnHandler}
-                  style={{ margin: "4px" }}
-                >
-                  <Heart />
-                </Button>
-              ) : (
-                <LinkContainer to="/login">
-                  <Button variant="outline-dark">
-                    <Heart />
+        <Container fluid>
+          <Row className="vh-93">
+            <Col className=" bg-image-imggame"></Col>
+            <Col>
+              <Card>
+                <Card.Header>
+                  {title} {count}강
+                </Card.Header>
+                <Card.Body>
+                  <Card.Text>
+                    {Data.length !== 0 && Data.photos.length >= 4 ? (
+                      <Button
+                        variant="outline-dark"
+                        onClick={() => fourCountHandler()}
+                        style={{ margin: "4px" }}
+                      >
+                        4강
+                      </Button>
+                    ) : (
+                      ""
+                    )}
+                    {Data.length !== 0 && Data.photos.length >= 8 ? (
+                      <Button
+                        variant="outline-dark"
+                        onClick={() => eightCountHandler()}
+                        style={{ margin: "4px" }}
+                      >
+                        8강
+                      </Button>
+                    ) : (
+                      ""
+                    )}
+                    {Data.length !== 0 && Data.photos.length >= 16 ? (
+                      <Button
+                        variant="outline-dark"
+                        onClick={() => oneTwoCountHandler()}
+                        style={{ margin: "4px" }}
+                      >
+                        16강
+                      </Button>
+                    ) : (
+                      ""
+                    )}
+                    {Data.length !== 0 && Data.photos.length >= 32 ? (
+                      <Button
+                        variant="outline-dark"
+                        onClick={() => threeTwoCountHandler()}
+                        style={{ margin: "4px" }}
+                      >
+                        32강
+                      </Button>
+                    ) : (
+                      ""
+                    )}
+                    {Data.length !== 0 && Data.photos.length >= 64 ? (
+                      <Button
+                        variant="outline-dark"
+                        onClick={() => sixFourCountHandler()}
+                        style={{ margin: "4px" }}
+                      >
+                        64강
+                      </Button>
+                    ) : (
+                      ""
+                    )}
+                  </Card.Text>
+                  <Card.Text>
+                    {isLogin ? (
+                      bookMark ? (
+                        <Button
+                          variant="dark"
+                          onClick={deleteBookMarkBtnHandler}
+                        >
+                          <Heart />
+                        </Button>
+                      ) : (
+                        <Button
+                          variant="outline-dark"
+                          onClick={bookMarkBtnHandler}
+                        >
+                          <Heart />
+                        </Button>
+                      )
+                    ) : (
+                      <LinkContainer to="/login">
+                        <Button variant="outline-dark">
+                          <Heart />
+                        </Button>
+                      </LinkContainer>
+                    )}
+                    <LinkContainer to={`/analytics/${+props.gameid}/`}>
+                      <Button variant="outline-dark">
+                        <Trophy />
+                      </Button>
+                    </LinkContainer>
+                    <Button
+                      variant="outline-dark"
+                      onClick={() => copyHandler()}
+                    >
+                      <ShareFill />
+                    </Button>
+                  </Card.Text>
+                </Card.Body>
+                <Card.Footer>
+                  <Button variant="outline-dark" onClick={() => modalHandler()}>
+                    시작하기
                   </Button>
-                </LinkContainer>
-              )}
-              <LinkContainer to={`/analytics/${+props.gameid}/`}>
-                <Button variant="outline-dark">
-                  <Trophy />
-                </Button>
-              </LinkContainer>
-              <Button variant="outline-dark" onClick={() => copyHandler()}>
-                <ShareFill />
-              </Button>
-              <Button variant="outline-dark" onClick={() => modalHandler()}>
-                시작하기
-              </Button>
-            </Modal.Footer>
-          </Modal.Dialog>
+                </Card.Footer>
+              </Card>
+            </Col>
+          </Row>
         </Container>
       ) : (
         <Container className="mt-5" style={{ textAlign: "center" }}>
