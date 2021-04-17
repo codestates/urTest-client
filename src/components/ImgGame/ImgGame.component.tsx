@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Container, Card, CardDeck, Button, Row, Col } from "react-bootstrap";
+import { Container, Card, CardDeck, Button, Alert } from "react-bootstrap";
 import { gql, useQuery, useMutation, useReactiveVar } from "@apollo/client";
 import { isLoginVar } from "../../common/graphql/client";
 import { LinkContainer } from "react-router-bootstrap";
@@ -9,6 +9,9 @@ import jwt from "jsonwebtoken";
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 //@ts-ignore
 import { AwesomeButton } from "react-awesome-button";
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//@ts-ignore
+import { CopyToClipboard } from "react-copy-to-clipboard";
 
 const ImgGame = (props: any) => {
   // 전역 변수
@@ -90,6 +93,7 @@ const ImgGame = (props: any) => {
   const [doubleClick, setDoubleClick] = useState(true);
   const [bookMark, setBookMark] = useState(Boolean);
   const [userBookMark, setUserBookMark] = useState([] as any);
+  const [share, setShare] = useState(false);
 
   const startHandler = () => {
     setStart(false);
@@ -186,7 +190,8 @@ const ImgGame = (props: any) => {
   };
 
   const copyHandler = () => {
-    alert(`https://urtest.shop${location.pathname}`);
+    setTimeout(() => setShare(true), 100);
+    setTimeout(() => setShare(false), 700);
   };
 
   const bookMarkBtnHandler = () => {
@@ -195,7 +200,6 @@ const ImgGame = (props: any) => {
         id: +props.gameid,
       },
     });
-    alert("즐겨찾기가 추가 되었습니다.");
     setBookMark(true);
     return;
   };
@@ -224,7 +228,6 @@ const ImgGame = (props: any) => {
         id: result,
       },
     });
-    alert("즐겨찾기가 삭제 되었습니다.");
     setBookMark(false);
     return;
   };
@@ -275,10 +278,16 @@ const ImgGame = (props: any) => {
                     </AwesomeButton>
                   </LinkContainer>
                   <AwesomeButton type="secondary" className="m-1">
-                    <Button variant="urtest" onClick={() => copyHandler()}>
-                      <ShareFill />
-                    </Button>
+                    <CopyToClipboard
+                      text={`https://urtest.shop${location.pathname}`}
+                      onCopy={() => copyHandler()}
+                    >
+                      <Button variant="urtest">
+                        <ShareFill />
+                      </Button>
+                    </CopyToClipboard>
                   </AwesomeButton>
+                  {share ? <span> 클립보드에 복사되었습니다.</span> : ""}
                 </Card.Text>
                 <Card.Text className="card-start-title">{Data.title}</Card.Text>
                 <Card.Text className="card-start-title h-10">
@@ -359,6 +368,7 @@ const ImgGame = (props: any) => {
               </Card.Body>
             </Card>
           </CardDeck>
+          {/* <Alert variant="secondary">{`https://urtest.shop${location.pathname}`}</Alert> */}
         </Container>
       ) : (
         <Container className="mt-5" style={{ textAlign: "center" }}>
@@ -443,10 +453,16 @@ const ImgGame = (props: any) => {
                 </AwesomeButton>
               </LinkContainer>
               <AwesomeButton type="primary" className="m-1">
-                <Button variant="urtest" onClick={() => copyHandler()}>
-                  <ShareFill />
-                </Button>
+                <CopyToClipboard
+                  text={`https://urtest.shop${location.pathname}`}
+                  onCopy={() => copyHandler()}
+                >
+                  <Button variant="urtest">
+                    <ShareFill />
+                  </Button>
+                </CopyToClipboard>
               </AwesomeButton>
+              {share ? <span> 클립보드에 복사되었습니다.</span> : ""}
             </div>
           ) : (
             ""
