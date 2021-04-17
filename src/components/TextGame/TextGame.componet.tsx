@@ -2,10 +2,16 @@ import React, { useState } from "react";
 import { gql, useQuery, useMutation, useReactiveVar } from "@apollo/client";
 import { isLoginVar } from "../../common/graphql/client";
 import { LinkContainer } from "react-router-bootstrap";
-import { Container, Card, CardDeck, Button, Nav } from "react-bootstrap";
+import { Container, Card, CardDeck, Button } from "react-bootstrap";
 import { useLocation } from "react-router-dom";
-import { ShareFill, Heart, Trophy } from "react-bootstrap-icons";
+import { ShareFill, Heart, HeartFill, Trophy } from "react-bootstrap-icons";
 import jwt from "jsonwebtoken";
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//@ts-ignore
+import { AwesomeButton } from "react-awesome-button";
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//@ts-ignore
+import { CopyToClipboard } from "react-copy-to-clipboard";
 
 const TextGame = (props: any) => {
   // 전역 변수
@@ -81,6 +87,7 @@ const TextGame = (props: any) => {
   const [lastPick, setLastPick] = useState(false);
   const [bookMark, setBookMark] = useState(Boolean);
   const [userBookMark, setUserBookMark] = useState([] as any);
+  const [share, setShare] = useState(false);
 
   const { refetch } = useQuery(GET_CONTENTS, {
     variables: {
@@ -145,7 +152,8 @@ const TextGame = (props: any) => {
   };
 
   const copyHandler = () => {
-    alert(`https:urtest.shop${location.pathname}`);
+    setTimeout(() => setShare(true), 100);
+    setTimeout(() => setShare(false), 700);
   };
 
   const bookMarkBtnHandler = () => {
@@ -197,32 +205,48 @@ const TextGame = (props: any) => {
           <div style={{ textAlign: "left" }}>
             {isLogin ? (
               bookMark ? (
-                <Button variant="dark" onClick={deleteBookMarkBtnHandler}>
-                  <Heart />
-                </Button>
+                <AwesomeButton type="link" className="m-1">
+                  <Button
+                    variant="urtest"
+                    onClick={() => deleteBookMarkBtnHandler()}
+                  >
+                    <HeartFill />
+                  </Button>
+                </AwesomeButton>
               ) : (
-                <Button variant="outline-dark" onClick={bookMarkBtnHandler}>
-                  <Heart />
-                </Button>
+                <AwesomeButton type="primary" className="m-1">
+                  <Button variant="urtest" onClick={() => bookMarkBtnHandler()}>
+                    <Heart />
+                  </Button>
+                </AwesomeButton>
               )
             ) : (
               <LinkContainer to="/login">
-                <Button variant="outline-dark">
-                  <Heart />
-                </Button>
+                <AwesomeButton type="primary" className="m-1">
+                  <Button variant="urtest">
+                    <Heart />
+                  </Button>
+                </AwesomeButton>
               </LinkContainer>
             )}
-            <LinkContainer
-              to={`/analytics/${+props.gameid}/`}
-              style={{ margin: "4px" }}
-            >
-              <Button variant="outline-dark">
-                <Trophy />
-              </Button>
+            <LinkContainer to={`/analytics/${+props.gameid}/`}>
+              <AwesomeButton type="primary" className="m-1">
+                <Button variant="urtest">
+                  <Trophy />
+                </Button>
+              </AwesomeButton>
             </LinkContainer>
-            <Button variant="outline-dark" onClick={() => copyHandler()}>
-              <ShareFill />
-            </Button>
+            <AwesomeButton type="primary" className="m-1">
+              <CopyToClipboard
+                text={`https://urtest.shop${location.pathname}`}
+                onCopy={() => copyHandler()}
+              >
+                <Button variant="urtest">
+                  <ShareFill />
+                </Button>
+              </CopyToClipboard>
+            </AwesomeButton>
+            {share ? <span> 클립보드에 복사되었습니다.</span> : ""}
           </div>
           {lastPick ? (
             <Card>
@@ -230,30 +254,32 @@ const TextGame = (props: any) => {
             </Card>
           ) : (
             <>
-              <h1>{questions[0].questionBody}</h1>
-              <Button onClick={() => ratingHandler()}>선택률 보기</Button>
+              <h1 className="textgame-title font-jua m-5">
+                {questions[0].questionBody}
+              </h1>
               <CardDeck>
                 {answers.map((pick: any) => {
                   return (
-                    <Card
-                      key={pick.id}
-                      onClick={() => clickHandler(pick)}
-                      className="card-size"
-                    >
-                      <Card.Text>{pick.body}</Card.Text>
-                      {rating ? (
-                        <Card.Text>{`선택률 ${(
-                          (pick.winCount /
-                            (answers[0].winCount + answers[1].winCount)) *
-                          100
-                        ).toFixed(2)}%`}</Card.Text>
-                      ) : (
-                        ""
-                      )}
+                    <Card key={pick.id} onClick={() => clickHandler(pick)}>
+                      <Card.Body>
+                        <Card.Text className="textgame-answer">
+                          {pick.body}
+                        </Card.Text>
+                        {rating ? (
+                          <Card.Text>{`선택률 ${(
+                            (pick.winCount /
+                              (answers[0].winCount + answers[1].winCount)) *
+                            100
+                          ).toFixed(2)}%`}</Card.Text>
+                        ) : (
+                          ""
+                        )}
+                      </Card.Body>
                     </Card>
                   );
                 })}
               </CardDeck>
+              <Button onClick={() => ratingHandler()}>선택률 보기</Button>
             </>
           )}
         </Container>
