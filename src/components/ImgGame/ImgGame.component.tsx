@@ -58,7 +58,20 @@ const ImgGame = (props: any) => {
     }
   `;
 
-  const [addBookMark] = useMutation(POST_BOOKMARK);
+  const [addBookMark] = useMutation(POST_BOOKMARK, {
+    onCompleted: async () => {
+      return refetch();
+    },
+    refetchQueries: [
+      {
+        query: GET_CONTENTS,
+        variables: {
+          id: +props.gameid,
+        },
+      },
+    ],
+    awaitRefetchQueries: true,
+  });
   const [deleteBookMark] = useMutation(POST_DELETEBOOKMARK);
   const [addCountPhoto] = useMutation(POST_WINCOUNT);
 
@@ -91,9 +104,17 @@ const ImgGame = (props: any) => {
   const fourCountHandler = () => {
     setCount(4);
   };
-
   const eightCountHandler = () => {
     setCount(8);
+  };
+  const oneTwoCountHandler = () => {
+    setCount(16);
+  };
+  const threeTwoCountHandler = () => {
+    setCount(32);
+  };
+  const sixFourCountHandler = () => {
+    setCount(64);
   };
 
   const { refetch } = useQuery(GET_CONTENTS, {
@@ -124,6 +145,7 @@ const ImgGame = (props: any) => {
         });
       }
     },
+    fetchPolicy: "cache-and-network",
   });
 
   const clickHandler = (pick: any) => {
@@ -219,20 +241,62 @@ const ImgGame = (props: any) => {
             </Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <Button
-              variant="outline-dark"
-              onClick={() => fourCountHandler()}
-              style={{ margin: "4px" }}
-            >
-              4강
-            </Button>
-            <Button
-              variant="outline-dark"
-              onClick={() => eightCountHandler()}
-              style={{ margin: "4px" }}
-            >
-              8강
-            </Button>
+            {console.log(Data.photos)}
+            {Data.length !== 0 && Data.photos.length >= 4 ? (
+              <Button
+                variant="outline-dark"
+                onClick={() => fourCountHandler()}
+                style={{ margin: "4px" }}
+              >
+                4강
+              </Button>
+            ) : (
+              ""
+            )}
+            {Data.length !== 0 && Data.photos.length >= 8 ? (
+              <Button
+                variant="outline-dark"
+                onClick={() => eightCountHandler()}
+                style={{ margin: "4px" }}
+              >
+                8강
+              </Button>
+            ) : (
+              ""
+            )}
+            {Data.length !== 0 && Data.photos.length >= 16 ? (
+              <Button
+                variant="outline-dark"
+                onClick={() => oneTwoCountHandler()}
+                style={{ margin: "4px" }}
+              >
+                16강
+              </Button>
+            ) : (
+              ""
+            )}
+            {Data.length !== 0 && Data.photos.length >= 32 ? (
+              <Button
+                variant="outline-dark"
+                onClick={() => threeTwoCountHandler()}
+                style={{ margin: "4px" }}
+              >
+                32강
+              </Button>
+            ) : (
+              ""
+            )}
+            {Data.length !== 0 && Data.photos.length >= 64 ? (
+              <Button
+                variant="outline-dark"
+                onClick={() => sixFourCountHandler()}
+                style={{ margin: "4px" }}
+              >
+                64강
+              </Button>
+            ) : (
+              ""
+            )}
           </Modal.Body>
           <Modal.Footer>
             {isLogin ? (
@@ -274,7 +338,7 @@ const ImgGame = (props: any) => {
           </Modal.Footer>
         </Modal.Dialog>
       ) : (
-        <Container className="mt-5">
+        <Container className="mt-5" style={{ textAlign: "center" }}>
           <h1 className="header-text mb-3">
             {title}{" "}
             {rounds === "우승"
@@ -305,6 +369,7 @@ const ImgGame = (props: any) => {
                     src={d.photoUrl}
                     alt=""
                     className={transition ? "card-img-transition" : "card-img"}
+                    style={{ borderRadius: "4rem" }}
                   />
                 </Card>
               );
