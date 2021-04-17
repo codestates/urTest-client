@@ -3,6 +3,9 @@ import { Container, Row, Col, Form, Button } from "react-bootstrap";
 import { gql, useMutation } from "@apollo/client";
 import { LinkContainer } from "react-router-bootstrap";
 import { Redirect } from "react-router-dom";
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//@ts-ignore
+import { AwesomeButton } from "react-awesome-button";
 
 const Signup = () => {
   // 회원가입
@@ -72,7 +75,7 @@ const Signup = () => {
     <React.Fragment>
       {signUpOk ? <Redirect to="/login" /> : ""}
       <Container fluid={true}>
-        <Row >
+        <Row>
           <Col md={7} lg={8} className="up-image" />
           <Col md={8} lg={4}>
             <div className="login d-flex align-items-center py-5">
@@ -82,7 +85,7 @@ const Signup = () => {
                     <h3 className="login-heading mb-4">회원가입</h3>
                     <Form>
                       <Form.Group controlId="formBasicEmail">
-                        <Form.Label ></Form.Label>
+                        <Form.Label></Form.Label>
                         <Form.Control
                           className="font-bgr"
                           type="email"
@@ -104,7 +107,7 @@ const Signup = () => {
                       <Form.Group controlId="formBasicPassword">
                         <Form.Label></Form.Label>
                         <Form.Control
-                        className="font-bgr"
+                          className="font-bgr"
                           type="password"
                           placeholder="비밀번호 확인"
                           name="user_confirm_password"
@@ -118,21 +121,30 @@ const Signup = () => {
                             : ""}
                         </Form.Label>
                       </Form.Group>
-                      <Button
-                        variant="dark"
-                        size="lg"
-                        // block
+                      <AwesomeButton
+                        type="primary"
                         className="text-uppercase mb-2 w-100 font-mg"
-                        type="submit"
-                        onClick={(e) => signupBtnHandler(e)}
                       >
-                        Sign Up
-                      </Button>
-                      <p className="text-inverse text-center w-100">
-                        <LinkContainer to="/login">
-                          <a className="textlink">로그인 하러가기</a>
-                        </LinkContainer>
-                      </p>
+                        <Button
+                          variant="urtest"
+                          size="lg"
+                          // block
+
+                          type="submit"
+                          onClick={(e) => signupBtnHandler(e)}
+                        >
+                          Sign Up
+                        </Button>
+                      </AwesomeButton>
+
+                      <LinkContainer to="/login">
+                        <AwesomeButton
+                          type="link"
+                          className="mt-2 text-inverse a-urtest w-100"
+                        >
+                          로그인 하러가기
+                        </AwesomeButton>
+                      </LinkContainer>
                     </Form>
                   </Col>
                 </Row>

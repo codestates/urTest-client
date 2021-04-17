@@ -8,6 +8,7 @@ import {
 } from "react-router-dom";
 import { isLoginVar } from "../common/graphql/client";
 import { useReactiveVar } from "@apollo/client";
+import SweetAlert from "react-bootstrap-sweetalert";
 
 // Page ---------------------------------------
 import Home from "./Home/Home.component";
@@ -81,6 +82,8 @@ const ModifyTGameId = () => {
 
 const App = () => {
   const [isSideBarOpen, setSideBarState] = useState(false);
+  const [sweetAlertShow, setSweetAlertShow] = useState(false);
+
   const history = useHistory();
   useEffect(() => {
     const deregisterListener = history.listen(() => {
@@ -92,6 +95,11 @@ const App = () => {
   }, [history]);
 
   const isLogin = useReactiveVar(isLoginVar);
+
+  const needLogin = () => {
+    setSideBarState(false);
+    setSweetAlertShow(true);
+  };
 
   const logoutHandler = () => {
     localStorage.removeItem("token");
@@ -150,9 +158,13 @@ const App = () => {
               <Nav.Link>즐겨찾기</Nav.Link>
             </LinkContainer>
             <Nav.Item>
-              <LinkContainer to="/multistep">
-                <Nav.Link>테스트 만들기</Nav.Link>
-              </LinkContainer>
+              {isLogin ? (
+                <LinkContainer to="/multistep">
+                  <Nav.Link>테스트 만들기</Nav.Link>
+                </LinkContainer>
+              ) : (
+                <Nav.Link onClick={needLogin}>테스트 만들기</Nav.Link>
+              )}
             </Nav.Item>
             <Nav.Item>
               {isLogin ? (
@@ -188,6 +200,24 @@ const App = () => {
             <NoMatch />
           </Route>
         </Switch>
+        <SweetAlert
+          show={sweetAlertShow}
+          showConfirm={false}
+          success
+          title="로그인이 필요해요"
+          onConfirm={() => {
+            history.push("/login");
+            setSweetAlertShow(false);
+            return;
+          }}
+          onCancel={() => {
+            history.push("/login");
+            setSweetAlertShow(false);
+            return;
+          }}
+        >
+          재밌는 기능들이 기다리고 있어요!
+        </SweetAlert>
       </div>
     </>
   );

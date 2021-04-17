@@ -6,6 +6,9 @@ import { useReactiveVar, useMutation, gql } from "@apollo/client";
 import { inputVar } from "../../common/graphql/client";
 import { Form, Button, Col, Row } from "react-bootstrap";
 import SweetAlert from "react-bootstrap-sweetalert";
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//@ts-ignore
+import { AwesomeButton } from "react-awesome-button";
 const UPLOAD_CONTENT = gql`
   mutation uploadContent($title: String!, $desc: String!) {
     uploadContent(title: $title, desc: $desc) {
@@ -178,27 +181,27 @@ const Step1 = () => {
               <br></br>
               <Form.Row>
                 <Form.Group as={Col}>
-                  <Button
-                    variant="dark"
-                    type="submit"
-                    size="lg"
+                  <AwesomeButton
+                    type="primary"
                     className="uploadbtn center w-100"
                   >
-                    {/* <ArrowRightCircleFill width="32"/> */}
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="35"
-                      height="35"
-                      fill="currentColor"
-                      className="bi bi-arrow-right"
-                      viewBox="0 0 16 16"
-                    >
-                      <path
-                        fillRule="evenodd"
-                        d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"
-                      />
-                    </svg>
-                  </Button>
+                    <Button variant="urtest" type="submit">
+                      {/* <ArrowRightCircleFill width="32"/> */}
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="35"
+                        height="35"
+                        fill="currentColor"
+                        className="bi bi-arrow-right"
+                        viewBox="0 0 16 16"
+                      >
+                        <path
+                          fillRule="evenodd"
+                          d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"
+                        />
+                      </svg>
+                    </Button>
+                  </AwesomeButton>
                 </Form.Group>
               </Form.Row>
             </Form>

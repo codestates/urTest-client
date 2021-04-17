@@ -16,6 +16,9 @@ import {
   Col,
   Container,
 } from "react-bootstrap";
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//@ts-ignore
+import { AwesomeButton } from "react-awesome-button";
 
 const Header = () => {
   const isLogin = useReactiveVar(isLoginVar);
@@ -127,20 +130,17 @@ const Header = () => {
         </Col>
         {isLogin ? (
           <LinkContainer to="/" className="d-none d-md-block ml-auto mt-1">
-            <Button
-              variant="info"
-              className="font-mg"
-              onClick={() => logoutHandler()}
-              size="sm"
-            >
-              로그아웃
-            </Button>
+            <AwesomeButton type="primary" className="font-mg pd-0" size="small">
+              <Button variant="urtest-header" onClick={() => logoutHandler()}>
+                로그아웃
+              </Button>
+            </AwesomeButton>
           </LinkContainer>
         ) : (
           <LinkContainer to="/login" className="d-none d-md-block ml-auto mt-1">
-            <Button className="font-mg" variant="info" size="sm">
-              로그인
-            </Button>
+            <AwesomeButton type="primary" className="font-mg pd-0" size="small">
+              <Button variant="urtest-header">로그인</Button>
+            </AwesomeButton>
           </LinkContainer>
         )}
       </Container>
