@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { gql, useMutation } from "@apollo/client";
 import { Container, Col } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
+import { Heart, ShareFill, Trophy } from "react-bootstrap-icons";
 const TextCardItem = ({ d }: any) => {
   const ADD_VIEWS = gql`
     mutation addViews($id: Int!) {
@@ -61,6 +62,11 @@ const TextCardItem = ({ d }: any) => {
               <div className="text-header">
                 <p>{d.title}</p>
                 {/* <span>{d.desc}</span> */}
+                <div className="icon-box">
+                  <Heart />
+                  <Trophy />
+                  <ShareFill />
+                </div>
               </div>
             </div>
           </div>

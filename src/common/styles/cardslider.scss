@@ -19,7 +19,7 @@ h1 {
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  border-radius: 10px;
+  border-radius: 5px;
   position: relative;
   overflow: hidden;
 }
@@ -30,20 +30,17 @@ h1 {
   height: 100%;
   display: flex;
   flex-direction: column;
-  line-height: 98%;
   flex-wrap: wrap;
+  // line-height: 98%;
 }
-.text-box p,
-.text-box span {
+.text-box p {
   font-weight: 500;
   position: absolute;
   bottom: 1rem;
-  width: 50%;
-}
-.text-box p {
+  left: 1rem;
   color: black;
-  margin-right: 10px;
 }
+
 .text-box span {
   font-weight: 400;
   font-size: 1rem;
@@ -51,14 +48,28 @@ h1 {
   color: black;
   opacity: 0.6;
 }
+.text-header {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-start;
+  padding: 1rem;
+}
+.text-header span {
+  font-weight: 400;
+  opacity: 0.8;
+  font-size: 1.1rem;
+}
 .img-box {
-  height: 70%;
+  height: 75%;
 }
 
 .img-box:hover {
   transform: scale(1.1);
   -webkit-transform: scale(1.1);
-  transition: transform 0.3s ease-in;
+  background-position: center;
+  transition: transform 0.2s ease-in;
   filter: brightness(60%);
 }
 .answer-box:hover {
@@ -77,21 +88,7 @@ h1 {
 .answer-box span:first-child {
   border-right: 1px solid black;
 }
-// .content-box2 {
-//   width: 100%;
-//   height: 100%;
-//   display: flex;
-//   flex-direction: column;
-//   align-items: center;
-// }
 
-// .content-box2:hover {
-//   .start-game span {
-//     display: block;
-//     opacity: 1;
-//     z-index: 999;
-//   }
-// }
 .content-box {
   display: flex;
   width: 100%;
@@ -188,6 +185,7 @@ h1 {
   background-color: #f7f7f9;
   font-size: 1.2rem;
 }
+
 .home-cards {
   background-color: #f7f7f9;
 }
@@ -199,7 +197,6 @@ h1 {
   position: absolute;
   left: 0;
   width: 100%;
-  padding: 0.5rem;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
   outline: 1px solid transparent;
@@ -259,6 +256,18 @@ h1 {
   .col {
     width: 100%;
     margin: 0 0 2rem 0;
+  }
+  .swiper-main-title {
+    font-size: 0.8rem;
+  }
+  .text-box {
+    height: 0;
+    font-size: 1rem;
+    position: unset;
+    width: 60%;
+  }
+  .icon-box {
+    width: 40%;
   }
 }
 
@@ -329,20 +338,12 @@ h1 {
   border-bottom: 3px solid black !important;
   transition: border-bottom 0.2s ease-in;
 }
-.text-header {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  align-items: flex-start;
-}
-.text-header span {
-  font-weight: 400;
-  opacity: 0.8;
-  font-size: 1.1rem;
-}
+
 .answer-box {
   display: flex;
   width: 100%;
   height: 100%;
+}
+.card-container {
+  overflow-y: scroll;
 }
