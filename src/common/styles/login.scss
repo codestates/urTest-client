@@ -1,5 +1,5 @@
 .login {
-  font-family: "Jua", sans-serif;
+  // font-family: "Jua", sans-serif;
 }
 
 .image {
@@ -15,20 +15,29 @@
   background-image: url("undraw2.svg");
   background-size: cover;
 }
+.up-image {
+  background-image: url("undraw.svg");
+  width: 50px;
+  background-size: cover;
+  background-position: center;
+  // margin-top: 50px;
+  margin-bottom: -60px;
+  vertical-align: middle;
+}
 .bg-image {
   background-image: url("undraw.svg");
   width: 50px;
   background-size: cover;
   background-position: center;
-  margin-top: 50px;
-  margin-bottom: -110px;
+  // margin-top: 50px;
+  margin-bottom: -116px;
   vertical-align: middle;
 }
 
 .login-heading {
   text-align: center;
   // font-family: "Jua", sans-serif;
-  font-size: 50px;
+  font-size: 35px;
 }
 
 .btn-login {
@@ -57,11 +66,7 @@
 .fs-20 {
   font-size: 1rem;
 }
-
-.loginAll {
-  margin-top: 70px;
-}
-
-.signupall {
-  margin-top: 70px;
+.form-label2 {
+  font-family: "BGR-B", sans-serif;
+  font-size: 1.5rem;
 }
