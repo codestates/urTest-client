@@ -45,8 +45,9 @@ body {
 
 .bg-image4 {
   background-image: url("404.svg");
-  background-size: cover;
+  background-size: contain;
   background-position: center;
+  background-repeat: no-repeat;
 }
 
 .uplode-point {
@@ -54,4 +55,11 @@ body {
 }
 .mypage-point {
   margin-top: 6rem;
+}
+
+/* Large devices (desktops, 992px and up) */
+@media (max-width: 992px) {
+  .notfound-title {
+    font-size : 2.5rem !important;
+  }
 }
