@@ -5,6 +5,9 @@ import { LinkContainer } from "react-router-bootstrap";
 import { isLoginVar } from "../../common/graphql/client";
 import { useReactiveVar, gql, useMutation } from "@apollo/client";
 import { Redirect } from "react-router-dom";
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//@ts-ignore
+import { AwesomeButton } from "react-awesome-button";
 
 const Signin = () => {
   // 전역 변수
@@ -145,29 +148,36 @@ const Signin = () => {
                           {isOk ? " " : "* Invalid Email or Password"}
                         </Form.Label>
                       </Form.Group>
-                      <Button
-                        variant="info"
-                        // size="lg"
-                        // block
+                      <AwesomeButton
+                        type="secondary"
                         className="btn-login text-uppercase mb-2 w-100 font-mg"
-                        type="submit"
-                        onClick={(e) => signinBtnHandler(e)}
                       >
-                        로그인
-                      </Button>
+                        <Button
+                          variant="urtest"
+                          // size="lg"
+                          // block
+
+                          type="submit"
+                          onClick={(e) => signinBtnHandler(e)}
+                        >
+                          로그인
+                        </Button>
+                      </AwesomeButton>
                       <GoogleLogin
                         clientId="724060049648-nnacpoao7gftdukk1gurp600rfgme79k.apps.googleusercontent.com"
                         render={(renderProps) => (
-                          <Button
-                            onClick={renderProps.onClick}
-                            variant="dark"
-                            // size="lg"
-                            // block
-                            className="btn-login2  mb-2 w-100 font-mg"
-                            type="submit"
+                          <AwesomeButton
+                            type="primary"
+                            className="btn-login2 mb-2 w-100 font-mg font-size-1-2"
                           >
-                            Google
-                          </Button>
+                            <Button
+                              onClick={renderProps.onClick}
+                              variant="urtest"
+                              type="submit"
+                            >
+                              Google
+                            </Button>
+                          </AwesomeButton>
                         )}
                         onSuccess={responseGoogle}
                         onFailure={responseGoogle}
