@@ -12,6 +12,7 @@
 
 .vh-92 {
   height: 92vh;
+  margin-top: 6rem;
 }
 .vh-93 {
   height: 93vh;
@@ -47,11 +48,15 @@ body {
 }
 .textlink:hover {
   text-decoration: none;
-  color: #2C717A !important;
+  color: #2c717a !important;
 }
 
 .bg-image4 {
   background-image: url("404.svg");
   background-size: cover;
   background-position: center;
+}
+
+.uplode-point {
+  margin-top: 5rem;
 }
