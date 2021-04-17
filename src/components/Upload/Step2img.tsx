@@ -6,6 +6,9 @@ import Previews from "./Dropzone";
 import { inputVar, uploadVar } from "../../common/graphql/client";
 import SweetAlert from "react-bootstrap-sweetalert";
 import { Col, Row, Button } from "react-bootstrap";
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//@ts-ignore
+import { AwesomeButton } from "react-awesome-button";
 
 const Step2img = () => {
   const [sweetAlertShow, setSweetAlertShow] = useState(false);
@@ -59,21 +62,23 @@ const Step2img = () => {
       <Row className="justify-content-md-center mt-4 mx-2">
         <Col md={8} lg={6} className="bg-light rounded pt-3 pb-3">
           <Previews files={uploadObj.files} />
-          <Button block variant="dark" type="submit" onClick={onSubmit}>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="35"
-              height="35"
-              fill="currentColor"
-              className="bi bi-arrow-right"
-              viewBox="0 0 16 16"
-            >
-              <path
-                fillRule="evenodd"
-                d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"
-              />
-            </svg>
-          </Button>
+          <AwesomeButton type="primary" className="uploadbtn center w-100">
+            <Button block variant="urtest" type="submit" onClick={onSubmit}>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="35"
+                height="35"
+                fill="currentColor"
+                className="bi bi-arrow-right"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"
+                />
+              </svg>
+            </Button>
+          </AwesomeButton>
         </Col>
       </Row>
       <SweetAlert
