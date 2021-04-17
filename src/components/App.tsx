@@ -42,7 +42,13 @@ const NoMatch = () => {
 
   return (
     <Container fluid className="vh-93">
-      <Row className="h-100">
+      <Row className="h-20 justify-content-center">
+        <Col md="auto" className="pt-5 font-size-3 notfound-title">
+          <code className="font-bgr">{location.pathname}</code> 페이지가
+          존재하지 않습니다.
+        </Col>
+      </Row>
+      <Row className="h-80">
         <Col className="bg-image4"></Col>
       </Row>
     </Container>
@@ -203,17 +209,11 @@ const App = () => {
           <Route path="/searchlist" component={SearchList} />
           <Route path="/login" component={Signin} />
           <Route path="/signup" component={Signup} />
-          {isLogin ? (
-            <>
-              <Route path="/multistep" component={Multistep} />
-              <Route path="/mypage" component={Mypage} />
-              <Route path="/mytest" component={MyTest} />
-              <Route path="/modifytest/:id/" component={ModifyGameId} />
-              <Route path="/modifytext/:id/" component={ModifyTGameId} />
-            </>
-          ) : (
-            <></>
-          )}
+          <Route path="/multistep" component={Multistep} />
+          <Route path="/mypage" component={Mypage} />
+          <Route path="/mytest" component={MyTest} />
+          <Route path="/modifytest/:id/" component={ModifyGameId} />
+          <Route path="/modifytext/:id/" component={ModifyTGameId} />
           <Route path="/*">
             <NoMatch />
           </Route>

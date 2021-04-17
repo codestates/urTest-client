@@ -153,70 +153,70 @@ const Mypage = () => {
     <>
       {!isLogin ? <Redirect to="/login" /> : ""}
       <Container className="vh-92">
-        <Container className="mypage-point" >
-        <Row className=" justify-content-md-center mt-4 mx-3">
-          <Col md={5} lg={8} className="bg-image2" />
-          <Col md={7} lg={4} className="rounded pb-4">
-            <Form>
-              <Form.Group controlId="formBasicEmail">
-                <br></br>
-                <Form.Label>이메일</Form.Label>
-                <Form.Control
-                  className="font-bgr"
-                  disabled
-                  type="email"
-                  placeholder={email}
-                  name="user_email"
-                />
-              </Form.Group>
-              <Form.Group controlId="formBasicPassword" className="mt-4">
-                <Form.Label>현재 비밀번호</Form.Label>
-                <Form.Control
-                  className="font-bgr"
-                  type="password"
-                  placeholder="Password"
-                  name="user_password"
-                  onChange={(e) => inputHandler(e)}
-                />
-                <Form.Label className="mt-1 text-danger fs-20 font-BGR">
-                  {isOk ? " " : "* Password 인증에 실패하였습니다"}
-                </Form.Label>
-              </Form.Group>
-              <Form.Group controlId="formBasicPassword">
-                <Form.Label>변경할 비밀번호</Form.Label>
-                <Form.Control
-                  className="font-bgr"
-                  type="password"
-                  placeholder="Password"
-                  name="user_change_password"
-                  onChange={(e) => inputHandler(e)}
-                />
-                <Form.Label className="mt-1 text-danger fs-20">
-                  {isPwdOk ? " " : "변경할 패스워드를 입력해주세요"}
-                </Form.Label>
-              </Form.Group>
-              <Row className="justify-content-between">
-                <Button
-                  variant="dark"
-                  className="text-uppercase  mb-4 ml-5 mr-5 w-100 font-mg"
-                  type="submit"
-                  onClick={(e) => deleteBtnHandler(e)}
-                >
-                  회원탈퇴
-                </Button>
-                <Button
-                  variant="dark"
-                  // size="lg"
-                  className=" mb-3 ml-5 mr-5 font-mg w-100"
-                  type="submit"
-                  onClick={(e) => modifyBtnHandler(e)}
-                >
-                  수정하기
-                </Button>
-              </Row>
-            </Form>
-          </Col>
-        </Row>
+        <Container className="mypage-point">
+          <Row className=" justify-content-md-center mt-4 mx-3">
+            <Col md={5} lg={8} className="bg-image2" />
+            <Col md={7} lg={4} className="rounded pb-4">
+              <Form>
+                <Form.Group controlId="formBasicEmail">
+                  <br></br>
+                  <Form.Label>이메일</Form.Label>
+                  <Form.Control
+                    className="font-bgr"
+                    disabled
+                    type="email"
+                    placeholder={email}
+                    name="user_email"
+                  />
+                </Form.Group>
+                <Form.Group controlId="formBasicPassword" className="mt-4">
+                  <Form.Label>현재 비밀번호</Form.Label>
+                  <Form.Control
+                    className="font-bgr"
+                    type="password"
+                    placeholder="Password"
+                    name="user_password"
+                    onChange={(e) => inputHandler(e)}
+                  />
+                  <Form.Label className="mt-1 text-danger fs-20 font-BGR">
+                    {isOk ? " " : "* Password 인증에 실패하였습니다"}
+                  </Form.Label>
+                </Form.Group>
+                <Form.Group controlId="formBasicPassword">
+                  <Form.Label>변경할 비밀번호</Form.Label>
+                  <Form.Control
+                    className="font-bgr"
+                    type="password"
+                    placeholder="Password"
+                    name="user_change_password"
+                    onChange={(e) => inputHandler(e)}
+                  />
+                  <Form.Label className="mt-1 text-danger fs-20">
+                    {isPwdOk ? " " : "변경할 패스워드를 입력해주세요"}
+                  </Form.Label>
+                </Form.Group>
+                <Row className="justify-content-between">
+                  <Button
+                    variant="dark"
+                    className="text-uppercase  mb-4 ml-5 mr-5 w-100 font-mg"
+                    type="submit"
+                    onClick={(e) => deleteBtnHandler(e)}
+                  >
+                    회원탈퇴
+                  </Button>
+                  <Button
+                    variant="dark"
+                    // size="lg"
+                    className=" mb-3 ml-5 mr-5 font-mg w-100"
+                    type="submit"
+                    onClick={(e) => modifyBtnHandler(e)}
+                  >
+                    수정하기
+                  </Button>
+                </Row>
+              </Form>
+            </Col>
+          </Row>
         </Container>
       </Container>
       <SweetAlert
