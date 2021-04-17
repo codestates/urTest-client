@@ -6,7 +6,9 @@ import jwt from "jsonwebtoken";
 import { useReactiveVar, gql, useMutation, useQuery } from "@apollo/client";
 import { isLoginVar } from "../../common/graphql/client";
 import { useHistory } from "react-router-dom";
-
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//@ts-ignore
+import { AwesomeButton } from "react-awesome-button";
 const GET_PROFILE = gql`
   query getProfile($id: Int!) {
     getProfile(id: $id) {
@@ -196,23 +198,34 @@ const Mypage = () => {
                   </Form.Label>
                 </Form.Group>
                 <Row className="justify-content-between">
+                {/* <AwesomeButton> */}
+                <AwesomeButton
+                  className=" text-uppercase  mb-4 ml-5 mr-5 w-100 font-mg"
+                  type="secondary"
+                >
+                
                   <Button
-                    variant="dark"
-                    className="text-uppercase  mb-4 ml-5 mr-5 w-100 font-mg"
                     type="submit"
+                    variant="urtest"
                     onClick={(e) => deleteBtnHandler(e)}
                   >
                     회원탈퇴
                   </Button>
+                </AwesomeButton>
+
+                <AwesomeButton
+                type="primary"
+                className=" mb-3 ml-5 mr-5 font-mg w-100"
+                >
                   <Button
-                    variant="dark"
+                    variant="urtest"
                     // size="lg"
-                    className=" mb-3 ml-5 mr-5 font-mg w-100"
                     type="submit"
                     onClick={(e) => modifyBtnHandler(e)}
                   >
                     수정하기
                   </Button>
+                  </AwesomeButton>
                 </Row>
               </Form>
             </Col>
