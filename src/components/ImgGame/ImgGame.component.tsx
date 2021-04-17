@@ -362,13 +362,19 @@ const ImgGame = (props: any) => {
         </Container>
       ) : (
         <Container className="mt-5" style={{ textAlign: "center" }}>
-          <h1 className="header-text mb-3">
+          <h1 className="header-text title-reposition">
             {Data.title}{" "}
-            {rounds === "우승"
-              ? "우승"
-              : rounds === 1
-              ? `결승`
-              : `${rounds * 2}강 ${winners.length + 1} / ${rounds}`}
+            {rounds === "우승" ? (
+              "우승"
+            ) : rounds === 1 ? (
+              `결승`
+            ) : (
+              <>
+                {`${rounds * 2}강`}
+                <br />
+                {`${winners.length + 1} / ${rounds}`}
+              </>
+            )}
           </h1>
           <CardDeck
             className={displays.length === 1 ? "card-deck-transition" : ""}
