@@ -154,8 +154,8 @@ const Mypage = () => {
       {!isLogin ? <Redirect to="/login" /> : ""}
       <Container className="vh-92">
         <Row className="justify-content-md-center mt-4 mx-3">
-          <Col md={5} lg={4} className="bg-image2" />
-          <Col md={7} lg={3} className="rounded pb-4">
+          <Col md={5} lg={8} className="bg-image2" />
+          <Col md={7} lg={4} className="rounded pb-4">
             <Form>
               <Form.Group controlId="formBasicEmail">
                 <br></br>
@@ -177,7 +177,7 @@ const Mypage = () => {
                   name="user_password"
                   onChange={(e) => inputHandler(e)}
                 />
-                <Form.Label className="mt-1 text-danger fs-20 font-bgr">
+                <Form.Label className="mt-1 text-danger fs-20 font-BGR">
                   {isOk ? " " : "* Password 인증에 실패하였습니다"}
                 </Form.Label>
               </Form.Group>
@@ -197,7 +197,7 @@ const Mypage = () => {
               <Row className="justify-content-between">
                 <Button
                   variant="dark"
-                  className="btn-login text-uppercase font-weight-bold mb-4 ml-5 mr-5 w-100"
+                  className="text-uppercase  mb-4 ml-5 mr-5 w-100 font-mg"
                   type="submit"
                   onClick={(e) => deleteBtnHandler(e)}
                 >
@@ -206,7 +206,7 @@ const Mypage = () => {
                 <Button
                   variant="dark"
                   // size="lg"
-                  className="btn-login2 font-weight-bold mb-3 ml-5 mr-5 w-100"
+                  className=" mb-3 ml-5 mr-5 font-mg w-100"
                   type="submit"
                   onClick={(e) => modifyBtnHandler(e)}
                 >

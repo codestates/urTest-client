@@ -128,9 +128,8 @@ const Step1 = () => {
   return (
     <>
       <Row className="real justify-content-md-center mt-4 mx-2">
-        <Col md={7} lg={4} className="bg-image3" />
+        <Col md={8} lg={4} className="bg-image3" />
         <Col md={8} lg={3} className="bg-lightk rounded pb-4">
-          <br></br>
           <div className="upload">
             <Form className="upload-form" onSubmit={handleSubmit(onSubmit)}>
               <Form.Row>

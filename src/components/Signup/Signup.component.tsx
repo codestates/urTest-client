@@ -72,8 +72,8 @@ const Signup = () => {
     <React.Fragment>
       {signUpOk ? <Redirect to="/login" /> : ""}
       <Container fluid={true}>
-        <Row className="signupall">
-          <Col md={4} lg={8} className="bg-image" />
+        <Row >
+          <Col md={7} lg={8} className="up-image" />
           <Col md={8} lg={4}>
             <div className="login d-flex align-items-center py-5">
               <Container>
@@ -82,8 +82,9 @@ const Signup = () => {
                     <h3 className="login-heading mb-4">회원가입</h3>
                     <Form>
                       <Form.Group controlId="formBasicEmail">
-                        <Form.Label></Form.Label>
+                        <Form.Label ></Form.Label>
                         <Form.Control
+                          className="font-bgr"
                           type="email"
                           placeholder="이메일"
                           name="user_email"
@@ -93,6 +94,7 @@ const Signup = () => {
                       <Form.Group controlId="formBasicPassword">
                         <Form.Label></Form.Label>
                         <Form.Control
+                          className="font-bgr"
                           type="password"
                           placeholder="비밀번호를 입력해주세요"
                           name="user_password"
@@ -102,6 +104,7 @@ const Signup = () => {
                       <Form.Group controlId="formBasicPassword">
                         <Form.Label></Form.Label>
                         <Form.Control
+                        className="font-bgr"
                           type="password"
                           placeholder="비밀번호 확인"
                           name="user_confirm_password"
@@ -118,8 +121,8 @@ const Signup = () => {
                       <Button
                         variant="dark"
                         size="lg"
-                        block
-                        className="btn-login text-uppercase font-weight-bold mb-2 w-100"
+                        // block
+                        className="text-uppercase mb-2 w-100 font-mg"
                         type="submit"
                         onClick={(e) => signupBtnHandler(e)}
                       >
