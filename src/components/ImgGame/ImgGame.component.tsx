@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Container, Card, CardDeck, Button, Alert } from "react-bootstrap";
+import { Container, Card, CardDeck, Button } from "react-bootstrap";
 import { gql, useQuery, useMutation, useReactiveVar } from "@apollo/client";
 import { isLoginVar } from "../../common/graphql/client";
 import { LinkContainer } from "react-router-bootstrap";
