@@ -4,8 +4,11 @@ import { gql, useQuery, useMutation, useReactiveVar } from "@apollo/client";
 import { isLoginVar } from "../../common/graphql/client";
 import { LinkContainer } from "react-router-bootstrap";
 import { useLocation } from "react-router-dom";
-import { ShareFill, Heart, Trophy } from "react-bootstrap-icons";
+import { ShareFill, Heart, HeartFill, Trophy } from "react-bootstrap-icons";
 import jwt from "jsonwebtoken";
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//@ts-ignore
+import { AwesomeButton } from "react-awesome-button";
 
 const ImgGame = (props: any) => {
   // 전역 변수
@@ -21,6 +24,7 @@ const ImgGame = (props: any) => {
           userId
         }
         title
+        desc
         photos {
           id
           photoUrl
@@ -76,9 +80,8 @@ const ImgGame = (props: any) => {
   const [addCountPhoto] = useMutation(POST_WINCOUNT);
 
   const [Data, setData] = useState([] as any);
-  const [count, setCount] = useState(0);
+  const [count, setCount] = useState(4);
   const [start, setStart] = useState(true);
-  const [title, setTitle] = useState([] as any);
   const [img, setImg] = useState([] as any[]);
   const [displays, setDisplays] = useState([] as any[]);
   const [winners, setWinners] = useState([] as any[]);
@@ -88,11 +91,7 @@ const ImgGame = (props: any) => {
   const [bookMark, setBookMark] = useState(Boolean);
   const [userBookMark, setUserBookMark] = useState([] as any);
 
-  const modalHandler = () => {
-    if (count === 0) {
-      alert("라운드를 선택해주세요");
-      return;
-    }
+  const startHandler = () => {
     setStart(false);
     const item = [...Data.photos.slice(0, count)];
     item.sort(() => Math.random() - 0.5);
@@ -123,7 +122,6 @@ const ImgGame = (props: any) => {
     },
     onCompleted: (data) => {
       setData(data.getContent);
-      setTitle(data.getContent.title);
       setUserBookMark(data.getContent.bookMarks);
       if (isLogin) {
         const token = localStorage.getItem("token");
@@ -235,121 +233,137 @@ const ImgGame = (props: any) => {
     <>
       {start ? (
         <Container fluid>
-          <Row className="vh-93">
-            <Col className=" bg-image-imggame"></Col>
-            <Col>
-              <Card>
-                <Card.Header>
-                  {title} {count}강
-                </Card.Header>
-                <Card.Body>
-                  <Card.Text>
-                    {Data.length !== 0 && Data.photos.length >= 4 ? (
+          <CardDeck className="vh-92">
+            <Card className=" bg-image-imggame" />
+            <Card>
+              <Card.Body>
+                <Card.Text>
+                  {isLogin ? (
+                    bookMark ? (
+                      <AwesomeButton type="secondary" className="m-1">
+                        <Button
+                          variant="urtest"
+                          onClick={() => deleteBookMarkBtnHandler()}
+                        >
+                          <HeartFill />
+                        </Button>
+                      </AwesomeButton>
+                    ) : (
+                      <AwesomeButton type="secondary" className="m-1">
+                        <Button
+                          variant="urtest"
+                          onClick={() => bookMarkBtnHandler()}
+                        >
+                          <Heart />
+                        </Button>
+                      </AwesomeButton>
+                    )
+                  ) : (
+                    <LinkContainer to="/login">
+                      <AwesomeButton type="secondary" className="m-1">
+                        <Button variant="urtest">
+                          <Heart />
+                        </Button>
+                      </AwesomeButton>
+                    </LinkContainer>
+                  )}
+                  <LinkContainer to={`/analytics/${+props.gameid}/`}>
+                    <AwesomeButton type="secondary" className="m-1">
+                      <Button variant="urtest">
+                        <Trophy />
+                      </Button>
+                    </AwesomeButton>
+                  </LinkContainer>
+                  <AwesomeButton type="secondary" className="m-1">
+                    <Button variant="urtest" onClick={() => copyHandler()}>
+                      <ShareFill />
+                    </Button>
+                  </AwesomeButton>
+                </Card.Text>
+                <Card.Text className="card-start-title">{Data.title}</Card.Text>
+                <Card.Text className="card-start-title h-10">
+                  {count}강
+                </Card.Text>
+                <Card.Text className="card-start-desc card-start-size">
+                  {Data.desc}
+                </Card.Text>
+                <Card.Text className="card-text-font m-4">
+                  {Data.length !== 0 && Data.photos.length >= 4 ? (
+                    <AwesomeButton type="secondary" className="m-1">
                       <Button
-                        variant="outline-dark"
+                        variant="urtest"
                         onClick={() => fourCountHandler()}
-                        style={{ margin: "4px" }}
                       >
                         4강
                       </Button>
-                    ) : (
-                      ""
-                    )}
-                    {Data.length !== 0 && Data.photos.length >= 8 ? (
+                    </AwesomeButton>
+                  ) : (
+                    ""
+                  )}
+                  {Data.length !== 0 && Data.photos.length >= 8 ? (
+                    <AwesomeButton type="secondary" className="m-1">
                       <Button
-                        variant="outline-dark"
+                        variant="urtest"
                         onClick={() => eightCountHandler()}
-                        style={{ margin: "4px" }}
                       >
                         8강
                       </Button>
-                    ) : (
-                      ""
-                    )}
-                    {Data.length !== 0 && Data.photos.length >= 16 ? (
+                    </AwesomeButton>
+                  ) : (
+                    ""
+                  )}
+                  {Data.length !== 0 && Data.photos.length >= 16 ? (
+                    <AwesomeButton type="secondary" className="m-1">
                       <Button
-                        variant="outline-dark"
+                        variant="urtest"
                         onClick={() => oneTwoCountHandler()}
-                        style={{ margin: "4px" }}
                       >
                         16강
                       </Button>
-                    ) : (
-                      ""
-                    )}
-                    {Data.length !== 0 && Data.photos.length >= 32 ? (
+                    </AwesomeButton>
+                  ) : (
+                    ""
+                  )}
+                  {Data.length !== 0 && Data.photos.length >= 32 ? (
+                    <AwesomeButton type="secondary" className="m-1">
                       <Button
-                        variant="outline-dark"
+                        variant="urtest"
                         onClick={() => threeTwoCountHandler()}
-                        style={{ margin: "4px" }}
                       >
                         32강
                       </Button>
-                    ) : (
-                      ""
-                    )}
-                    {Data.length !== 0 && Data.photos.length >= 64 ? (
+                    </AwesomeButton>
+                  ) : (
+                    ""
+                  )}
+                  {Data.length !== 0 && Data.photos.length >= 64 ? (
+                    <AwesomeButton type="secondary">
                       <Button
-                        variant="outline-dark"
+                        variant="urtest"
                         onClick={() => sixFourCountHandler()}
-                        style={{ margin: "4px" }}
                       >
                         64강
                       </Button>
-                    ) : (
-                      ""
-                    )}
-                  </Card.Text>
-                  <Card.Text>
-                    {isLogin ? (
-                      bookMark ? (
-                        <Button
-                          variant="dark"
-                          onClick={deleteBookMarkBtnHandler}
-                        >
-                          <Heart />
-                        </Button>
-                      ) : (
-                        <Button
-                          variant="outline-dark"
-                          onClick={bookMarkBtnHandler}
-                        >
-                          <Heart />
-                        </Button>
-                      )
-                    ) : (
-                      <LinkContainer to="/login">
-                        <Button variant="outline-dark">
-                          <Heart />
-                        </Button>
-                      </LinkContainer>
-                    )}
-                    <LinkContainer to={`/analytics/${+props.gameid}/`}>
-                      <Button variant="outline-dark">
-                        <Trophy />
-                      </Button>
-                    </LinkContainer>
-                    <Button
-                      variant="outline-dark"
-                      onClick={() => copyHandler()}
-                    >
-                      <ShareFill />
+                    </AwesomeButton>
+                  ) : (
+                    ""
+                  )}
+                </Card.Text>
+                <Card.Text className="card-text-font">
+                  <AwesomeButton type="primary">
+                    <Button variant="urtest" onClick={() => startHandler()}>
+                      시작하기
                     </Button>
-                  </Card.Text>
-                </Card.Body>
-                <Card.Footer>
-                  <Button variant="outline-dark" onClick={() => modalHandler()}>
-                    시작하기
-                  </Button>
-                </Card.Footer>
-              </Card>
-            </Col>
-          </Row>
+                  </AwesomeButton>
+                </Card.Text>
+              </Card.Body>
+            </Card>
+          </CardDeck>
         </Container>
       ) : (
         <Container className="mt-5" style={{ textAlign: "center" }}>
           <h1 className="header-text mb-3">
-            {title}{" "}
+            {Data.title}{" "}
             {rounds === "우승"
               ? "우승"
               : rounds === 1
@@ -378,7 +392,7 @@ const ImgGame = (props: any) => {
                     src={d.photoUrl}
                     alt=""
                     className={transition ? "card-img-transition" : "card-img"}
-                    style={{ borderRadius: "4rem" }}
+                    style={{ borderRadius: "1.5rem" }}
                   />
                 </Card>
               );
@@ -388,37 +402,45 @@ const ImgGame = (props: any) => {
             <div style={{ textAlign: "center" }}>
               {isLogin ? (
                 bookMark ? (
-                  <Button
-                    variant="dark"
-                    onClick={deleteBookMarkBtnHandler}
-                    style={{ margin: "4px" }}
-                  >
-                    <Heart />
-                  </Button>
+                  <AwesomeButton type="link" className="m-1">
+                    <Button
+                      variant="urtest"
+                      onClick={() => deleteBookMarkBtnHandler()}
+                    >
+                      <HeartFill />
+                    </Button>
+                  </AwesomeButton>
                 ) : (
-                  <Button
-                    variant="outline-dark"
-                    onClick={bookMarkBtnHandler}
-                    style={{ margin: "4px" }}
-                  >
-                    <Heart />
-                  </Button>
+                  <AwesomeButton type="primary" className="m-1">
+                    <Button
+                      variant="urtest"
+                      onClick={() => bookMarkBtnHandler()}
+                    >
+                      <Heart />
+                    </Button>
+                  </AwesomeButton>
                 )
               ) : (
                 <LinkContainer to="/login">
-                  <Button variant="outline-dark">
-                    <Heart />
-                  </Button>
+                  <AwesomeButton type="primary" className="m-1">
+                    <Button variant="urtest">
+                      <Heart />
+                    </Button>
+                  </AwesomeButton>
                 </LinkContainer>
               )}
               <LinkContainer to={`/analytics/${+props.gameid}/`}>
-                <Button variant="outline-dark">
-                  <Trophy />
-                </Button>
+                <AwesomeButton type="primary" className="m-1">
+                  <Button variant="urtest">
+                    <Trophy />
+                  </Button>
+                </AwesomeButton>
               </LinkContainer>
-              <Button variant="outline-dark" onClick={() => copyHandler()}>
-                <ShareFill />
-              </Button>
+              <AwesomeButton type="primary" className="m-1">
+                <Button variant="urtest" onClick={() => copyHandler()}>
+                  <ShareFill />
+                </Button>
+              </AwesomeButton>
             </div>
           ) : (
             ""
