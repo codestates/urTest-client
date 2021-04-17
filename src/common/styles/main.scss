@@ -16,9 +16,6 @@
 .vh-93 {
   height: 93vh;
 }
-body {
-  // overflow-y: scroll;
-}
 
 .btn-dark {
   background-color: #2f2e41 !important;
@@ -45,8 +42,9 @@ body {
 
 .bg-image4 {
   background-image: url("404.svg");
-  background-size: cover;
+  background-size: contain;
   background-position: center;
+  background-repeat: no-repeat;
 }
 
 .uplode-point {
@@ -56,6 +54,9 @@ body {
   margin-top: 6rem;
 }
 
-.css-sanqhm {
-  opacity: 1;
+/* Large devices (desktops, 992px and up) */
+@media (max-width: 992px) {
+  .notfound-title {
+    font-size: 2.5rem !important;
+  }
 }

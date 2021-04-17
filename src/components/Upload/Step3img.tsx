@@ -9,7 +9,6 @@ import { useReactiveVar } from "@apollo/client";
 import { inputVar } from "../../common/graphql/client";
 import { Redirect, useHistory } from "react-router-dom";
 import SweetAlert from "react-bootstrap-sweetalert";
-
 // 쿼리
 const GET_CONTENTS = gql`
   query getContent($id: Int!) {
