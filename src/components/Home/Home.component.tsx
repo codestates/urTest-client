@@ -49,7 +49,7 @@ const Home = () => {
       }
     }
   `;
-  const [viewAll, setViewAll] = useState(false);
+  const [viewAll, setViewAll] = useState(true);
   const [contents, setContents] = useState([] as any);
   const [btnState, setBtnState] = useState("all" as string);
   // tinder ---------
