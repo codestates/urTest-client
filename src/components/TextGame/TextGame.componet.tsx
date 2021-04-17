@@ -59,7 +59,20 @@ const TextGame = (props: any) => {
   `;
 
   const [addCountTxt] = useMutation(POST_TEXT);
-  const [addBookMark] = useMutation(POST_BOOKMARK);
+  const [addBookMark] = useMutation(POST_BOOKMARK, {
+    onCompleted: async () => {
+      return refetch();
+    },
+    refetchQueries: [
+      {
+        query: GET_CONTENTS,
+        variables: {
+          id: +props.gameid,
+        },
+      },
+    ],
+    awaitRefetchQueries: true,
+  });
   const [deleteBookMark] = useMutation(POST_DELETEBOOKMARK);
 
   const [questions, setQuestions] = useState([] as any);
@@ -69,7 +82,7 @@ const TextGame = (props: any) => {
   const [bookMark, setBookMark] = useState(Boolean);
   const [userBookMark, setUserBookMark] = useState([] as any);
 
-  useQuery(GET_CONTENTS, {
+  const { refetch } = useQuery(GET_CONTENTS, {
     variables: {
       id: +props.gameid,
     },
@@ -100,6 +113,7 @@ const TextGame = (props: any) => {
         });
       }
     },
+    fetchPolicy: "cache-and-network",
   });
 
   const clickHandler = (pick: any) => {
