@@ -88,6 +88,7 @@ const TextGame = (props: any) => {
   const [bookMark, setBookMark] = useState(Boolean);
   const [userBookMark, setUserBookMark] = useState([] as any);
   const [share, setShare] = useState(false);
+  const [doubleClick, setDoubleClick] = useState(true);
 
   const { refetch } = useQuery(GET_CONTENTS, {
     variables: {
@@ -124,30 +125,45 @@ const TextGame = (props: any) => {
   });
 
   const clickHandler = (pick: any) => {
+    setDoubleClick(false);
     addCountTxt({
       variables: {
         id: pick.id,
       },
     });
     if (questions.length === 1) {
-      setRating(false);
-      setLastPick(true);
+      setTimeout(() => {
+        setRating(true);
+      }, 100);
+      setTimeout(() => {
+        setRating(false);
+      }, 1000);
+      setTimeout(() => {
+        setLastPick(true);
+      }, 1000);
+      setTimeout(() => {
+        setDoubleClick(true);
+      }, 1200);
       return;
     }
     const nextQuestions = [...questions];
     nextQuestions.shift();
-    setQuestions(nextQuestions);
-    setAnswers([nextQuestions[0].answer[0], nextQuestions[0].answer[1]]);
-    setRating(false);
-    return;
-  };
-
-  const ratingHandler = () => {
-    if (!rating) {
+    setTimeout(() => {
       setRating(true);
-      return;
-    }
-    setRating(false);
+    }, 100);
+    setTimeout(() => {
+      setRating(false);
+    }, 1000);
+    setTimeout(() => {
+      setQuestions(nextQuestions);
+    }, 1000);
+    setTimeout(() => {
+      setAnswers([nextQuestions[0].answer[0], nextQuestions[0].answer[1]]);
+    }, 1000);
+    setTimeout(() => {
+      setDoubleClick(true);
+    }, 1200);
+
     return;
   };
 
@@ -248,39 +264,51 @@ const TextGame = (props: any) => {
             </AwesomeButton>
             {share ? <span> 클립보드에 복사되었습니다.</span> : ""}
           </div>
+          <h1 className="textgame-title font-jua m-5">
+            {questions[0].questionBody}
+          </h1>
+          <CardDeck>
+            {answers.map((pick: any) => {
+              return (
+                <Card
+                  key={pick.id}
+                  onClick={() =>
+                    doubleClick ? clickHandler(pick) : console.log(doubleClick)
+                  }
+                >
+                  <Card.Body>
+                    <Card.Text className="textgame-answer">
+                      {pick.body}
+                    </Card.Text>
+                    {rating ? (
+                      <Card.Text>{`선택률 ${(
+                        (pick.winCount /
+                          (answers[0].winCount + answers[1].winCount)) *
+                        100
+                      ).toFixed(0)}%`}</Card.Text>
+                    ) : (
+                      ""
+                    )}
+                  </Card.Body>
+                </Card>
+              );
+            })}
+          </CardDeck>
           {lastPick ? (
-            <Card>
-              <Card.Text>게임이 종료되었습니다.</Card.Text>
-            </Card>
+            <div className="mt-4" style={{ textAlign: "center" }}>
+              게임이 종료되었습니다.
+              <div className="mt-4">
+                <LinkContainer to={`/analytics/${+props.gameid}/`}>
+                  <AwesomeButton type="primary" className="m-1">
+                    <Button variant="urtest">
+                      <Trophy />
+                    </Button>
+                  </AwesomeButton>
+                </LinkContainer>
+              </div>
+            </div>
           ) : (
-            <>
-              <h1 className="textgame-title font-jua m-5">
-                {questions[0].questionBody}
-              </h1>
-              <CardDeck>
-                {answers.map((pick: any) => {
-                  return (
-                    <Card key={pick.id} onClick={() => clickHandler(pick)}>
-                      <Card.Body>
-                        <Card.Text className="textgame-answer">
-                          {pick.body}
-                        </Card.Text>
-                        {rating ? (
-                          <Card.Text>{`선택률 ${(
-                            (pick.winCount /
-                              (answers[0].winCount + answers[1].winCount)) *
-                            100
-                          ).toFixed(2)}%`}</Card.Text>
-                        ) : (
-                          ""
-                        )}
-                      </Card.Body>
-                    </Card>
-                  );
-                })}
-              </CardDeck>
-              <Button onClick={() => ratingHandler()}>선택률 보기</Button>
-            </>
+            ""
           )}
         </Container>
       )}
