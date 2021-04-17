@@ -6,7 +6,6 @@ import { useReactiveVar, useMutation, gql } from "@apollo/client";
 import { inputVar } from "../../common/graphql/client";
 import { Form, Button, Col, Row } from "react-bootstrap";
 import SweetAlert from "react-bootstrap-sweetalert";
-import { ArrowRightCircleFill } from "react-bootstrap-icons";
 const UPLOAD_CONTENT = gql`
   mutation uploadContent($title: String!, $desc: String!) {
     uploadContent(title: $title, desc: $desc) {

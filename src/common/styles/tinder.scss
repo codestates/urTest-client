@@ -1,0 +1,60 @@
+
+
+.swipe {
+  position: absolute;
+  
+}
+
+.tinder-card-container {
+  width: 90vw;
+  max-width: 400px;
+  height: 300px;
+}
+
+.tinder-card {
+  position: relative;
+  background-color: #fff;
+  width: 80vw;
+  max-width: 400px;
+  height: 300px;
+  border-radius: 20px;
+  background-size: cover;
+  background-position: center;
+}
+.tinder-root {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  min-height: 93.5vh;
+  overflow: hidden;
+  background-color: #1F2937;
+}
+
+.tinder-div1 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.tinder-div2 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.tinder-card-content {
+  width: 100%;
+  height: 100%;
+}
+
+@keyframes popup {
+  0%   { transform: scale(1,1) }
+  10%  { transform: scale(1.1,1.1) }
+  30%  { transform: scale(.9,.9) }
+  50%  { transform: scale(1,1) }
+  57%  { transform: scale(1,1) }
+  64%  { transform: scale(1,1) }
+  100% { transform: scale(1,1) }
+}
