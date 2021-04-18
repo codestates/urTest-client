@@ -6,6 +6,7 @@ import { Container, Card, CardDeck, Button } from "react-bootstrap";
 import { useLocation } from "react-router-dom";
 import { ShareFill, Heart, HeartFill, Trophy } from "react-bootstrap-icons";
 import jwt from "jsonwebtoken";
+import SweetAlert from "react-bootstrap-sweetalert";
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 //@ts-ignore
 import { AwesomeButton } from "react-awesome-button";
@@ -87,7 +88,7 @@ const TextGame = (props: any) => {
   const [lastPick, setLastPick] = useState(false);
   const [bookMark, setBookMark] = useState(Boolean);
   const [userBookMark, setUserBookMark] = useState([] as any);
-  const [share, setShare] = useState(false);
+  const [sweetAlertShow, setSweetAlertShow] = useState(false);
   const [doubleClick, setDoubleClick] = useState(true);
 
   const { refetch } = useQuery(GET_CONTENTS, {
@@ -168,8 +169,7 @@ const TextGame = (props: any) => {
   };
 
   const copyHandler = () => {
-    setTimeout(() => setShare(true), 100);
-    setTimeout(() => setShare(false), 700);
+    setSweetAlertShow(true);
   };
 
   const bookMarkBtnHandler = () => {
@@ -214,6 +214,20 @@ const TextGame = (props: any) => {
 
   return (
     <>
+      <SweetAlert
+        show={sweetAlertShow}
+        showConfirm={false}
+        success
+        title="클립보드에 복사되었습니다."
+        onConfirm={() => {
+          setSweetAlertShow(false);
+          return;
+        }}
+        onCancel={() => {
+          setSweetAlertShow(false);
+          return;
+        }}
+      >{`https://urtest.shop${location.pathname}`}</SweetAlert>
       {questions.length === 0 ? (
         "loading..."
       ) : (
@@ -262,7 +276,6 @@ const TextGame = (props: any) => {
                 </Button>
               </CopyToClipboard>
             </AwesomeButton>
-            {share ? <span> 클립보드에 복사되었습니다.</span> : ""}
           </div>
           <h1 className="textgame-title font-jua m-5">
             {questions[0].questionBody}
@@ -298,13 +311,26 @@ const TextGame = (props: any) => {
             <div className="mt-4" style={{ textAlign: "center" }}>
               게임이 종료되었습니다.
               <div className="mt-4">
-                <LinkContainer to={`/analytics/${+props.gameid}/`}>
+                <LinkContainer to={`/textgame/${+props.gameid}/`}>
                   <AwesomeButton type="primary" className="m-1">
-                    <Button variant="urtest">
-                      <Trophy />
-                    </Button>
+                    <Button variant="urtest">다시하기</Button>
                   </AwesomeButton>
                 </LinkContainer>
+                <LinkContainer to={`/analytics/${+props.gameid}/`}>
+                  <AwesomeButton type="primary" className="m-1">
+                    <Button variant="urtest">랭킹보기</Button>
+                  </AwesomeButton>
+                </LinkContainer>
+                <AwesomeButton type="primary" className="m-1">
+                  <CopyToClipboard
+                    text={`https://urtest.shop${location.pathname}`}
+                    onCopy={() => copyHandler()}
+                  >
+                    <Button variant="urtest">
+                      <ShareFill />
+                    </Button>
+                  </CopyToClipboard>
+                </AwesomeButton>
               </div>
             </div>
           ) : (
