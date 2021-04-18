@@ -74,6 +74,10 @@
 .btn.btn-tinder-urtest:focus {
   box-shadow: none;
 }
+.btn.btn-tinder-urtest:active {
+  box-shadow: none;
+}
+
 @media (max-width: 992px) {
   .btn.btn-tinder-urtest {
     font-size: 0.9rem;

@@ -96,18 +96,22 @@ const Home = () => {
   const alreadyRemoved = [] as any[];
   let charactersState = contents;
   const [characters, setCharacters] = useState([] as any);
-  const [lastDirection, setLastDirection] = useState();
   useReactiveVar(searchState);
 
   const {} = useQuery(GET_CONTENT_ALL, {
     onCompleted: (data) => {
       if (data) {
         setContents([...data.getContentAll]);
-        setCharacters([...data.getContentAll]);
+        setCharacters(
+          [...data.getContentAll].sort((a: any, b: any) => {
+            return a.views - b.views;
+          })
+        );
         return;
       }
       return;
     },
+    fetchPolicy: "cache-and-network",
   });
 
   const views = contents
@@ -147,45 +151,69 @@ const Home = () => {
   );
 
   const swiped = (direction: any, nameToDelete: any) => {
-    console.log("removing: " + nameToDelete, lastDirection);
-    setLastDirection(direction);
     alreadyRemoved.push(nameToDelete);
   };
 
   const outOfFrame = (name: any) => {
-    // console.log(name + " left the screen!");
     charactersState = charactersState.filter(
       (character: any) => character.name !== name
     );
-    // setCharacters(charactersState);
   };
   const tinderBtnHandler = async (e: any) => {
     e.preventDefault();
-    setBtnState("all");
-    setTinderBtnAni(!tinderBtnAni);
-    await delay(1000);
-    setViewAll(!viewAll);
+    if (e.target.textContent === "Swipe") {
+      setBtnState("all");
+      !tinderBtnAni ? setTinderBtnAni(true) : setTinderBtnAni(false);
+      if (!viewAll) {
+        await delay(1000);
+        setViewAll(true);
+      } else {
+        setViewAll(false);
+      }
+    } else {
+      window.location.reload();
+    }
+    console.log(tinderBtnAni);
+    console.log(viewAll);
   };
   const tinderViewAllBtnHandler = async (e: any) => {
     e.preventDefault();
+    console.log(tinderBtnAni);
+    console.log(viewAll);
     setBtnState("all");
-    !tinderBtnAni ? setTinderBtnAni(true) : setTinderBtnAni(false);
-    await delay(1000);
-    setViewAll(true);
+    if (!tinderBtnAni) {
+      setTinderBtnAni(true);
+    }
+    if (!viewAll) {
+      await delay(1000);
+      setViewAll(true);
+    }
   };
   const tinderImglistBtnHandler = async (e: any) => {
     e.preventDefault();
+    console.log(tinderBtnAni);
+    console.log(viewAll);
     setBtnState("img");
-    !tinderBtnAni ? setTinderBtnAni(true) : setTinderBtnAni(false);
-    await delay(1000);
-    setViewAll(true);
+    if (!tinderBtnAni) {
+      setTinderBtnAni(true);
+    }
+    if (!viewAll) {
+      await delay(1000);
+      setViewAll(true);
+    }
   };
   const tinderTextlistBtnHandler = async (e: any) => {
     e.preventDefault();
+    console.log(tinderBtnAni);
+    console.log(viewAll);
     setBtnState("text");
-    !tinderBtnAni ? setTinderBtnAni(true) : setTinderBtnAni(false);
-    await delay(1000);
-    setViewAll(true);
+    if (!tinderBtnAni) {
+      setTinderBtnAni(true);
+    }
+    if (!viewAll) {
+      await delay(1000);
+      setViewAll(true);
+    }
   };
   return (
     <>
@@ -220,9 +248,6 @@ const Home = () => {
                         >
                           <Button
                             variant="tinder-urtest"
-                            // size="lg"
-                            // block
-
                             type="button"
                             onClick={(e) => tinderViewAllBtnHandler(e)}
                           >
@@ -237,9 +262,6 @@ const Home = () => {
                         >
                           <Button
                             variant="tinder-urtest"
-                            // size="lg"
-                            // block
-
                             type="button"
                             onClick={tinderImglistBtnHandler}
                           >
@@ -287,9 +309,6 @@ const Home = () => {
                         >
                           <Button
                             variant="tinder-urtest"
-                            // size="lg"
-                            // block
-
                             type="button"
                             onClick={(e) => tinderViewAllBtnHandler(e)}
                           >
@@ -304,9 +323,6 @@ const Home = () => {
                         >
                           <Button
                             variant="tinder-urtest"
-                            // size="lg"
-                            // block
-
                             type="button"
                             onClick={tinderImglistBtnHandler}
                           >
@@ -332,20 +348,6 @@ const Home = () => {
                       </Col>
                     </Reveal>
                   )}
-                  {/* <Col md="auto">
-                      <AwesomeButton
-                        type="link"
-                        className="font-jua p-0 btn-tinder-reset"
-                      >
-                        <Button
-                          variant="tinder-urtest"
-                          type="button"
-                          onClick={(e) => tinderViewAllBtnHandler(e)}
-                        >
-                          {viewAll ? "Swipe" : "Reset"}
-                        </Button>
-                      </AwesomeButton>
-                    </Col> */}
                 </Row>
                 <div className="tinder-root">
                   <div className="tinder-div1">
@@ -396,7 +398,7 @@ const Home = () => {
                       <Button
                         variant="tinder-urtest"
                         type="button"
-                        onClick={(e) => tinderBtnHandler(e)}
+                        onClick={tinderBtnHandler}
                       >
                         {viewAll ? "Swipe" : "Reset"}
                       </Button>
@@ -409,11 +411,8 @@ const Home = () => {
                     >
                       <Button
                         variant="tinder-urtest"
-                        // size="lg"
-                        // block
-
                         type="button"
-                        onClick={(e) => tinderViewAllBtnHandler(e)}
+                        onClick={tinderViewAllBtnHandler}
                       >
                         전체보기
                       </Button>
@@ -426,9 +425,6 @@ const Home = () => {
                     >
                       <Button
                         variant="tinder-urtest"
-                        // size="lg"
-                        // block
-
                         type="button"
                         onClick={tinderImglistBtnHandler}
                       >
