@@ -18,7 +18,6 @@ h1 {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  align-items: center;
   border-radius: 5px;
   position: relative;
   overflow: hidden;
@@ -49,17 +48,20 @@ h1 {
   opacity: 0.6;
 }
 .text-header {
-  width: 100%;
+  width: 60%;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
   align-items: flex-start;
   padding: 1rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .text-header span {
-  font-weight: 400;
-  opacity: 0.8;
-  font-size: 1.1rem;
+  // font-weight: 400;
+  // opacity: 0.8;
+  // font-size: 1.1rem;
 }
 .img-box {
   height: 75%;
@@ -80,15 +82,25 @@ h1 {
 }
 .answer-box span {
   width: 100%;
-  height: 100%;
+  height: 70%;
   display: flex;
   justify-content: center;
   align-items: center;
+  color: white;
+  background-color: #2f2e41;
+  border-top: 1px solid #f8f5f1;
+  border-bottom: 1px solid #f8f5f1;
 }
-.answer-box span:first-child {
-  border-right: 1px solid black;
+.answer-box span:nth-child(2) {
+  border-right: 1px solid #f8f5f1;
 }
-
+.question-body {
+  position: absolute;
+  top: 0;
+  padding-top: 1.3rem;
+  width: 100%;
+  color: white;
+}
 .content-box {
   display: flex;
   width: 100%;
@@ -97,7 +109,7 @@ h1 {
   align-items: center;
 }
 .content-box:hover {
-  .start-game span {
+  .start-game div {
     display: block;
     opacity: 1;
     z-index: 999;
@@ -135,11 +147,11 @@ h1 {
   position: absolute;
   margin-top: 5rem;
 }
-.start-game span {
-  background-color: white;
+.start-game div {
+  color: white;
   border-radius: 3px;
   width: 12rem;
-  font-size: 1.1rem;
+  font-size: 3rem;
   opacity: 0;
   -webkit-transition: opacity 0.3s ease-in;
   transition: opacity 0.3s ease-in;
@@ -266,8 +278,26 @@ h1 {
     position: unset;
     width: 60%;
   }
+  .text-header {
+    font-size: 1rem;
+    position: unset;
+    width: 50%;
+  }
   .icon-box {
     width: 40%;
+  }
+  .gridbox {
+    margin: 0;
+    padding: 0 !important;
+  }
+  .col {
+    padding: 0 !important;
+  }
+  .container {
+    padding: 0 !important;
+  }
+  .card-item {
+    padding-right: 0 !important;
   }
 }
 
@@ -343,6 +373,14 @@ h1 {
   display: flex;
   width: 100%;
   height: 100%;
+  justify-content: center;
+  align-items: flex-end;
+  background-color: #2f2e41;
+}
+.wordbreak {
+  padding: 0 5px;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .card-container {
   overflow-y: scroll;

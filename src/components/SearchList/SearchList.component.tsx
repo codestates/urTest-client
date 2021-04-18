@@ -3,9 +3,11 @@ import { searchState, typeCheck } from "../../common/graphql/client";
 import React, { useEffect, useState } from "react";
 import SwiperCore, { Navigation, Pagination, Scrollbar, A11y } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
-import CardItem from "../CardList/ImgCardItem.component";
+import Fade from "react-reveal/Fade";
 import { gql, useQuery, useReactiveVar, useLazyQuery } from "@apollo/client";
 import Loading from "../Loading/Loading";
+import TextCardItem from "../CardList/TextCardItem.component";
+import ImgCardItem from "../CardList/ImgCardItem.component";
 
 SwiperCore.use([Navigation, Pagination, Scrollbar, A11y]);
 
@@ -17,6 +19,16 @@ const SearchList = () => {
         title
         desc
         type
+        views
+        photos {
+          photoUrl
+        }
+        question {
+          questionBody
+          answer {
+            body
+          }
+        }
       }
     }
   `;
@@ -55,61 +67,21 @@ const SearchList = () => {
         ) : contents.length === 0 ? (
           <Loading />
         ) : (
-          <Swiper
-            className="swiper-container mh-100 min-vh-83"
-            // spaceBetween={10}
-            // slidesPerView={6}
-            // slidesPerColumn={2}
-            // slidesPerColumnFill={"row"}
-            breakpoints={{
-              0: {
-                slidesPerView: 1,
-                slidesPerColumn: 2,
-                slidesPerColumnFill: "row",
-              },
-              576: {
-                slidesPerView: 2,
-                slidesPerColumn: 2,
-                slidesPerColumnFill: "row",
-              },
-              768: {
-                slidesPerView: 3,
-                slidesPerColumn: 2,
-                slidesPerColumnFill: "row",
-              },
-              992: {
-                slidesPerView: 4,
-                slidesPerColumn: 2,
-                slidesPerColumnFill: "row",
-              },
-              1200: {
-                slidesPerView: 5,
-                slidesPerColumn: 2,
-                slidesPerColumnFill: "row",
-              },
-              1500: {
-                slidesPerView: 6,
-                slidesPerColumn: 2,
-                slidesPerColumnFill: "row",
-              },
-            }}
-            navigation
-            // pagination={{
-            //   clickable: true,
-            //   type: "fraction",
-            // }}
-            scrollbar={{ draggable: true }}
-            onSwiper={(swiper) => console.log(swiper)}
-            onSlideChange={() => console.log("slide change")}
-          >
-            {contents.map((el: any) => {
+          <div className="gridbox">
+            {contents.map((el: any, index: number) => {
               return (
-                <SwiperSlide key={el.id}>
-                  <CardItem d={el} />
+                <SwiperSlide className="slide-width" key={index}>
+                  <Fade bottom>
+                    {el.photos.length === 0 ? (
+                      <TextCardItem d={el} className="card-item" />
+                    ) : (
+                      <ImgCardItem d={el} className="card-item" />
+                    )}
+                  </Fade>
                 </SwiperSlide>
               );
             })}
-          </Swiper>
+          </div>
         )}
       </Container>
     </>
