@@ -7,6 +7,7 @@ import { useLocation } from "react-router-dom";
 import { ShareFill, Heart, HeartFill, Trophy } from "react-bootstrap-icons";
 import jwt from "jsonwebtoken";
 import SweetAlert from "react-bootstrap-sweetalert";
+import { Fade } from "react-awesome-reveal";
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 //@ts-ignore
 import { AwesomeButton } from "react-awesome-button";
@@ -23,7 +24,9 @@ const TextGame = (props: any) => {
     query getContent($id: Int!) {
       getContent(id: $id) {
         bookMarks {
+          id
           userId
+          contentId
         }
         question {
           id
@@ -178,7 +181,6 @@ const TextGame = (props: any) => {
         id: +props.gameid,
       },
     });
-    alert("즐겨찾기가 추가 되었습니다.");
     setBookMark(true);
     return;
   };
@@ -198,7 +200,7 @@ const TextGame = (props: any) => {
       }
     );
     userBookMark.map((el: any) => {
-      if (el.userId === userId) {
+      if (el.userId === userId && el.contentId === +props.gameid) {
         result = el.id;
       }
     });
@@ -207,7 +209,6 @@ const TextGame = (props: any) => {
         id: result,
       },
     });
-    alert("즐겨찾기가 삭제 되었습니다.");
     setBookMark(false);
     return;
   };
@@ -294,11 +295,15 @@ const TextGame = (props: any) => {
                       {pick.body}
                     </Card.Text>
                     {rating ? (
-                      <Card.Text>{`선택률 ${(
-                        (pick.winCount /
-                          (answers[0].winCount + answers[1].winCount)) *
-                        100
-                      ).toFixed(0)}%`}</Card.Text>
+                      <Fade>
+                        <Card.Text
+                          style={{ color: "red", textAlign: "center" }}
+                        >{`선택률 ${(
+                          (pick.winCount /
+                            (answers[0].winCount + answers[1].winCount)) *
+                          100
+                        ).toFixed(0)}%`}</Card.Text>
+                      </Fade>
                     ) : (
                       ""
                     )}
