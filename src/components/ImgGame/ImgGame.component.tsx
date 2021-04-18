@@ -26,6 +26,7 @@ const ImgGame = (props: any) => {
         bookMarks {
           id
           userId
+          contentId
         }
         title
         desc
@@ -219,7 +220,7 @@ const ImgGame = (props: any) => {
       }
     );
     userBookMark.map((el: any) => {
-      if (el.userId === userId) {
+      if (el.userId === userId && el.contentId === +props.gameid) {
         result = el.id;
       }
     });
