@@ -5,7 +5,7 @@
 .tinder-card-container {
   width: 90vw;
   max-width: 400px;
-  height: 300px;
+  height: 350px;
 }
 
 .tinder-card {
@@ -47,23 +47,33 @@
 }
 
 .aws-btn.btn-tinder-reset {
-  position: relative;
-  bottom: 6rem;
+  top: 6rem;
 }
 .aws-btn.btn-tinder-viewall {
-  position: relative;
-  bottom: 6rem;
+  top: 6rem;
 }
 .aws-btn.btn-tinder-imglist {
-  position: relative;
-  bottom: 6rem;
+  top: 6rem;
 }
 .aws-btn.btn-tinder-textlist {
-  position: relative;
-  bottom: 6rem;
+  top: 6rem;
 }
 .tinder-wrapper {
   background-color: #1f2937;
+}
+.tinder-title {
+  margin-bottom: 1.5rem;
+  align-items: center;
+}
+
+@media (max-width: 992px) {
+  .col-tinder {
+    padding: 5px !important;
+    width: auto !important;
+  }
+  .tinder-title {
+    padding: 0;
+  }
 }
 
 @keyframes popup {

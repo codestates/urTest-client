@@ -21,12 +21,51 @@ import "swiper/components/effect-fade/effect-fade.scss";
 import TextList from "../TextList/TextList.component";
 import Fade from "react-reveal/Fade";
 import TinderCard from "react-tinder-card";
-import { Fade as Afade } from "react-awesome-reveal";
+// import { Fade as Afade } from "react-awesome-reveal";
+import Reveal from "react-awesome-reveal";
+import { keyframes } from "@emotion/react";
+
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 //@ts-ignore
 import { AwesomeButton } from "react-awesome-button";
 
 SwiperCore.use([Navigation, Pagination, Scrollbar, A11y, EffectFade]);
+
+const delay = (ms: number | undefined) =>
+  new Promise((resolve) => setTimeout(resolve, ms));
+
+const fadeInUp = keyframes`
+  from {
+    opacity: 0;
+    transform: translate3d(0, -200px, 0);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+`;
+const rotateUp = keyframes`
+
+  from {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+
+  99% {
+    opacity: 1;
+    height: 100%;
+    z-index: 100;
+  }
+  
+  to {
+    opacity: 0;
+    transform: translate3d(0, -96px, 0);  
+    height: 0;
+    z-index: -1;
+  }
+  
+`;
 
 const Home = () => {
   const GET_CONTENT_ALL = gql`
@@ -49,7 +88,8 @@ const Home = () => {
       }
     }
   `;
-  const [viewAll, setViewAll] = useState(true);
+  const [viewAll, setViewAll] = useState(false);
+  const [tinderBtnAni, setTinderBtnAni] = useState(false);
   const [contents, setContents] = useState([] as any);
   const [btnState, setBtnState] = useState("all" as string);
   // tinder ---------
@@ -85,18 +125,18 @@ const Home = () => {
       }
     });
   });
-  const btnAll = (e: any) => {
-    e.preventDefault();
-    setBtnState("all");
-  };
-  const btnImg = (e: any) => {
-    e.preventDefault();
-    setBtnState("img");
-  };
-  const btnText = (e: any) => {
-    e.preventDefault();
-    setBtnState("text");
-  };
+  // const btnAll = (e: any) => {
+  //   e.preventDefault();
+  //   setBtnState("all");
+  // };
+  // const btnImg = (e: any) => {
+  //   e.preventDefault();
+  //   setBtnState("img");
+  // };
+  // const btnText = (e: any) => {
+  //   e.preventDefault();
+  //   setBtnState("text");
+  // };
 
   const childRefs = useMemo(
     () =>
@@ -119,8 +159,33 @@ const Home = () => {
     );
     // setCharacters(charactersState);
   };
-  const tinderViewAllBtnHandler = (e: any) => {
-    console.log(e);
+  const tinderBtnHandler = async (e: any) => {
+    e.preventDefault();
+    setBtnState("all");
+    setTinderBtnAni(!tinderBtnAni);
+    await delay(1000);
+    setViewAll(!viewAll);
+  };
+  const tinderViewAllBtnHandler = async (e: any) => {
+    e.preventDefault();
+    setBtnState("all");
+    !tinderBtnAni ? setTinderBtnAni(true) : setTinderBtnAni(false);
+    await delay(1000);
+    setViewAll(true);
+  };
+  const tinderImglistBtnHandler = async (e: any) => {
+    e.preventDefault();
+    setBtnState("img");
+    !tinderBtnAni ? setTinderBtnAni(true) : setTinderBtnAni(false);
+    await delay(1000);
+    setViewAll(true);
+  };
+  const tinderTextlistBtnHandler = async (e: any) => {
+    e.preventDefault();
+    setBtnState("text");
+    !tinderBtnAni ? setTinderBtnAni(true) : setTinderBtnAni(false);
+    await delay(1000);
+    setViewAll(true);
   };
   return (
     <>
@@ -131,6 +196,157 @@ const Home = () => {
           {!viewAll ? (
             <>
               <Container fluid className="p-0 m-0 tinder-wrapper">
+                <Row className=" p-0 m-0 justify-content-center tinder-title">
+                  {!tinderBtnAni ? (
+                    <Reveal keyframes={fadeInUp} triggerOnce cascade>
+                      <Col md="auto" className="col-tinder">
+                        <AwesomeButton
+                          type="link"
+                          className="font-jua p-0 btn-tinder-reset"
+                        >
+                          <Button
+                            variant="tinder-urtest"
+                            type="button"
+                            onClick={(e) => tinderBtnHandler(e)}
+                          >
+                            {viewAll ? "Swipe" : "Reset"}
+                          </Button>
+                        </AwesomeButton>
+                      </Col>
+                      <Col md="auto" className="col-tinder">
+                        <AwesomeButton
+                          type="link"
+                          className="font-jua p-0 btn-tinder-viewall"
+                        >
+                          <Button
+                            variant="tinder-urtest"
+                            // size="lg"
+                            // block
+
+                            type="button"
+                            onClick={(e) => tinderViewAllBtnHandler(e)}
+                          >
+                            전체보기
+                          </Button>
+                        </AwesomeButton>
+                      </Col>
+                      <Col md="auto" className="col-tinder">
+                        <AwesomeButton
+                          type="link"
+                          className="font-jua p-0 btn-tinder-imglist"
+                        >
+                          <Button
+                            variant="tinder-urtest"
+                            // size="lg"
+                            // block
+
+                            type="button"
+                            onClick={tinderImglistBtnHandler}
+                          >
+                            이상형월드컵
+                          </Button>
+                        </AwesomeButton>
+                      </Col>
+                      <Col md="auto" className="col-tinder">
+                        <AwesomeButton
+                          type="link"
+                          className={`font-jua p-0 ${
+                            btnState === "text" ? "border-bt" : ""
+                          } btn-tinder-textlist`}
+                        >
+                          <Button
+                            variant="tinder-urtest"
+                            type="button"
+                            onClick={tinderTextlistBtnHandler}
+                          >
+                            밸런스게임
+                          </Button>
+                        </AwesomeButton>
+                      </Col>
+                    </Reveal>
+                  ) : (
+                    <Reveal keyframes={rotateUp} triggerOnce>
+                      <Col md="auto" className="col-tinder">
+                        <AwesomeButton
+                          type="link"
+                          className="font-jua p-0 btn-tinder-reset"
+                        >
+                          <Button
+                            variant="tinder-urtest"
+                            type="button"
+                            onClick={(e) => tinderBtnHandler(e)}
+                          >
+                            {viewAll ? "Swipe" : "Reset"}
+                          </Button>
+                        </AwesomeButton>
+                      </Col>
+                      <Col md="auto" className="col-tinder">
+                        <AwesomeButton
+                          type="link"
+                          className="font-jua p-0 btn-tinder-viewall"
+                        >
+                          <Button
+                            variant="tinder-urtest"
+                            // size="lg"
+                            // block
+
+                            type="button"
+                            onClick={(e) => tinderViewAllBtnHandler(e)}
+                          >
+                            전체보기
+                          </Button>
+                        </AwesomeButton>
+                      </Col>
+                      <Col md="auto" className="col-tinder">
+                        <AwesomeButton
+                          type="link"
+                          className="font-jua p-0 btn-tinder-imglist"
+                        >
+                          <Button
+                            variant="tinder-urtest"
+                            // size="lg"
+                            // block
+
+                            type="button"
+                            onClick={tinderImglistBtnHandler}
+                          >
+                            이상형월드컵
+                          </Button>
+                        </AwesomeButton>
+                      </Col>
+                      <Col md="auto" className="col-tinder">
+                        <AwesomeButton
+                          type="link"
+                          className={`font-jua p-0 ${
+                            btnState === "text" ? "border-bt" : ""
+                          } btn-tinder-textlist`}
+                        >
+                          <Button
+                            variant="tinder-urtest"
+                            type="button"
+                            onClick={tinderTextlistBtnHandler}
+                          >
+                            밸런스게임
+                          </Button>
+                        </AwesomeButton>
+                      </Col>
+                    </Reveal>
+                  )}
+                  {/* <Col md="auto">
+                      <AwesomeButton
+                        type="link"
+                        className="font-jua p-0 btn-tinder-reset"
+                      >
+                        <Button
+                          variant="tinder-urtest"
+                          type="button"
+                          onClick={(e) => tinderViewAllBtnHandler(e)}
+                        >
+                          {viewAll ? "Swipe" : "Reset"}
+                        </Button>
+                      </AwesomeButton>
+                    </Col> */}
+                </Row>
                 <div className="tinder-root">
                   <div className="tinder-div1">
                     <div className="tinder-div2">
@@ -164,75 +380,6 @@ const Home = () => {
                     </div>
                   </div>
                 </div>
-                <Row className=" p-0 m-0 justify-content-center">
-                  <Afade direction="up" cascade triggerOnce>
-                    <Col xl={2}>
-                      <AwesomeButton
-                        type="link"
-                        className="font-jua p-0 btn-tinder-reset"
-                      >
-                        <Button
-                          variant="tinder-urtest"
-                          type="button"
-                          onClick={(e) => tinderViewAllBtnHandler(e)}
-                        >
-                          test1
-                        </Button>
-                      </AwesomeButton>
-                    </Col>
-                    <Col xl={{ span: 2, offset: 1 }}>
-                      <AwesomeButton
-                        type="link"
-                        className="font-jua p-0 btn-tinder-viewall"
-                      >
-                        <Button
-                          variant="tinder-urtest"
-                          // size="lg"
-                          // block
-
-                          type="button"
-                          onClick={(e) => tinderViewAllBtnHandler(e)}
-                        >
-                          test1
-                        </Button>
-                      </AwesomeButton>
-                    </Col>
-                    <Col xl={{ span: 2, offset: 1 }}>
-                      <AwesomeButton
-                        type="link"
-                        className="font-jua p-0 btn-tinder-imglist"
-                      >
-                        <Button
-                          variant="tinder-urtest"
-                          // size="lg"
-                          // block
-
-                          type="button"
-                          onClick={(e) => tinderViewAllBtnHandler(e)}
-                        >
-                          test1
-                        </Button>
-                      </AwesomeButton>
-                    </Col>
-                    <Col xl={{ span: 2, offset: 1 }}>
-                      <AwesomeButton
-                        type="link"
-                        className="font-jua p-0 btn-tinder-textlist"
-                      >
-                        <Button
-                          variant="tinder-urtest"
-                          // size="lg"
-                          // block
-
-                          type="button"
-                          onClick={(e) => tinderViewAllBtnHandler(e)}
-                        >
-                          test1
-                        </Button>
-                      </AwesomeButton>
-                    </Col>
-                  </Afade>
-                </Row>
               </Container>
             </>
           ) : contents.item === 0 ? (
@@ -240,26 +387,70 @@ const Home = () => {
           ) : (
             <>
               <Container fluid className="card-container">
-                <div className="swiper-main-title">
-                  <button
-                    className={btnState === "all" ? "border-bt" : ""}
-                    onClick={btnAll}
-                  >
-                    전체
-                  </button>
-                  <button
-                    className={btnState === "img" ? "border-bt" : ""}
-                    onClick={btnImg}
-                  >
-                    이상형 게임
-                  </button>
-                  <button
-                    className={btnState === "text" ? "border-bt" : ""}
-                    onClick={btnText}
-                  >
-                    밸런스 게임
-                  </button>
-                </div>
+                <Row className=" py-0 mb-2 justify-content-center tinder-title">
+                  <Col md="auto" className="col-tinder">
+                    <AwesomeButton
+                      type="link"
+                      className="font-jua p-0 btn-home-reset"
+                    >
+                      <Button
+                        variant="tinder-urtest"
+                        type="button"
+                        onClick={(e) => tinderBtnHandler(e)}
+                      >
+                        {viewAll ? "Swipe" : "Reset"}
+                      </Button>
+                    </AwesomeButton>
+                  </Col>
+                  <Col md="auto" className="col-tinder">
+                    <AwesomeButton
+                      type="link"
+                      className="font-jua p-0 btn-home-viewall"
+                    >
+                      <Button
+                        variant="tinder-urtest"
+                        // size="lg"
+                        // block
+
+                        type="button"
+                        onClick={(e) => tinderViewAllBtnHandler(e)}
+                      >
+                        전체보기
+                      </Button>
+                    </AwesomeButton>
+                  </Col>
+                  <Col md="auto" className="col-tinder">
+                    <AwesomeButton
+                      type="link"
+                      className="font-jua p-0 btn-home-imglist"
+                    >
+                      <Button
+                        variant="tinder-urtest"
+                        // size="lg"
+                        // block
+
+                        type="button"
+                        onClick={tinderImglistBtnHandler}
+                      >
+                        이상형월드컵
+                      </Button>
+                    </AwesomeButton>
+                  </Col>
+                  <Col md="auto" className="col-tinder">
+                    <AwesomeButton
+                      type="link"
+                      className="font-jua p-0 btn-home-textlist"
+                    >
+                      <Button
+                        variant="tinder-urtest"
+                        type="button"
+                        onClick={tinderTextlistBtnHandler}
+                      >
+                        밸런스게임
+                      </Button>
+                    </AwesomeButton>
+                  </Col>
+                </Row>
                 {btnState === "all" ? (
                   <>
                     <Container fluid className="fluid-item">
