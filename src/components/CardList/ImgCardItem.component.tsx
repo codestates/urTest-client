@@ -2,7 +2,12 @@ import React, { useEffect, useState } from "react";
 import { gql, useMutation } from "@apollo/client";
 import { Container, Col } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
-import { ShareFill, Heart, Trophy } from "react-bootstrap-icons";
+import {
+  ShareFill,
+  Heart,
+  Trophy,
+  CaretRightSquareFill,
+} from "react-bootstrap-icons";
 const ImgCardItem = ({ d }: any) => {
   const ADD_VIEWS = gql`
     mutation addViews($id: Int!) {
@@ -42,7 +47,9 @@ const ImgCardItem = ({ d }: any) => {
                 <>
                   <div className="content-box">
                     <div className="start-game">
-                      <span>시작하기</span>
+                      <div>
+                        <CaretRightSquareFill />
+                      </div>
                     </div>
                     <div className="img-box">
                       <img src={d?.photos[0]?.photoUrl} alt="img" />
@@ -55,7 +62,9 @@ const ImgCardItem = ({ d }: any) => {
               )}
 
               <div className="text-box">
-                <p>{d.title}</p>
+                <div>
+                  <p>{d.title}</p>
+                </div>
                 {/* <span>{d.desc}</span> */}
                 <div className="icon-box">
                   <Heart />
