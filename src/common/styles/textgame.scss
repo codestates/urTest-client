@@ -1,10 +1,12 @@
 .textgame-title {
     text-align: center;
     font-size: 1.8rem;
+    word-break: break-word;
 }
 
 .textgame-answer {
     text-align: center;
     font-size: 2.5rem;
     cursor: pointer;
+    word-break: break-word;
 }

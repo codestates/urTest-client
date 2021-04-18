@@ -6,6 +6,7 @@ import { LinkContainer } from "react-router-bootstrap";
 import { useLocation } from "react-router-dom";
 import { ShareFill, Heart, HeartFill, Trophy } from "react-bootstrap-icons";
 import jwt from "jsonwebtoken";
+import SweetAlert from "react-bootstrap-sweetalert";
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 //@ts-ignore
 import { AwesomeButton } from "react-awesome-button";
@@ -93,7 +94,7 @@ const ImgGame = (props: any) => {
   const [doubleClick, setDoubleClick] = useState(true);
   const [bookMark, setBookMark] = useState(Boolean);
   const [userBookMark, setUserBookMark] = useState([] as any);
-  const [share, setShare] = useState(false);
+  const [sweetAlertShow, setSweetAlertShow] = useState(false);
 
   const startHandler = () => {
     setStart(false);
@@ -190,8 +191,7 @@ const ImgGame = (props: any) => {
   };
 
   const copyHandler = () => {
-    setTimeout(() => setShare(true), 100);
-    setTimeout(() => setShare(false), 700);
+    setSweetAlertShow(true);
   };
 
   const bookMarkBtnHandler = () => {
@@ -234,6 +234,20 @@ const ImgGame = (props: any) => {
 
   return (
     <>
+      <SweetAlert
+        show={sweetAlertShow}
+        showConfirm={false}
+        success
+        title="클립보드에 복사되었습니다."
+        onConfirm={() => {
+          setSweetAlertShow(false);
+          return;
+        }}
+        onCancel={() => {
+          setSweetAlertShow(false);
+          return;
+        }}
+      >{`https://urtest.shop${location.pathname}`}</SweetAlert>
       {start ? (
         <Container fluid>
           <CardDeck className="vh-92">
@@ -287,7 +301,6 @@ const ImgGame = (props: any) => {
                       </Button>
                     </CopyToClipboard>
                   </AwesomeButton>
-                  {share ? <span> 클립보드에 복사되었습니다.</span> : ""}
                 </Card.Text>
                 <Card.Text className="card-start-title">{Data.title}</Card.Text>
                 <Card.Text className="card-start-title h-10">
@@ -368,7 +381,6 @@ const ImgGame = (props: any) => {
               </Card.Body>
             </Card>
           </CardDeck>
-          {/* <Alert variant="secondary">{`https://urtest.shop${location.pathname}`}</Alert> */}
         </Container>
       ) : (
         <Container className="mt-5" style={{ textAlign: "center" }}>
@@ -415,41 +427,15 @@ const ImgGame = (props: any) => {
             })}
           </CardDeck>
           {rounds === "우승" ? (
-            <div style={{ textAlign: "center" }}>
-              {isLogin ? (
-                bookMark ? (
-                  <AwesomeButton type="link" className="m-1">
-                    <Button
-                      variant="urtest"
-                      onClick={() => deleteBookMarkBtnHandler()}
-                    >
-                      <HeartFill />
-                    </Button>
-                  </AwesomeButton>
-                ) : (
-                  <AwesomeButton type="primary" className="m-1">
-                    <Button
-                      variant="urtest"
-                      onClick={() => bookMarkBtnHandler()}
-                    >
-                      <Heart />
-                    </Button>
-                  </AwesomeButton>
-                )
-              ) : (
-                <LinkContainer to="/login">
-                  <AwesomeButton type="primary" className="m-1">
-                    <Button variant="urtest">
-                      <Heart />
-                    </Button>
-                  </AwesomeButton>
-                </LinkContainer>
-              )}
+            <div className="mt-3">
+              <LinkContainer to={`/imggame/${+props.gameid}/`}>
+                <AwesomeButton type="primary" className="m-1">
+                  <Button variant="urtest">다시하기</Button>
+                </AwesomeButton>
+              </LinkContainer>
               <LinkContainer to={`/analytics/${+props.gameid}/`}>
                 <AwesomeButton type="primary" className="m-1">
-                  <Button variant="urtest">
-                    <Trophy />
-                  </Button>
+                  <Button variant="urtest">랭킹보기</Button>
                 </AwesomeButton>
               </LinkContainer>
               <AwesomeButton type="primary" className="m-1">
@@ -462,7 +448,6 @@ const ImgGame = (props: any) => {
                   </Button>
                 </CopyToClipboard>
               </AwesomeButton>
-              {share ? <span> 클립보드에 복사되었습니다.</span> : ""}
             </div>
           ) : (
             ""

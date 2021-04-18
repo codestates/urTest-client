@@ -40,7 +40,7 @@
 
 
 .card-img {
-    box-shadow: 10px 20px 20px rgba(0,0,0,0.8);
+    box-shadow: 5px 10px 10px rgba(0,0,0,0.5);
     cursor: pointer;
     width: 50%;
     height: 90%;
@@ -54,7 +54,8 @@
 
 .header-text {
     font-family: 'Jua', sans-serif;
-    font-size: 2rem
+    font-size: 2rem;
+    word-break: break-word;
 }
 
 .card-text-font {
@@ -76,21 +77,21 @@
 .card-start-title {
     text-align: center;
     font-size: 2rem;
+    word-break: break-word;
 }
 
 .card-start-desc {
     text-align: center;
     font-size: 1rem;
+    word-break: break-word;
 }
 
 .h-10 {
     height: 10%;
 }
-
 .h-40 {
     height: 40%;
 }
-
 .h-20 {
     height: 20%;
 }
