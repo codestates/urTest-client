@@ -228,7 +228,7 @@ const TextGame = (props: any) => {
         showCloseButton
         confirmBtnText="로그인"
         cancelBtnText="취소"
-        confirmBtnBsStyle="primary"
+        confirmBtnBsStyle="secondary"
         cancelBtnBsStyle="light"
         success
         title="로그인이 필요한 기능입니다."
@@ -263,7 +263,7 @@ const TextGame = (props: any) => {
           <div style={{ textAlign: "left" }}>
             {isLogin ? (
               bookMark ? (
-                <AwesomeButton type="secondary" className="m-1">
+                <AwesomeButton type="primary" className="m-1">
                   <Button
                     variant="urtest"
                     onClick={() => deleteBookMarkBtnHandler()}
@@ -272,14 +272,14 @@ const TextGame = (props: any) => {
                   </Button>
                 </AwesomeButton>
               ) : (
-                <AwesomeButton type="secondary" className="m-1">
+                <AwesomeButton type="primary" className="m-1">
                   <Button variant="urtest" onClick={() => bookMarkBtnHandler()}>
                     <Heart />
                   </Button>
                 </AwesomeButton>
               )
             ) : (
-              <AwesomeButton type="secondary" className="m-1">
+              <AwesomeButton type="primary" className="m-1">
                 <Button variant="urtest" onClick={() => notLoginHandler()}>
                   <Heart />
                 </Button>
