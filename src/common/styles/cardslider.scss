@@ -30,6 +30,7 @@ h1 {
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
+  font-size: 1rem;
   // line-height: 98%;
 }
 .text-box p {
@@ -57,6 +58,7 @@ h1 {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  font-size: 1rem;
 }
 .text-header span {
   // font-weight: 400;
@@ -128,7 +130,7 @@ h1 {
   bottom: 0.5rem;
   right: 1rem;
   width: 100%;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   height: 2.5rem;
   border-radius: 10px;
   display: flex;
@@ -139,6 +141,31 @@ h1 {
 }
 .icon-box svg {
   margin-left: 1.2rem;
+}
+.icon-box button:not(:first-child):hover,
+.icon-box a:hover {
+  transform: scale(1.2);
+  -webkit-transform: scale(1.2);
+  transition: transform 0.3s ease-in;
+}
+
+.icon-box button {
+  display: flex;
+  align-items: center;
+  box-shadow: none !important;
+}
+.icon-box a {
+  box-shadow: none !important;
+  display: flex;
+  align-items: center;
+}
+#button-tooltip {
+  margin-left: 10px;
+}
+.icon-view {
+  padding-left: 0.1rem;
+  font-size: 1rem;
+  opacity: 0.5;
 }
 .start-game {
   display: flex;
@@ -384,4 +411,10 @@ h1 {
 }
 .card-container {
   overflow-y: scroll;
+}
+.btn-info {
+  background-color: transparent !important;
+  color: inherit !important;
+  border: none !important;
+  padding: 0 !important;
 }
