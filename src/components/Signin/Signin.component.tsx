@@ -119,9 +119,9 @@ const Signin = () => {
 
       {isLogin ? <Redirect to="/" /> : ""}
       <Container fluid={true}>
-        <Row className="login-dwn">
-          <Col md={7} lg={8} className="bg-image mt-8" />
-          <Col md={8} lg={4}>
+        <Row className="login-dwn ml-5">
+          <Col md={7} lg={7} className="bg-image mt-8 ml-5" />
+          <Col md={8} lg={4} className="ml-3">
             <div className="login d-flex align-items-center py-5">
               <Container>
                 <Row>

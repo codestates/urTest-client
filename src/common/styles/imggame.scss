@@ -9,9 +9,6 @@
         width: 100%;
         margin: 0px auto !important;
     }
-    .card-start-size {
-        height: 200px;
-    }
     
     .title-reposition {
         margin-top: -1rem;
@@ -21,15 +18,12 @@
 
 @media (min-width: 576px) {
     .card-size {
-        height: 700px;
+        height: 650px;
         border-color: #ffff !important;
     }
     .card-deck-transition {
         width: 50%;
         margin: 0px auto !important;
-    }
-    .card-start-size {
-        height: 400px;
     }
     
     .title-reposition {

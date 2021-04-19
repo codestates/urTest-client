@@ -3,7 +3,7 @@ import { gql, useQuery, useMutation, useReactiveVar } from "@apollo/client";
 import { isLoginVar } from "../../common/graphql/client";
 import { LinkContainer } from "react-router-bootstrap";
 import { Container, Card, CardDeck, Button } from "react-bootstrap";
-import { useLocation } from "react-router-dom";
+import { useLocation, useHistory } from "react-router-dom";
 import { ShareFill, Heart, HeartFill, Trophy } from "react-bootstrap-icons";
 import jwt from "jsonwebtoken";
 import SweetAlert from "react-bootstrap-sweetalert";
@@ -19,6 +19,7 @@ const TextGame = (props: any) => {
   // 전역 변수
   const isLogin = useReactiveVar(isLoginVar);
   const location = useLocation();
+  const history = useHistory();
 
   const GET_CONTENTS = gql`
     query getContent($id: Int!) {
@@ -92,6 +93,7 @@ const TextGame = (props: any) => {
   const [bookMark, setBookMark] = useState(Boolean);
   const [userBookMark, setUserBookMark] = useState([] as any);
   const [sweetAlertShow, setSweetAlertShow] = useState(false);
+  const [sweetAlertLike, setSweetAlertLike] = useState(false);
   const [doubleClick, setDoubleClick] = useState(true);
 
   const { refetch } = useQuery(GET_CONTENTS, {
@@ -213,8 +215,33 @@ const TextGame = (props: any) => {
     return;
   };
 
+  const notLoginHandler = () => {
+    setSweetAlertLike(true);
+  };
+
   return (
     <>
+      <SweetAlert
+        show={sweetAlertLike}
+        custom
+        showCancel
+        showCloseButton
+        confirmBtnText="로그인"
+        cancelBtnText="취소"
+        confirmBtnBsStyle="primary"
+        cancelBtnBsStyle="light"
+        success
+        title="로그인이 필요한 기능입니다."
+        onConfirm={() => {
+          history.push("/login");
+          setSweetAlertLike(false);
+          return;
+        }}
+        onCancel={() => {
+          setSweetAlertLike(false);
+          return;
+        }}
+      ></SweetAlert>
       <SweetAlert
         show={sweetAlertShow}
         showConfirm={false}
@@ -236,7 +263,7 @@ const TextGame = (props: any) => {
           <div style={{ textAlign: "left" }}>
             {isLogin ? (
               bookMark ? (
-                <AwesomeButton type="link" className="m-1">
+                <AwesomeButton type="secondary" className="m-1">
                   <Button
                     variant="urtest"
                     onClick={() => deleteBookMarkBtnHandler()}
@@ -245,20 +272,18 @@ const TextGame = (props: any) => {
                   </Button>
                 </AwesomeButton>
               ) : (
-                <AwesomeButton type="primary" className="m-1">
+                <AwesomeButton type="secondary" className="m-1">
                   <Button variant="urtest" onClick={() => bookMarkBtnHandler()}>
                     <Heart />
                   </Button>
                 </AwesomeButton>
               )
             ) : (
-              <LinkContainer to="/login">
-                <AwesomeButton type="primary" className="m-1">
-                  <Button variant="urtest">
-                    <Heart />
-                  </Button>
-                </AwesomeButton>
-              </LinkContainer>
+              <AwesomeButton type="secondary" className="m-1">
+                <Button variant="urtest" onClick={() => notLoginHandler()}>
+                  <Heart />
+                </Button>
+              </AwesomeButton>
             )}
             <LinkContainer to={`/analytics/${+props.gameid}/`}>
               <AwesomeButton type="primary" className="m-1">
@@ -295,15 +320,19 @@ const TextGame = (props: any) => {
                       {pick.body}
                     </Card.Text>
                     {rating ? (
-                      <Fade>
-                        <Card.Text
-                          style={{ color: "red", textAlign: "center" }}
-                        >{`선택률 ${(
-                          (pick.winCount /
-                            (answers[0].winCount + answers[1].winCount)) *
-                          100
-                        ).toFixed(0)}%`}</Card.Text>
-                      </Fade>
+                      lastPick ? (
+                        " "
+                      ) : (
+                        <Fade>
+                          <Card.Text
+                            style={{ color: "red", textAlign: "center" }}
+                          >{`선택률 ${(
+                            (pick.winCount /
+                              (answers[0].winCount + answers[1].winCount)) *
+                            100
+                          ).toFixed(0)}%`}</Card.Text>
+                        </Fade>
+                      )
                     ) : (
                       ""
                     )}
