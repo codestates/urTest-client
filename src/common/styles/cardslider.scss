@@ -325,6 +325,18 @@ h1 {
   .card-item {
     padding-right: 0 !important;
   }
+  .main {
+    height: 0;
+  }
+  .login-container {
+    height: 45vh;
+  }
+  .login-dwn > div:nth-child(2) {
+    padding-right: 15px !important;
+  }
+  .mypage-container {
+    height: 90vh;
+  }
 }
 
 .item-container {

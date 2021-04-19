@@ -118,93 +118,89 @@ const Signin = () => {
       {/* http://drive.google.com/uc?export=view&id=1HJXOSa1lG4wdPpGLHeZV6ciiU6-O3hv_ */}
 
       {isLogin ? <Redirect to="/" /> : ""}
-      <Container fluid={true}>
-        <Row className="login-dwn ml-5">
-          <Col md={7} lg={7} className="bg-image mt-8 ml-5" />
-          <Col md={8} lg={4} className="ml-3">
-            <div className="login d-flex align-items-center py-5">
-              <Container>
-                <Row>
-                  <Col md={8} lg={7} className="mx-auto">
-                    <h2 className="login-heading mb-4">Welcome !</h2>
-                    <Form onSubmit={onSubmit}>
-                      <Form.Group controlId="formBasicEmail">
-                        <Form.Label className="form-label"></Form.Label>
-                        <Form.Control
-                          className="font-bgr"
-                          // size="lg"
-                          type="email"
-                          placeholder="이메일"
-                          onChange={(e) => {
-                            inputHandler(e);
-                          }}
-                          name="user_email"
-                        />
-                      </Form.Group>
-                      <Form.Group controlId="formBasicPassword">
-                        <Form.Label></Form.Label>
-                        <Form.Control
-                          className="font-bgr"
-                          // size="lg"
-                          type="password"
-                          placeholder="비밀번호를 입력하세요"
-                          onChange={(e) => {
-                            inputHandler(e);
-                          }}
-                          name="user_password"
-                        />
-                        <Form.Label className="mt-1 text-danger">
-                          {isOk ? " " : "* Invalid Email or Password"}
-                        </Form.Label>
-                      </Form.Group>
+      <Container fluid={true} className="login-container">
+        <Row className="login-dwn">
+          <Col md={7} lg={7} className="bg-image" />
+          <Col md={8} lg={4}>
+            <Row className="bg-login">
+              <Col md={8}>
+                <h2 className="login-heading mb-4">Welcome !</h2>
+                <Form onSubmit={onSubmit}>
+                  <Form.Group controlId="formBasicEmail">
+                    <Form.Label className="form-label"></Form.Label>
+                    <Form.Control
+                      className="font-bgr"
+                      // size="lg"
+                      type="email"
+                      placeholder="이메일"
+                      onChange={(e) => {
+                        inputHandler(e);
+                      }}
+                      name="user_email"
+                    />
+                  </Form.Group>
+                  <Form.Group controlId="formBasicPassword">
+                    <Form.Label></Form.Label>
+                    <Form.Control
+                      className="font-bgr"
+                      // size="lg"
+                      type="password"
+                      placeholder="비밀번호를 입력하세요"
+                      onChange={(e) => {
+                        inputHandler(e);
+                      }}
+                      name="user_password"
+                    />
+                    <Form.Label className="mt-1 text-danger">
+                      {isOk ? " " : "* Invalid Email or Password"}
+                    </Form.Label>
+                  </Form.Group>
+                  <AwesomeButton
+                    type="secondary"
+                    className="btn-login text-uppercase mb-2 w-100 font-mg"
+                  >
+                    <Button
+                      variant="urtest"
+                      // size="lg"
+                      // block
+
+                      type="submit"
+                      onClick={(e) => signinBtnHandler(e)}
+                    >
+                      로그인
+                    </Button>
+                  </AwesomeButton>
+                  <GoogleLogin
+                    clientId="724060049648-nnacpoao7gftdukk1gurp600rfgme79k.apps.googleusercontent.com"
+                    render={(renderProps) => (
                       <AwesomeButton
-                        type="secondary"
-                        className="btn-login text-uppercase mb-2 w-100 font-mg"
+                        type="primary"
+                        className="btn-login2 mb-2 w-100 font-mg font-size-1-2"
                       >
                         <Button
+                          onClick={renderProps.onClick}
                           variant="urtest"
-                          // size="lg"
-                          // block
-
                           type="submit"
-                          onClick={(e) => signinBtnHandler(e)}
                         >
-                          로그인
+                          Google
                         </Button>
                       </AwesomeButton>
-                      <GoogleLogin
-                        clientId="724060049648-nnacpoao7gftdukk1gurp600rfgme79k.apps.googleusercontent.com"
-                        render={(renderProps) => (
-                          <AwesomeButton
-                            type="primary"
-                            className="btn-login2 mb-2 w-100 font-mg font-size-1-2"
-                          >
-                            <Button
-                              onClick={renderProps.onClick}
-                              variant="urtest"
-                              type="submit"
-                            >
-                              Google
-                            </Button>
-                          </AwesomeButton>
-                        )}
-                        onSuccess={responseGoogle}
-                        onFailure={responseGoogle}
-                        cookiePolicy={"single_host_origin"}
-                      />
-                      <LinkContainer to="/signup">
-                        <AwesomeButton
-                          type="link"
-                          className="mt-2 text-inverse w-100 a-urtest font-size-1"
-                        >
-                          회원가입
-                        </AwesomeButton>
-                      </LinkContainer>
-                    </Form>
-                  </Col>
-                </Row>
-              </Container>
-            </div>
+                    )}
+                    onSuccess={responseGoogle}
+                    onFailure={responseGoogle}
+                    cookiePolicy={"single_host_origin"}
+                  />
+                  <LinkContainer to="/signup">
+                    <AwesomeButton
+                      type="link"
+                      className="mt-2 text-inverse w-100 a-urtest font-size-1"
+                    >
+                      회원가입
+                    </AwesomeButton>
+                  </LinkContainer>
+                </Form>
+              </Col>
+            </Row>
           </Col>
         </Row>
       </Container>
