@@ -173,13 +173,9 @@ const Home = () => {
     } else {
       window.location.reload();
     }
-    console.log(tinderBtnAni);
-    console.log(viewAll);
   };
   const tinderViewAllBtnHandler = async (e: any) => {
     e.preventDefault();
-    console.log(tinderBtnAni);
-    console.log(viewAll);
     setBtnState("all");
     if (!tinderBtnAni) {
       setTinderBtnAni(true);
@@ -191,8 +187,6 @@ const Home = () => {
   };
   const tinderImglistBtnHandler = async (e: any) => {
     e.preventDefault();
-    console.log(tinderBtnAni);
-    console.log(viewAll);
     setBtnState("img");
     if (!tinderBtnAni) {
       setTinderBtnAni(true);
@@ -204,8 +198,6 @@ const Home = () => {
   };
   const tinderTextlistBtnHandler = async (e: any) => {
     e.preventDefault();
-    console.log(tinderBtnAni);
-    console.log(viewAll);
     setBtnState("text");
     if (!tinderBtnAni) {
       setTinderBtnAni(true);

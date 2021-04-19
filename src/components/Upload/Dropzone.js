@@ -127,7 +127,6 @@ export default function Previews(props) {
       }, 3000);
 
       uploadObj.files = acceptedFiles;
-      localStorage.setItem("uploadObj", JSON.stringify(uploadObj));
       await acceptedFiles.map(async (file) => {
         await uploadPhoto({
           variables: {
@@ -144,6 +143,7 @@ export default function Previews(props) {
           })
         )
       );
+      localStorage.setItem("uploadObj", JSON.stringify(uploadObj));
     }, []),
   });
 
