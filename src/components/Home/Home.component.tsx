@@ -215,7 +215,7 @@ const Home = () => {
         <>
           {!viewAll ? (
             <>
-              <Container fluid className="p-0 m-0 tinder-wrapper">
+              <Container fluid className="p-0 mt-3 mx-0 tinder-wrapper">
                 <Row className=" p-0 m-0 justify-content-center tinder-title">
                   {!tinderBtnAni ? (
                     <Reveal keyframes={fadeInUp} triggerOnce cascade>
@@ -381,7 +381,7 @@ const Home = () => {
           ) : (
             <>
               <Container fluid className="card-container">
-                <Row className=" py-0 mb-2 justify-content-center tinder-title">
+                <Row className=" py-0  mt-3 mb-2 mx-0 justify-content-center tinder-title">
                   <Col md="auto" className="col-tinder">
                     <AwesomeButton
                       type="link"
