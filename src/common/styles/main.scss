@@ -1,7 +1,6 @@
 .main {
   position: relative;
-  top: 40px;
-  height: 100%;
+  height: 100vh;
   font-family: "BGR-B", sans-serif;
   font-weight: 100;
 }
@@ -51,9 +50,6 @@
 .uplode-point {
   margin-top: 5rem;
 }
-.mypage-point {
-  margin-top: 6rem;
-}
 
 @media (max-width: 992px) {
   .notfound-title {
@@ -62,4 +58,13 @@
   .main {
     top: 20px;
   }
+}
+.mypage-container {
+  display: flex;
+  height: 100vh;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+.mypage-row > div:first-child {
 }

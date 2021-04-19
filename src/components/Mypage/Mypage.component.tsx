@@ -154,11 +154,11 @@ const Mypage = () => {
   return (
     <>
       {!isLogin ? <Redirect to="/login" /> : ""}
-      <Container className="vh-92">
+      <Container className="mypage-container">
         <Container className="mypage-point">
-          <Row className=" justify-content-md-center mt-4 mx-3">
+          <Row className="mx-3 mypage-row">
             <Col md={5} lg={8} className="bg-image2" />
-            <Col md={7} lg={4} className="rounded pb-4">
+            <Col md={7} lg={4} className="rounded pb-4 pt-4">
               <Form>
                 <Form.Group controlId="formBasicEmail">
                   <br></br>
