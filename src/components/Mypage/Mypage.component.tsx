@@ -198,7 +198,19 @@ const Mypage = () => {
                   </Form.Label>
                 </Form.Group>
                 <Row className="justify-content-between">
-                  {/* <AwesomeButton> */}
+                  <AwesomeButton
+                    type="primary"
+                    className=" mb-3 ml-5 mr-5 font-mg w-100"
+                  >
+                    <Button
+                      variant="urtest"
+                      type="submit"
+                      onClick={(e) => modifyBtnHandler(e)}
+                    >
+                      수정하기
+                    </Button>
+                  </AwesomeButton>
+
                   <AwesomeButton
                     className=" text-uppercase  mb-4 ml-5 mr-5 w-100 font-mg"
                     type="secondary"
@@ -209,20 +221,6 @@ const Mypage = () => {
                       onClick={(e) => deleteBtnHandler(e)}
                     >
                       회원탈퇴
-                    </Button>
-                  </AwesomeButton>
-
-                  <AwesomeButton
-                    type="primary"
-                    className=" mb-3 ml-5 mr-5 font-mg w-100"
-                  >
-                    <Button
-                      variant="urtest"
-                      // size="lg"
-                      type="submit"
-                      onClick={(e) => modifyBtnHandler(e)}
-                    >
-                      수정하기
                     </Button>
                   </AwesomeButton>
                 </Row>

@@ -4,7 +4,7 @@ import Comment from "../Comment/Comment.component";
 import CommentItem from "../Comment/CommentItem.component";
 import SweetAlert from "react-bootstrap-sweetalert";
 import BootstrapTable from "react-bootstrap-table-next";
-import { Col, Row, Image, Jumbotron, ProgressBar } from "react-bootstrap";
+import { Col, Row, Image, ProgressBar } from "react-bootstrap";
 import { PieChart } from "react-minimal-pie-chart";
 
 const GET_CONTENT = gql`
@@ -386,12 +386,10 @@ const Analytics = (props: any) => {
   return (
     <>
       <Row className="justify-content-md-center mt-4 mx-2">
-        <Col md={8} className="bg-light rounded pt-3 pb-3">
-          <Jumbotron>
-            <h1>{contentTitle}</h1>
-            <hr className="my-4"></hr>
-            <p>{contentDesc}</p>
-          </Jumbotron>
+        <Col md={8} className="rounded pt-3 pb-3">
+          <h1 className="font-bgr-b">{contentTitle}</h1>
+          <hr className="my-2"></hr>
+          <p className="font-bgr">{contentDesc}</p>
           {type === "imggame" ? (
             <BootstrapTable
               keyField="id"
