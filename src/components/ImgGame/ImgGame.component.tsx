@@ -3,7 +3,7 @@ import { Container, Card, CardDeck, Button } from "react-bootstrap";
 import { gql, useQuery, useMutation, useReactiveVar } from "@apollo/client";
 import { isLoginVar } from "../../common/graphql/client";
 import { LinkContainer } from "react-router-bootstrap";
-import { useLocation } from "react-router-dom";
+import { useLocation, useHistory } from "react-router-dom";
 import { ShareFill, Heart, HeartFill, Trophy } from "react-bootstrap-icons";
 import jwt from "jsonwebtoken";
 import SweetAlert from "react-bootstrap-sweetalert";
@@ -18,6 +18,7 @@ const ImgGame = (props: any) => {
   // 전역 변수
   const location = useLocation();
   const isLogin = useReactiveVar(isLoginVar);
+  const history = useHistory();
 
   // 쿼리
   const GET_CONTENTS = gql`
@@ -96,6 +97,7 @@ const ImgGame = (props: any) => {
   const [bookMark, setBookMark] = useState(Boolean);
   const [userBookMark, setUserBookMark] = useState([] as any);
   const [sweetAlertShow, setSweetAlertShow] = useState(false);
+  const [sweetAlertLike, setSweetAlertLike] = useState(false);
 
   const startHandler = () => {
     setStart(false);
@@ -233,8 +235,33 @@ const ImgGame = (props: any) => {
     return;
   };
 
+  const notLoginHandler = () => {
+    setSweetAlertLike(true);
+  };
+
   return (
     <>
+      <SweetAlert
+        show={sweetAlertLike}
+        custom
+        showCancel
+        showCloseButton
+        confirmBtnText="로그인"
+        cancelBtnText="취소"
+        confirmBtnBsStyle="secondary"
+        cancelBtnBsStyle="light"
+        success
+        title="로그인이 필요한 기능입니다."
+        onConfirm={() => {
+          history.push("/login");
+          setSweetAlertLike(false);
+          return;
+        }}
+        onCancel={() => {
+          setSweetAlertLike(false);
+          return;
+        }}
+      ></SweetAlert>
       <SweetAlert
         show={sweetAlertShow}
         showConfirm={false}
@@ -277,13 +304,14 @@ const ImgGame = (props: any) => {
                       </AwesomeButton>
                     )
                   ) : (
-                    <LinkContainer to="/login">
-                      <AwesomeButton type="secondary" className="m-1">
-                        <Button variant="urtest">
-                          <Heart />
-                        </Button>
-                      </AwesomeButton>
-                    </LinkContainer>
+                    <AwesomeButton type="secondary" className="m-1">
+                      <Button
+                        variant="urtest"
+                        onClick={() => notLoginHandler()}
+                      >
+                        <Heart />
+                      </Button>
+                    </AwesomeButton>
                   )}
                   <LinkContainer to={`/analytics/${+props.gameid}/`}>
                     <AwesomeButton type="secondary" className="m-1">
@@ -307,7 +335,7 @@ const ImgGame = (props: any) => {
                 <Card.Text className="card-start-title h-10">
                   {count}강
                 </Card.Text>
-                <Card.Text className="card-start-desc card-start-size">
+                <Card.Text className="card-start-desc h-40">
                   {Data.desc}
                 </Card.Text>
                 <Card.Text className="card-text-font m-4">
@@ -399,36 +427,8 @@ const ImgGame = (props: any) => {
               </>
             )}
           </h1>
-          <CardDeck
-            className={displays.length === 1 ? "card-deck-transition" : ""}
-          >
-            {displays.map((d) => {
-              return (
-                <Card
-                  key={d.id}
-                  onClick={
-                    doubleClick
-                      ? () => clickHandler(d)
-                      : () => console.log(doubleClick)
-                  }
-                  className="card-size"
-                >
-                  <Card.Text className="card-text-font">
-                    {d.photoName}{" "}
-                    {displays.length === 1 ? `우승 횟수 : ${d.winCount}승` : ""}
-                  </Card.Text>
-                  <Card.Img
-                    src={d.photoUrl}
-                    alt=""
-                    className={transition ? "card-img-transition" : "card-img"}
-                    style={{ borderRadius: "1.5rem" }}
-                  />
-                </Card>
-              );
-            })}
-          </CardDeck>
           {rounds === "우승" ? (
-            <div className="mt-3">
+            <div className="mt-4">
               <LinkContainer to={`/imggame/${+props.gameid}/`}>
                 <AwesomeButton type="primary" className="m-1">
                   <Button variant="urtest">다시하기</Button>
@@ -453,6 +453,42 @@ const ImgGame = (props: any) => {
           ) : (
             ""
           )}
+          <CardDeck
+            className={
+              displays.length === 1 ? "card-deck-transition mt-3" : "mt-3"
+            }
+          >
+            {displays.map((d) => {
+              return (
+                <Card
+                  key={d.id}
+                  onClick={
+                    doubleClick
+                      ? () => clickHandler(d)
+                      : () => console.log(doubleClick)
+                  }
+                  style={{ borderColor: "#ffff" }}
+                >
+                  <Card.Body className="card-size">
+                    <Card.Text className="card-text-font">
+                      {d.photoName}{" "}
+                      {displays.length === 1
+                        ? `우승 횟수 : ${d.winCount}승`
+                        : ""}
+                    </Card.Text>
+                    <Card.Img
+                      src={d.photoUrl}
+                      alt=""
+                      className={
+                        transition ? "card-img-transition" : "card-img"
+                      }
+                      style={{ borderRadius: "1.5rem" }}
+                    />
+                  </Card.Body>
+                </Card>
+              );
+            })}
+          </CardDeck>
         </Container>
       )}
     </>
