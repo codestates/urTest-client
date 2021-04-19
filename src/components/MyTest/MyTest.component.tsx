@@ -34,7 +34,7 @@ SwiperCore.use([Navigation, Pagination, Scrollbar, A11y, EffectFade]);
 const delay = (ms: number | undefined) =>
   new Promise((resolve) => setTimeout(resolve, ms));
 
-const Mytest = () => {
+const MyTest = () => {
   const GET_CONTENT_ALL = gql`
     query getContentAll {
       getContentAll {
@@ -188,4 +188,4 @@ const Mytest = () => {
   );
 };
 
-export default Mytest;
+export default MyTest;
