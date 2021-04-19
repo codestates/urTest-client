@@ -99,3 +99,69 @@
     transform: scale(1, 1);
   }
 }
+
+.tinder-img-box {
+  height: 75%;
+}
+.tinder-img-box img {
+  width: 50%;
+  height: 100%;
+  border-radius: 2px;
+}
+
+.content-box:hover {
+  .tinder-start-game div {
+    display: block;
+    opacity: 1;
+    z-index: 999;
+  }
+}
+.tinder-start-game {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  margin-top: 5rem;
+}
+.tinder-start-game div {
+  color: white;
+  border-radius: 3px;
+  width: 3rem;
+  font-size: 3rem;
+  opacity: 0;
+  -webkit-transition: opacity 0.3s ease-in;
+  transition: opacity 0.3s ease-in;
+}
+.tinder-start-game div svg {
+  background-color: #1f2937;
+  border: 1px solid #1f2937;
+  border-radius: 7px;
+}
+
+.tinder-answer-box span {
+  width: 100%;
+  height: 70%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  background-color: #2f2e41;
+  border-top: 1px solid #f8f5f1;
+  border-bottom: 1px solid #f8f5f1;
+}
+.tinder-answer-box span:nth-child(2) {
+  border-right: 1px solid #f8f5f1;
+}
+.tinder-answer-box {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: flex-end;
+  background-color: #2f2e41;
+}
+.tinder-start-game div svg {
+  background-color: #1f2937;
+  border: 1px solid #1f2937;
+  border-radius: 7px;
+}
