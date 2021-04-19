@@ -26,6 +26,7 @@ import Mypage from "./Mypage/Mypage.component";
 import Analytics from "./Analytics/Analytics.component";
 import ModifyTest from "./ModifyTest/ModifyTest.component";
 import MyTest from "./MyTest/MyTest.component";
+import Bookmark from "./Bookmark/Bookmark.component";
 import ModifyTestT from "./ModifyTest/ModifyTestT.component";
 // bootstrap ---------------------------
 import { Nav, Navbar, Col, Row, Container } from "react-bootstrap";
@@ -153,10 +154,10 @@ const App = () => {
             <Nav.Item>
               {isLogin ? (
                 <LinkContainer to="/mytest">
-                  <Nav.Link>나의 테스트</Nav.Link>
+                  <Nav.Link>내가만든 테스트</Nav.Link>
                 </LinkContainer>
               ) : (
-                <Nav.Link onClick={needLogin}>나의테스트</Nav.Link>
+                <Nav.Link onClick={needLogin}>내가만든 테스트</Nav.Link>
               )}
             </Nav.Item>
             <Nav.Item>
@@ -169,7 +170,7 @@ const App = () => {
               )}
             </Nav.Item>
             {isLogin ? (
-              <LinkContainer to="/">
+              <LinkContainer to="/bookmark">
                 <Nav.Link>즐겨찾기</Nav.Link>
               </LinkContainer>
             ) : (
@@ -212,6 +213,7 @@ const App = () => {
           <Route path="/multistep" component={Multistep} />
           <Route path="/mypage" component={Mypage} />
           <Route path="/mytest" component={MyTest} />
+          <Route path="/bookmark" component={Bookmark} />
           <Route path="/modifytest/:id/" component={ModifyGameId} />
           <Route path="/modifytext/:id/" component={ModifyTGameId} />
           <Route path="/*">
