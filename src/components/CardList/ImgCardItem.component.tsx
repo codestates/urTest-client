@@ -129,7 +129,7 @@ const ImgCardItem = ({ d }: any) => {
                     </div>
                   )}
                 </Overlay>
-                <CopyToClipboard text={`https://urtest.shop/textgame/${d.id}`}>
+                <CopyToClipboard text={`https://urtest.shop/imggame/${d.id}`}>
                   <Button
                     variant="info"
                     ref={target}
