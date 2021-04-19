@@ -10,7 +10,8 @@
   border-left: 4px solid transparent;
 }
 
-.dropup .caret, .navbar-fixed-bottom .dropdown .caret {
+.dropup .caret,
+.navbar-fixed-bottom .dropdown .caret {
   border-top: 0;
   border-bottom: 4px dashed;
   border-bottom: 4px solid \9;
@@ -22,12 +23,12 @@
 }
 
 .thumb {
-  width:50px;
+  width: 50px;
   height: auto;
 }
 
 .thumb:hover {
-  cursor: pointer
+  cursor: pointer;
 }
 
 th {
