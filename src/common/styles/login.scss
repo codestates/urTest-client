@@ -30,7 +30,6 @@
   background-size: cover;
   background-position: center;
   // margin-top: 50px;
-  margin-bottom: -8rem;
   vertical-align: middle;
 }
 
@@ -72,9 +71,36 @@
 }
 
 .login-dwn {
-  margin-top: 3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.login-dwn div {
+  height: 100%;
+}
+.login-container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.login-container > div {
+  height: 60%;
 }
 
 .signup-dwn {
   margin-top: 3rem;
+}
+
+.bg-login {
+  height: 100%;
+  width: 100%;
+  margin: 0 !important;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.login-dwn > div:nth-child(2) {
+  padding-right: 0 !important;
 }
