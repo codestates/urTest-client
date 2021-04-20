@@ -105,7 +105,7 @@ const MyTest = () => {
           ) : (
             <>
               <Container fluid className="card-container mt-4">
-                <Row className="py-0 mb-3 justify-content-center tinder-title">
+                <Row className="py-0 mt-3 mb-3 justify-content-center tinder-title">
                   <Col md="auto" className="col-tinder">
                     <AwesomeButton
                       type="link"

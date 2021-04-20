@@ -122,7 +122,6 @@ const App = () => {
         fixed="top"
         expanded={false}
         onToggle={(toggleState: boolean) => {
-          console.log(toggleState);
           setSideBarState(true);
         }}
       >

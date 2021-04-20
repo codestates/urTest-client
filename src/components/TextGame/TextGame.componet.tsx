@@ -313,7 +313,7 @@ const TextGame = (props: any) => {
         "loading..."
       ) : (
         <Container className="mt-3">
-          <div style={{ textAlign: "left" }}>
+          <div className="mt-5" style={{ textAlign: "left" }}>
             {isLogin ? (
               bookMark ? (
                 <AwesomeButton type="primary" className="m-1">
