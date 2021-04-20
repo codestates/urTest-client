@@ -332,8 +332,8 @@ const ImgGame = (props: any) => {
       {start ? (
         <Container fluid className="mt-3">
           <CardDeck className="vh-92">
-            <Card className=" bg-image-imggame" />
-            <Card>
+            <Card className=" bg-image-imggame border-card" />
+            <Card className="border-card">
               <Card.Body>
                 <Card.Text>
                   {isLogin ? (
