@@ -4,6 +4,7 @@ import { isLoginVar } from "../../common/graphql/client";
 import { LinkContainer } from "react-router-bootstrap";
 import { Container, Card, CardDeck, Button } from "react-bootstrap";
 import { useLocation, useHistory } from "react-router-dom";
+import Loading from "../Loading/Loading";
 import {
   ShareFill,
   Heart,
@@ -310,10 +311,10 @@ const TextGame = (props: any) => {
         }}
       >{`https://urtest.shop${location.pathname}`}</SweetAlert>
       {questions.length === 0 ? (
-        "loading..."
+        <Loading />
       ) : (
         <Container className="mt-3">
-          <div style={{ textAlign: "left" }}>
+          <div style={{ textAlign: "center" }}>
             {isLogin ? (
               bookMark ? (
                 <AwesomeButton type="primary" className="m-1">
