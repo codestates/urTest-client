@@ -15,6 +15,7 @@ const ImgList = (props: any) => {
         title
         desc
         type
+        views
         userId
         photos {
           photoUrl

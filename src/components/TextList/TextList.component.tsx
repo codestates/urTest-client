@@ -15,6 +15,7 @@ const TextList = (props: any) => {
         title
         desc
         type
+        views
         userId
         question {
           questionBody
