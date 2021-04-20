@@ -154,47 +154,27 @@ const TextGame = (props: any) => {
     fetchPolicy: "cache-and-network",
   });
 
+  const nextBtnHandler = () => {
+    const nextQuestions = [...questions];
+    nextQuestions.shift();
+    setRating(false);
+    setQuestions(nextQuestions);
+    setAnswers([nextQuestions[0].answer[0], nextQuestions[0].answer[1]]);
+    setDoubleClick(true);
+    return;
+  };
+
   const clickHandler = (pick: any) => {
-    setDoubleClick(false);
     addCountTxt({
       variables: {
         id: pick.id,
       },
     });
+    setRating(true);
+    setDoubleClick(false);
     if (questions.length === 1) {
-      setTimeout(() => {
-        setRating(true);
-      }, 100);
-      setTimeout(() => {
-        setRating(false);
-      }, 1000);
-      setTimeout(() => {
-        setLastPick(true);
-      }, 1000);
-      setTimeout(() => {
-        setDoubleClick(true);
-      }, 1200);
-      return;
+      setLastPick(true);
     }
-    const nextQuestions = [...questions];
-    nextQuestions.shift();
-    setTimeout(() => {
-      setRating(true);
-    }, 100);
-    setTimeout(() => {
-      setRating(false);
-    }, 1000);
-    setTimeout(() => {
-      setQuestions(nextQuestions);
-    }, 1000);
-    setTimeout(() => {
-      setAnswers([nextQuestions[0].answer[0], nextQuestions[0].answer[1]]);
-    }, 1000);
-    setTimeout(() => {
-      setDoubleClick(true);
-    }, 1200);
-
-    return;
   };
 
   const copyHandler = () => {
@@ -395,28 +375,23 @@ const TextGame = (props: any) => {
                       {pick.body}
                     </Card.Text>
                     {rating ? (
-                      lastPick ? (
-                        " "
-                      ) : (
-                        <Fade>
-                          <Card.Text
-                            style={{ color: "red", textAlign: "center" }}
-                          >
-                            {isNaN(
-                              (pick.winCount /
-                                (answers[0].winCount + answers[1].winCount)) *
+                      <Fade>
+                        <Card.Text
+                          style={{ color: "red", textAlign: "center" }}
+                        >
+                          {isNaN(
+                            (pick.winCount /
+                              (answers[0].winCount + answers[1].winCount)) *
+                              100
+                          )
+                            ? "선택률 0%"
+                            : `선택률 ${(
+                                (pick.winCount /
+                                  (answers[0].winCount + answers[1].winCount)) *
                                 100
-                            )
-                              ? "선택률 0%"
-                              : `선택률 ${(
-                                  (pick.winCount /
-                                    (answers[0].winCount +
-                                      answers[1].winCount)) *
-                                  100
-                                ).toFixed(0)}%`}
-                          </Card.Text>
-                        </Fade>
-                      )
+                              ).toFixed(0)}%`}
+                        </Card.Text>
+                      </Fade>
                     ) : (
                       ""
                     )}
@@ -425,6 +400,22 @@ const TextGame = (props: any) => {
               );
             })}
           </CardDeck>
+          {rating ? (
+            lastPick ? (
+              ""
+            ) : (
+              <div className="mt-4" style={{ textAlign: "center" }}>
+                {" "}
+                <AwesomeButton type="primary" className="m-1">
+                  <Button variant="urtest" onClick={() => nextBtnHandler()}>
+                    다음 질문
+                  </Button>
+                </AwesomeButton>
+              </div>
+            )
+          ) : (
+            ""
+          )}
           {lastPick ? (
             <div className="mt-4" style={{ textAlign: "center" }}>
               게임이 종료되었습니다.
