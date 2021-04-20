@@ -201,6 +201,7 @@ const Bookmark = () => {
                   </>
                 ) : btnState === "img" ? (
                   <ImgList
+                    bookMarkLoading={true}
                     bookUserId={() => {
                       const token = localStorage.getItem("token");
                       const userId = jwt.verify(
@@ -219,6 +220,7 @@ const Bookmark = () => {
                   />
                 ) : (
                   <TextList
+                    bookMarkLoading={true}
                     bookUserId={() => {
                       const token = localStorage.getItem("token");
                       const userId = jwt.verify(

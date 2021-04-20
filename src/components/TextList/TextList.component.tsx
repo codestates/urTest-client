@@ -46,7 +46,7 @@ const TextList = (props: any) => {
     <>
       <Container fluid className="fluid-item">
         {contents.length === 0 ? (
-          <Loading />
+          <Loading bookMarkLoading={props.bookMarkLoading} />
         ) : (
           <>
             <div className="gridbox">

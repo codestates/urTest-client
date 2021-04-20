@@ -467,9 +467,9 @@ const Home = () => {
                     </Container>
                   </>
                 ) : btnState === "img" ? (
-                  <ImgList />
+                  <ImgList bookMarkLoading={false} />
                 ) : (
-                  <TextList />
+                  <TextList bookMarkLoading={false} />
                 )}
               </Container>
             </>
