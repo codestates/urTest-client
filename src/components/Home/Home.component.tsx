@@ -388,7 +388,7 @@ const Home = () => {
           ) : (
             <>
               <Container fluid className="card-container">
-                <Row className=" py-0  mt-3 mb-3 mx-0 justify-content-center tinder-title">
+                <Row className=" py-0  mt-4 mb-3 mx-0 justify-content-center tinder-title">
                   <Col md="auto" className="col-tinder">
                     <AwesomeButton
                       type="link"
