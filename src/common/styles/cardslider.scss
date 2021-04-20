@@ -57,7 +57,7 @@ h1 {
 }
 
 .img-box {
-  height: 22.4vh;
+  height: 22.5vh;
 }
 
 .img-box:hover {
@@ -254,7 +254,7 @@ h1 {
     grid-template-columns: repeat(3, minmax(150px, 1fr)) !important;
   }
 }
-@media screen and (max-width: 64rem) {
+@media screen and (max-width: 62rem) {
   .col {
     width: calc(33.333333% - 2rem);
   }
@@ -264,6 +264,14 @@ h1 {
   }
   .gridbox {
     grid-template-columns: repeat(2, minmax(150px, 1fr)) !important;
+  }
+  .btn.btn-tinder-urtest {
+    font-size: 0.9rem;
+    padding: 0 !important;
+    color: #000;
+  }
+  .main {
+    top: 50px;
   }
 }
 
@@ -286,7 +294,7 @@ h1 {
   }
 }
 
-@media screen and (max-width: 32rem) {
+@media screen and (max-width: 30rem) {
   .col {
     width: 100%;
     margin: 0 0 2rem 0;
