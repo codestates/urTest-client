@@ -334,7 +334,7 @@ const TextGame = (props: any) => {
             </AwesomeButton>
             {modify ? (
               <>
-                <LinkContainer to={`/modifytest/${+props.gameid}/`}>
+                <LinkContainer to={`/modifytext/${+props.gameid}/`}>
                   <AwesomeButton type="secondary" className="m-1">
                     <Button variant="urtest">
                       <Pen />
