@@ -15,6 +15,14 @@
     margin-bottom: 0;
   }
 }
+@media (max-width: 996px) {
+  .mt-3.card-deck {
+    margin-top: 0 !important;
+  }
+  .card-size.card-body {
+    padding: 0 1.25rem !important;
+  }
+}
 
 @media (min-width: 576px) {
   .card-size {

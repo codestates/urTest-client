@@ -51,6 +51,9 @@ const MyTest = () => {
   `;
   const [contents, setContents] = useState([] as any);
   const [btnState, setBtnState] = useState("all" as string);
+  const [itemCount, setItemCount] = useState(0 as number);
+  const [imgCount, setImgCount] = useState(0 as number);
+  const [textCount, setTextCount] = useState(0 as number);
   // tinder ---------
   useReactiveVar(searchState);
 
@@ -105,7 +108,7 @@ const MyTest = () => {
           ) : (
             <>
               <Container fluid className="card-container mt-4">
-                <Row className="py-0 mb-3 justify-content-center tinder-title">
+                <Row className="py-0 mt-3 mb-3 justify-content-center tinder-title">
                   <Col md="auto" className="col-tinder">
                     <AwesomeButton
                       type="link"
@@ -167,6 +170,7 @@ const MyTest = () => {
                             }
                           );
                           if (el.userId === userId) {
+                            setItemCount(itemCount + 1);
                             return (
                               <SwiperSlide
                                 className="slide-width mb-2"
@@ -174,12 +178,21 @@ const MyTest = () => {
                               >
                                 <Fade bottom>
                                   {el.photos.length === 0 ? (
-                                    <TextCardItem
-                                      d={el}
-                                      className="card-item"
-                                    />
+                                    <>
+                                      {setTextCount(textCount + 1)}
+                                      <TextCardItem
+                                        d={el}
+                                        className="card-item"
+                                      />
+                                    </>
                                   ) : (
-                                    <ImgCardItem d={el} className="card-item" />
+                                    <>
+                                      {setImgCount(imgCount + 1)}
+                                      <ImgCardItem
+                                        d={el}
+                                        className="card-item"
+                                      />
+                                    </>
                                   )}
                                 </Fade>
                               </SwiperSlide>

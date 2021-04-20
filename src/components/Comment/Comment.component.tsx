@@ -6,7 +6,7 @@ const Comment = (props: any) => {
   const { register, handleSubmit } = useForm();
 
   return (
-    <Form onSubmit={handleSubmit(props.handleCommentAdd)}>
+    <Form onSubmit={handleSubmit(props.handleCommentAdd)} className="comm-form">
       <Form.Row>
         <Form.Group as={Col}>
           <Form.Label>
