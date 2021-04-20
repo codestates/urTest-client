@@ -51,6 +51,9 @@ const MyTest = () => {
   `;
   const [contents, setContents] = useState([] as any);
   const [btnState, setBtnState] = useState("all" as string);
+  const [itemCount, setItemCount] = useState(0 as number);
+  const [imgCount, setImgCount] = useState(0 as number);
+  const [textCount, setTextCount] = useState(0 as number);
   // tinder ---------
   useReactiveVar(searchState);
 
@@ -83,14 +86,56 @@ const MyTest = () => {
   });
   const ViewAllBtnHandler = (e: any) => {
     e.preventDefault();
+    if (
+      e.target.closest(".tinder-title").querySelectorAll(".aws-btn__content")
+        .length
+    ) {
+      e.target
+        .closest(".tinder-title")
+        .querySelectorAll(".aws-btn__content")
+        .forEach((button: any) => {
+          button.classList.remove("active");
+        });
+    }
+    if (e.target.closest(".aws-btn__content")) {
+      e.target.closest(".aws-btn__content").classList.add("active");
+    }
     setBtnState("all");
   };
   const ImglistBtnHandler = (e: any) => {
     e.preventDefault();
+    if (
+      e.target.closest(".tinder-title").querySelectorAll(".aws-btn__content")
+        .length
+    ) {
+      e.target
+        .closest(".tinder-title")
+        .querySelectorAll(".aws-btn__content")
+        .forEach((button: any) => {
+          button.classList.remove("active");
+        });
+    }
+    if (e.target.closest(".aws-btn__content")) {
+      e.target.closest(".aws-btn__content").classList.add("active");
+    }
     setBtnState("img");
   };
   const TextlistBtnHandler = (e: any) => {
     e.preventDefault();
+    if (
+      e.target.closest(".tinder-title").querySelectorAll(".aws-btn__content")
+        .length
+    ) {
+      e.target
+        .closest(".tinder-title")
+        .querySelectorAll(".aws-btn__content")
+        .forEach((button: any) => {
+          button.classList.remove("active");
+        });
+    }
+    if (e.target.closest(".aws-btn__content")) {
+      e.target.closest(".aws-btn__content").classList.add("active");
+    }
     setBtnState("text");
   };
 
@@ -105,7 +150,7 @@ const MyTest = () => {
           ) : (
             <>
               <Container fluid className="card-container mt-4">
-                <Row className="py-0 mb-3 justify-content-center tinder-title">
+                <Row className="py-0 mt-3 mb-3 justify-content-center tinder-title">
                   <Col md="auto" className="col-tinder">
                     <AwesomeButton
                       type="link"
@@ -167,6 +212,7 @@ const MyTest = () => {
                             }
                           );
                           if (el.userId === userId) {
+                            setItemCount(itemCount + 1);
                             return (
                               <SwiperSlide
                                 className="slide-width mb-2"
@@ -174,12 +220,21 @@ const MyTest = () => {
                               >
                                 <Fade bottom>
                                   {el.photos.length === 0 ? (
-                                    <TextCardItem
-                                      d={el}
-                                      className="card-item"
-                                    />
+                                    <>
+                                      {setTextCount(textCount + 1)}
+                                      <TextCardItem
+                                        d={el}
+                                        className="card-item"
+                                      />
+                                    </>
                                   ) : (
-                                    <ImgCardItem d={el} className="card-item" />
+                                    <>
+                                      {setImgCount(imgCount + 1)}
+                                      <ImgCardItem
+                                        d={el}
+                                        className="card-item"
+                                      />
+                                    </>
                                   )}
                                 </Fade>
                               </SwiperSlide>
@@ -190,41 +245,79 @@ const MyTest = () => {
                     </Container>
                   </>
                 ) : btnState === "img" ? (
-                  <ImgList
-                    userId={() => {
-                      const token = localStorage.getItem("token");
-                      const userId = jwt.verify(
-                        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                        //@ts-ignore
-                        token,
-                        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                        //@ts-ignore
-                        process.env.REACT_APP_SECRET_KEY,
-                        function (err: any, decoded: any) {
-                          return decoded.id;
-                        }
-                      );
-                      return userId;
-                    }}
-                  />
+                  <>
+                    <ImgList
+                      userId={() => {
+                        const token = localStorage.getItem("token");
+                        const userId = jwt.verify(
+                          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                          //@ts-ignore
+                          token,
+                          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                          //@ts-ignore
+                          process.env.REACT_APP_SECRET_KEY,
+                          function (err: any, decoded: any) {
+                            return decoded.id;
+                          }
+                        );
+                        return userId;
+                      }}
+                    />
+                    {!imgCount ? (
+                      <Container fluid className="vh-93">
+                        <Row className="h-20 justify-content-center">
+                          <Col
+                            md="auto"
+                            className="pt-5 font-size-3 notfound-title"
+                          >
+                            데이터가 없습니다
+                          </Col>
+                        </Row>
+                        <Row className="h-80">
+                          <Col className="bg-image4"></Col>
+                        </Row>
+                      </Container>
+                    ) : (
+                      ""
+                    )}
+                  </>
                 ) : (
-                  <TextList
-                    userId={() => {
-                      const token = localStorage.getItem("token");
-                      const userId = jwt.verify(
-                        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                        //@ts-ignore
-                        token,
-                        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                        //@ts-ignore
-                        process.env.REACT_APP_SECRET_KEY,
-                        function (err: any, decoded: any) {
-                          return decoded.id;
-                        }
-                      );
-                      return userId;
-                    }}
-                  />
+                  <>
+                    <TextList
+                      userId={() => {
+                        const token = localStorage.getItem("token");
+                        const userId = jwt.verify(
+                          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                          //@ts-ignore
+                          token,
+                          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                          //@ts-ignore
+                          process.env.REACT_APP_SECRET_KEY,
+                          function (err: any, decoded: any) {
+                            return decoded.id;
+                          }
+                        );
+                        return userId;
+                      }}
+                    />
+                    {!textCount ? (
+                      <Container fluid className="vh-93">
+                        <Row className="h-20 justify-content-center">
+                          <Col
+                            md="auto"
+                            className="pt-5 font-size-3 notfound-title"
+                          >
+                            데이터가 없습니다
+                          </Col>
+                        </Row>
+                        <Row className="h-80">
+                          <Col className="bg-image4"></Col>
+                        </Row>
+                      </Container>
+                    ) : (
+                      ""
+                    )}
+                  </>
                 )}
               </Container>
             </>
