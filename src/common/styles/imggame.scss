@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Jua&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Jua&display=swap");
 
 @media (max-width: 576px) {
     .card-size {
@@ -9,10 +9,18 @@
         width: 100%;
         margin: 0px auto !important;
     }
-    
+
     .title-reposition {
         margin-top: -1rem;
         margin-bottom: 0;
+    }
+}
+@media (max-width: 996px) {
+    .mt-3.card-deck {
+        margin-top: 0 !important;
+    }
+    .card-body {
+        padding: 0 1.25rem !important;
     }
 }
 
@@ -25,16 +33,15 @@
         width: 50%;
         margin: 0px auto !important;
     }
-    
+
     .title-reposition {
         margin-top: -1rem;
         margin-bottom: 1rem;
     }
 }
 
-
 .card-img {
-    box-shadow: 5px 10px 10px rgba(0,0,0,0.5);
+    box-shadow: 5px 10px 10px rgba(0, 0, 0, 0.5);
     cursor: pointer;
     width: 50%;
     height: 90%;
@@ -47,16 +54,16 @@
 }
 
 .header-text {
-    font-family: 'Jua', sans-serif;
+    font-family: "Jua", sans-serif;
     font-size: 2rem;
     word-break: break-word;
 }
 
 .card-text-font {
-    font-family: 'Jua', sans-serif;
+    font-family: "Jua", sans-serif;
     font-size: 1.4rem;
     text-align: center;
-    margin:0px auto;
+    margin: 0px auto;
 }
 
 .bg-image-imggame {
@@ -64,7 +71,7 @@
     background-size: contain;
     background-repeat: no-repeat;
     border: none;
-  }
+}
 
 .card-text-font {
     text-align: center;
