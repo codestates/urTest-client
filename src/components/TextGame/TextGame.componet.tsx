@@ -4,7 +4,14 @@ import { isLoginVar } from "../../common/graphql/client";
 import { LinkContainer } from "react-router-bootstrap";
 import { Container, Card, CardDeck, Button } from "react-bootstrap";
 import { useLocation, useHistory } from "react-router-dom";
-import { ShareFill, Heart, HeartFill, Trophy } from "react-bootstrap-icons";
+import {
+  ShareFill,
+  Heart,
+  HeartFill,
+  Trophy,
+  Pen,
+  Trash,
+} from "react-bootstrap-icons";
 import jwt from "jsonwebtoken";
 import SweetAlert from "react-bootstrap-sweetalert";
 import { Fade } from "react-awesome-reveal";
@@ -24,6 +31,7 @@ const TextGame = (props: any) => {
   const GET_CONTENTS = gql`
     query getContent($id: Int!) {
       getContent(id: $id) {
+        userId
         bookMarks {
           id
           userId
@@ -69,6 +77,15 @@ const TextGame = (props: any) => {
     }
   `;
 
+  const POST_DELETECONTENT = gql`
+    mutation deleteContent($id: Int!) {
+      deleteContent(id: $id) {
+        ok
+        error
+      }
+    }
+  `;
+
   const [addCountTxt] = useMutation(POST_TEXT);
   const [addBookMark] = useMutation(POST_BOOKMARK, {
     onCompleted: async () => {
@@ -85,6 +102,7 @@ const TextGame = (props: any) => {
     awaitRefetchQueries: true,
   });
   const [deleteBookMark] = useMutation(POST_DELETEBOOKMARK);
+  const [deleteContent] = useMutation(POST_DELETECONTENT);
 
   const [questions, setQuestions] = useState([] as any);
   const [answers, setAnswers] = useState([] as any);
@@ -95,6 +113,7 @@ const TextGame = (props: any) => {
   const [sweetAlertShow, setSweetAlertShow] = useState(false);
   const [sweetAlertLike, setSweetAlertLike] = useState(false);
   const [doubleClick, setDoubleClick] = useState(true);
+  const [modify, setModify] = useState(false);
 
   const { refetch } = useQuery(GET_CONTENTS, {
     variables: {
@@ -125,6 +144,9 @@ const TextGame = (props: any) => {
             setBookMark(true);
           }
         });
+        if (data.getContent.userId === userId) {
+          setModify(true);
+        }
       }
     },
     fetchPolicy: "cache-and-network",
@@ -219,6 +241,14 @@ const TextGame = (props: any) => {
     setSweetAlertLike(true);
   };
 
+  const deleteContentBtnHandler = () => {
+    deleteContent({
+      variables: {
+        id: +props.gameid,
+      },
+    });
+  };
+
   return (
     <>
       <SweetAlert
@@ -259,7 +289,7 @@ const TextGame = (props: any) => {
       {questions.length === 0 ? (
         "loading..."
       ) : (
-        <Container>
+        <Container className="mt-3">
           <div style={{ textAlign: "left" }}>
             {isLogin ? (
               bookMark ? (
@@ -302,6 +332,29 @@ const TextGame = (props: any) => {
                 </Button>
               </CopyToClipboard>
             </AwesomeButton>
+            {modify ? (
+              <>
+                <LinkContainer to={`/modifytest/${+props.gameid}/`}>
+                  <AwesomeButton type="secondary" className="m-1">
+                    <Button variant="urtest">
+                      <Pen />
+                    </Button>
+                  </AwesomeButton>
+                </LinkContainer>
+                <LinkContainer to={`/`}>
+                  <AwesomeButton type="secondary" className="m-1">
+                    <Button
+                      variant="urtest"
+                      onClick={() => deleteContentBtnHandler()}
+                    >
+                      <Trash />
+                    </Button>
+                  </AwesomeButton>
+                </LinkContainer>
+              </>
+            ) : (
+              ""
+            )}
           </div>
           <h1 className="textgame-title font-jua m-5">
             {questions[0].questionBody}
