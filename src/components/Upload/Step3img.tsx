@@ -1,0 +1,309 @@
+import React, { useState } from "react";
+import { gql, useQuery, useMutation } from "@apollo/client";
+import BootstrapTable from "react-bootstrap-table-next";
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+import cellEditFactory from "react-bootstrap-table2-editor";
+import { Col, Row, Button, Image } from "react-bootstrap";
+import { useReactiveVar } from "@apollo/client";
+import { inputVar } from "../../common/graphql/client";
+import { Redirect, useHistory } from "react-router-dom";
+import SweetAlert from "react-bootstrap-sweetalert";
+// 쿼리
+const GET_CONTENTS = gql`
+  query getContent($id: Int!) {
+    getContent(id: $id) {
+      photos {
+        id
+        photoUrl
+        photoName
+      }
+    }
+  }
+`;
+
+const EDTI_PHOTONAME = gql`
+  mutation editPhotoName($id: Int!, $photoName: String) {
+    editPhotoName(id: $id, photoName: $photoName) {
+      error
+      ok
+    }
+  }
+`;
+
+const Step3img = () => {
+  const history = useHistory();
+  const [imgSweetAlertSrc, setImgSweetAlertSrc] = useState("");
+  const [imgSweetAlertShow, setImgSweetAlertShow] = useState(false);
+  const uploadObjStr = localStorage.getItem("uploadObj");
+  const input = useReactiveVar(inputVar);
+  const [sweetAlertShow, setSweetAlertShow] = useState(false);
+  const [contentFiles, setContentFiles] = useState([] as any);
+  const [editPhotoName] = useMutation(EDTI_PHOTONAME, {
+    onCompleted: (data) => {
+      console.log(data);
+      return;
+    },
+  });
+  const uploadObj = uploadObjStr
+    ? JSON.parse(uploadObjStr)
+    : {
+        title: "",
+        desc: "",
+        files: [],
+        textTest: [
+          { id: "1", question: "질문1", answer1: "답변1", answer2: "답변2" },
+          { id: "2", question: "질문2", answer1: "답변1", answer2: "답변2" },
+          { id: "3", question: "질문3", answer1: "답변1", answer2: "답변2" },
+          { id: "4", question: "질문4", answer1: "답변1", answer2: "답변2" },
+          { id: "5", question: "", answer1: "", answer2: "" },
+          { id: "6", question: "", answer1: "", answer2: "" },
+          { id: "7", question: "", answer1: "", answer2: "" },
+          { id: "8", question: "", answer1: "", answer2: "" },
+          { id: "9", question: "", answer1: "", answer2: "" },
+          { id: "10", question: "", answer1: "", answer2: "" },
+          { id: "11", question: "", answer1: "", answer2: "" },
+          { id: "12", question: "", answer1: "", answer2: "" },
+          { id: "13", question: "", answer1: "", answer2: "" },
+          { id: "14", question: "", answer1: "", answer2: "" },
+          { id: "15", question: "", answer1: "", answer2: "" },
+          { id: "16", question: "", answer1: "", answer2: "" },
+        ],
+      };
+
+  useQuery(GET_CONTENTS, {
+    variables: {
+      id: uploadObj.contentId,
+    },
+    onCompleted: async (data) => {
+      await data.getContent.photos.map((photo: any, idx: number) => {
+        uploadObj.files[idx] = {
+          id: idx + 1,
+          photoId: photo.id,
+          photoUrl: photo.photoUrl,
+          photoName: photo.photoName,
+        };
+      });
+      setContentFiles(uploadObj.files);
+      await localStorage.setItem("uploadObj", JSON.stringify(uploadObj));
+    },
+  });
+
+  const imageFormatter = (cell: any) => {
+    return (
+      <Image
+        onClick={(e) => {
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore
+          setImgSweetAlertSrc(e.target.src);
+          setImgSweetAlertShow(true);
+        }}
+        className="thumb"
+        src={`${cell}`}
+        thumbnail
+      />
+    );
+  };
+
+  const onAfterSave = async (row: any) => {
+    console.log(row);
+    await editPhotoName({
+      variables: {
+        id: row.photoId,
+        photoName: row.photoName,
+      },
+    });
+  };
+
+  const columns = [
+    {
+      dataField: "id",
+      text: "번호",
+      headerStyle: {
+        width: "10%",
+      },
+      headerAlign: "center",
+    },
+    {
+      dataField: "photoUrl",
+      text: "사진",
+      headerStyle: {
+        width: "20%",
+      },
+      formatter: imageFormatter,
+      editable: false,
+    },
+    {
+      dataField: "photoName",
+      text: "이미지 이름",
+    },
+  ];
+
+  const onSubmit = () => {
+    setSweetAlertShow(true);
+    return;
+  };
+
+  return (
+    <>
+      {!input.step2clear ? <Redirect to="/multistep" /> : ""}
+      {contentFiles === 0 ? (
+        <div>loading</div>
+      ) : (
+        <Row className="justify-content-md-center mt-4 mx-2">
+          <Col md={8} className="bg-light rounded pt-3 pb-3">
+            <>
+              <BootstrapTable
+                keyField="id"
+                data={contentFiles}
+                columns={columns}
+                cellEdit={cellEditFactory({
+                  mode: "click",
+                  afterSaveCell: (oldValue: any, newValue: any, row: any) => {
+                    onAfterSave(row);
+                  },
+                })}
+              />
+            </>
+            <Button
+              block
+              variant="dark"
+              type="submit"
+              size="lg"
+              onClick={onSubmit}
+            >
+              생성 완료
+            </Button>
+          </Col>
+        </Row>
+      )}
+      <SweetAlert
+        show={sweetAlertShow}
+        showConfirm={false}
+        success
+        title="테스트 만들기 완료!"
+        onConfirm={() => {
+          const uploadReset = {
+            title: "",
+            desc: "",
+            files: [],
+            textTest: [
+              {
+                id: "1",
+                question: "질문1",
+                answer1: "답변1",
+                answer2: "답변2",
+              },
+              {
+                id: "2",
+                question: "질문2",
+                answer1: "답변1",
+                answer2: "답변2",
+              },
+              {
+                id: "3",
+                question: "질문3",
+                answer1: "답변1",
+                answer2: "답변2",
+              },
+              {
+                id: "4",
+                question: "질문4",
+                answer1: "답변1",
+                answer2: "답변2",
+              },
+              { id: "5", question: "", answer1: "", answer2: "" },
+              { id: "6", question: "", answer1: "", answer2: "" },
+              { id: "7", question: "", answer1: "", answer2: "" },
+              { id: "8", question: "", answer1: "", answer2: "" },
+              { id: "9", question: "", answer1: "", answer2: "" },
+              { id: "10", question: "", answer1: "", answer2: "" },
+              { id: "11", question: "", answer1: "", answer2: "" },
+              { id: "12", question: "", answer1: "", answer2: "" },
+              { id: "13", question: "", answer1: "", answer2: "" },
+              { id: "14", question: "", answer1: "", answer2: "" },
+              { id: "15", question: "", answer1: "", answer2: "" },
+              { id: "16", question: "", answer1: "", answer2: "" },
+            ],
+          };
+          inputVar({
+            types: "imggame",
+            step1clear: false,
+            step2clear: false,
+          });
+          localStorage.setItem("uploadObj", JSON.stringify(uploadReset));
+          history.push("/");
+        }}
+        onCancel={() => {
+          const uploadReset = {
+            title: "",
+            desc: "",
+            files: [],
+            textTest: [
+              {
+                id: "1",
+                question: "질문1",
+                answer1: "답변1",
+                answer2: "답변2",
+              },
+              {
+                id: "2",
+                question: "질문2",
+                answer1: "답변1",
+                answer2: "답변2",
+              },
+              {
+                id: "3",
+                question: "질문3",
+                answer1: "답변1",
+                answer2: "답변2",
+              },
+              {
+                id: "4",
+                question: "질문4",
+                answer1: "답변1",
+                answer2: "답변2",
+              },
+              { id: "5", question: "", answer1: "", answer2: "" },
+              { id: "6", question: "", answer1: "", answer2: "" },
+              { id: "7", question: "", answer1: "", answer2: "" },
+              { id: "8", question: "", answer1: "", answer2: "" },
+              { id: "9", question: "", answer1: "", answer2: "" },
+              { id: "10", question: "", answer1: "", answer2: "" },
+              { id: "11", question: "", answer1: "", answer2: "" },
+              { id: "12", question: "", answer1: "", answer2: "" },
+              { id: "13", question: "", answer1: "", answer2: "" },
+              { id: "14", question: "", answer1: "", answer2: "" },
+              { id: "15", question: "", answer1: "", answer2: "" },
+              { id: "16", question: "", answer1: "", answer2: "" },
+            ],
+          };
+          inputVar({
+            types: "imggame",
+            step1clear: false,
+            step2clear: false,
+          });
+          localStorage.setItem("uploadObj", JSON.stringify(uploadReset));
+          history.push("/");
+        }}
+      >
+        홈화면으로 이동합니다
+      </SweetAlert>
+      <SweetAlert
+        title=""
+        show={imgSweetAlertShow}
+        showConfirm={false}
+        onConfirm={() => {
+          setImgSweetAlertShow(false);
+        }}
+        onCancel={() => {
+          setImgSweetAlertShow(false);
+        }}
+      >
+        <Image src={`${imgSweetAlertSrc}`} className="w-100" />
+      </SweetAlert>
+    </>
+  );
+};
+
+export default Step3img;

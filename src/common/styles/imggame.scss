@@ -1,0 +1,103 @@
+@import url('https://fonts.googleapis.com/css2?family=Jua&display=swap');
+
+@media (max-width: 576px) {
+    .card-size {
+        height: 300px;
+        border-color: #ffff !important;
+    }
+    .card-deck-transition {
+        width: 100%;
+        margin: 0px auto !important;
+    }
+    
+    .title-reposition {
+        margin-top: -1rem;
+        margin-bottom: 0;
+    }
+}
+
+@media (min-width: 576px) {
+    .card-size {
+        height: 650px;
+        border-color: #ffff !important;
+    }
+    .card-deck-transition {
+        width: 50%;
+        margin: 0px auto !important;
+    }
+    
+    .title-reposition {
+        margin-top: -1rem;
+        margin-bottom: 1rem;
+    }
+}
+
+
+.card-img {
+    box-shadow: 5px 10px 10px rgba(0,0,0,0.5);
+    cursor: pointer;
+    width: 50%;
+    height: 90%;
+}
+
+.card-img-transition {
+    transform: scale(1.1);
+    transition-property: transform;
+    transition-duration: 0.5s;
+}
+
+.header-text {
+    font-family: 'Jua', sans-serif;
+    font-size: 2rem;
+    word-break: break-word;
+}
+
+.card-text-font {
+    font-family: 'Jua', sans-serif;
+    font-size: 1.4rem;
+    text-align: center;
+    margin:0px auto;
+}
+
+.bg-image-imggame {
+    background-image: url("decide.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    border: none;
+  }
+
+.card-text-font {
+    text-align: center;
+}
+
+.card-start-title {
+    text-align: center;
+    font-size: 2rem;
+    word-break: break-word;
+}
+
+.card-start-desc {
+    text-align: center;
+    font-size: 1rem;
+    word-break: break-word;
+}
+
+.h-10 {
+    height: 10%;
+}
+.h-40 {
+    height: 40%;
+}
+.h-20 {
+    height: 20%;
+}
+.h-80 {
+    height: 80%;
+}
+.h-90 {
+    height: 90%;
+}
+
+.border-card {
+    border: none !important;
+}
