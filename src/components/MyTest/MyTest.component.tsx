@@ -151,7 +151,7 @@ const MyTest = () => {
                 </Row>
                 {btnState === "all" ? (
                   <>
-                    <Container fluid className="fluid-item ">
+                    <Container fluid className="fluid-item">
                       <div className="gridbox">
                         {contents.map((el: any, index: number) => {
                           const token = localStorage.getItem("token");
