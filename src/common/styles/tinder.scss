@@ -58,7 +58,11 @@
   @keyframes fadeInRandom#{$i} {
     0% {
       opacity: 0.5;
-      transform: translate3d(#{randomNum(-2000, 2000)}px, #{randomNum(-2000, 2000)}px, 0)
+      transform: translate3d(
+          #{randomNum(-2000, 2000)}px,
+          #{randomNum(-2000, 2000)}px,
+          0
+        )
         rotate(#{randomNum(-90, 90)}deg);
     }
     100% {
@@ -92,9 +96,8 @@
   text-align: center;
   display: flex;
   justify-content: center;
-  min-height: 88.5vh;
-  overflow: hidden;
-  background-color: #1f2937;
+  align-items: center;
+  height: 89.5vh;
 }
 
 .tinder-div1 {
@@ -131,6 +134,7 @@
 .tinder-wrapper {
   background-color: #1f2937;
 }
+
 .tinder-title {
   margin-bottom: 1.5rem;
   align-items: center;
