@@ -85,7 +85,7 @@ const TextCardItem = ({ d }: any) => {
                 </LinkContainer>
                 <div className="tinder-answer-box">
                   <h5 className="question-body">
-                    {d.question[0].questionBody}
+                    {d.question[0]?.questionBody}
                   </h5>
                   <span className="wordbreak">
                     {d.question[0]?.answer[0]?.body}
