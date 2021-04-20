@@ -31,7 +31,7 @@
     width: 300px;
     height: 300px;
     z-index: 9999;
-    transform: translate3d(400px, -50px, 0) scale(0.9);
+    transform: translate3d(400px, -100px, 0) scale(0.9);
   }
   100% {
     opacity: 0;
@@ -45,7 +45,7 @@
   position: fixed;
   top: 50%;
   opacity: 0;
-  left: 35%;
+  left: 40%;
   width: 0;
   height: 0;
   z-index: -99;
