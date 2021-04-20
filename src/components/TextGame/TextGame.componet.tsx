@@ -88,7 +88,7 @@ const TextGame = (props: any) => {
 
   const [addCountTxt] = useMutation(POST_TEXT);
   const [addBookMark] = useMutation(POST_BOOKMARK, {
-    onCompleted: async () => {
+    onCompleted: () => {
       return refetch();
     },
     refetchQueries: [
@@ -335,14 +335,14 @@ const TextGame = (props: any) => {
             {modify ? (
               <>
                 <LinkContainer to={`/modifytext/${+props.gameid}/`}>
-                  <AwesomeButton type="secondary" className="m-1">
+                  <AwesomeButton type="primary" className="m-1">
                     <Button variant="urtest">
                       <Pen />
                     </Button>
                   </AwesomeButton>
                 </LinkContainer>
                 <LinkContainer to={`/`}>
-                  <AwesomeButton type="secondary" className="m-1">
+                  <AwesomeButton type="primary" className="m-1">
                     <Button
                       variant="urtest"
                       onClick={() => deleteContentBtnHandler()}
