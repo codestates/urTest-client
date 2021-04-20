@@ -161,6 +161,17 @@ const Home = () => {
   };
   const tinderBtnHandler = async (e: any) => {
     e.preventDefault();
+    if (
+      e.target.closest(".tinder-title").querySelectorAll(".aws-btn__content")
+        .length
+    ) {
+      e.target
+        .closest(".tinder-title")
+        .querySelectorAll(".aws-btn__content")
+        .forEach((button: any) => {
+          button.classList.remove("active");
+        });
+    }
     if (e.target.textContent === "Swipe") {
       setBtnState("all");
       !tinderBtnAni ? setTinderBtnAni(true) : setTinderBtnAni(false);
@@ -176,6 +187,20 @@ const Home = () => {
   };
   const tinderViewAllBtnHandler = async (e: any) => {
     e.preventDefault();
+    if (
+      e.target.closest(".tinder-title").querySelectorAll(".aws-btn__content")
+        .length
+    ) {
+      e.target
+        .closest(".tinder-title")
+        .querySelectorAll(".aws-btn__content")
+        .forEach((button: any) => {
+          button.classList.remove("active");
+        });
+    }
+    if (e.target.closest(".aws-btn__content")) {
+      e.target.closest(".aws-btn__content").classList.add("active");
+    }
     setBtnState("all");
     if (!tinderBtnAni) {
       setTinderBtnAni(true);
@@ -183,10 +208,28 @@ const Home = () => {
     if (!viewAll) {
       await delay(1000);
       setViewAll(true);
+      document
+        .querySelector(".btn-home-viewall button")
+        ?.closest(".aws-btn__content")
+        ?.classList.add("active");
     }
   };
   const tinderImglistBtnHandler = async (e: any) => {
     e.preventDefault();
+    if (
+      e.target.closest(".tinder-title").querySelectorAll(".aws-btn__content")
+        .length
+    ) {
+      e.target
+        .closest(".tinder-title")
+        .querySelectorAll(".aws-btn__content")
+        .forEach((button: any) => {
+          button.classList.remove("active");
+        });
+    }
+    if (e.target.closest(".aws-btn__content")) {
+      e.target.closest(".aws-btn__content").classList.add("active");
+    }
     setBtnState("img");
     if (!tinderBtnAni) {
       setTinderBtnAni(true);
@@ -194,10 +237,28 @@ const Home = () => {
     if (!viewAll) {
       await delay(1000);
       setViewAll(true);
+      document
+        .querySelector(".btn-home-imglist button")
+        ?.closest(".aws-btn__content")
+        ?.classList.add("active");
     }
   };
   const tinderTextlistBtnHandler = async (e: any) => {
     e.preventDefault();
+    if (
+      e.target.closest(".tinder-title").querySelectorAll(".aws-btn__content")
+        .length
+    ) {
+      e.target
+        .closest(".tinder-title")
+        .querySelectorAll(".aws-btn__content")
+        .forEach((button: any) => {
+          button.classList.remove("active");
+        });
+    }
+    if (e.target.closest(".aws-btn__content")) {
+      e.target.closest(".aws-btn__content").classList.add("active");
+    }
     setBtnState("text");
     if (!tinderBtnAni) {
       setTinderBtnAni(true);
@@ -205,6 +266,10 @@ const Home = () => {
     if (!viewAll) {
       await delay(1000);
       setViewAll(true);
+      document
+        .querySelector(".btn-home-textlist button")
+        ?.closest(".aws-btn__content")
+        ?.classList.add("active");
     }
   };
   return (

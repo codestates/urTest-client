@@ -67,6 +67,7 @@ const ADD_COMMENT = gql`
 
 const Analytics = (props: any) => {
   const [sweetAlertShow, setSweetAlertShow] = useState(false);
+  const [commAlertShow, setCommAlertShow] = useState(false);
   const [imgSweetAlertSrc, setImgSweetAlertSrc] = useState("");
   const [imgSweetAlertShow, setImgSweetAlertShow] = useState(false);
   const [type, setType] = useState("" as any);
@@ -84,7 +85,6 @@ const Analytics = (props: any) => {
       id: +props.gameid,
     },
     onCompleted: async (data) => {
-      console.log(data);
       await setType(data.getContent.type);
       await setContentTitle(data.getContent.title);
       await setContentDesc(data.getContent.desc);
@@ -124,7 +124,6 @@ const Analytics = (props: any) => {
             answer2Count: question.answer[1].winCount,
           };
         });
-        console.log(textArr);
         setTextTests(textArr);
         return;
       }
@@ -382,6 +381,8 @@ const Analytics = (props: any) => {
         desc: e.desc,
       },
     });
+    setCommAlertShow(true);
+    return;
   };
   return (
     <>
@@ -465,6 +466,24 @@ const Analytics = (props: any) => {
             }}
           >
             <Image src={`${imgSweetAlertSrc}`} className="w-100" />
+          </SweetAlert>
+          <SweetAlert
+            title=""
+            success
+            show={commAlertShow}
+            showConfirm={false}
+            onConfirm={() => {
+              setCommAlertShow(false);
+              window.location.reload();
+              return;
+            }}
+            onCancel={() => {
+              setCommAlertShow(false);
+              window.location.reload();
+              return;
+            }}
+          >
+            댓글 작성 완료
           </SweetAlert>
         </Col>
       </Row>
