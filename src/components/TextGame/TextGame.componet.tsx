@@ -112,6 +112,7 @@ const TextGame = (props: any) => {
   const [userBookMark, setUserBookMark] = useState([] as any);
   const [sweetAlertShow, setSweetAlertShow] = useState(false);
   const [sweetAlertLike, setSweetAlertLike] = useState(false);
+  const [sweetAlertDelete, setSweetAlertDelete] = useState(false);
   const [doubleClick, setDoubleClick] = useState(true);
   const [modify, setModify] = useState(false);
 
@@ -242,15 +243,37 @@ const TextGame = (props: any) => {
   };
 
   const deleteContentBtnHandler = () => {
-    deleteContent({
-      variables: {
-        id: +props.gameid,
-      },
-    });
+    setSweetAlertDelete(true);
   };
 
   return (
     <>
+      <SweetAlert
+        show={sweetAlertDelete}
+        custom
+        showCancel
+        showCloseButton
+        confirmBtnText="삭제"
+        cancelBtnText="취소"
+        confirmBtnBsStyle="danger"
+        cancelBtnBsStyle="light"
+        success
+        title="삭제하시겠습니까?"
+        onConfirm={() => {
+          deleteContent({
+            variables: {
+              id: +props.gameid,
+            },
+          });
+          setSweetAlertDelete(false);
+          history.push("/");
+          return;
+        }}
+        onCancel={() => {
+          setSweetAlertDelete(false);
+          return;
+        }}
+      ></SweetAlert>
       <SweetAlert
         show={sweetAlertLike}
         custom
@@ -341,16 +364,14 @@ const TextGame = (props: any) => {
                     </Button>
                   </AwesomeButton>
                 </LinkContainer>
-                <LinkContainer to={`/`}>
-                  <AwesomeButton type="primary" className="m-1">
-                    <Button
-                      variant="urtest"
-                      onClick={() => deleteContentBtnHandler()}
-                    >
-                      <Trash />
-                    </Button>
-                  </AwesomeButton>
-                </LinkContainer>
+                <AwesomeButton type="primary" className="m-1">
+                  <Button
+                    variant="urtest"
+                    onClick={() => deleteContentBtnHandler()}
+                  >
+                    <Trash />
+                  </Button>
+                </AwesomeButton>
               </>
             ) : (
               ""
