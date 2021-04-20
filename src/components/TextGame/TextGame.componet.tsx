@@ -4,7 +4,14 @@ import { isLoginVar } from "../../common/graphql/client";
 import { LinkContainer } from "react-router-bootstrap";
 import { Container, Card, CardDeck, Button } from "react-bootstrap";
 import { useLocation, useHistory } from "react-router-dom";
-import { ShareFill, Heart, HeartFill, Trophy } from "react-bootstrap-icons";
+import {
+  ShareFill,
+  Heart,
+  HeartFill,
+  Trophy,
+  Pen,
+  Trash,
+} from "react-bootstrap-icons";
 import jwt from "jsonwebtoken";
 import SweetAlert from "react-bootstrap-sweetalert";
 import { Fade } from "react-awesome-reveal";
@@ -24,6 +31,7 @@ const TextGame = (props: any) => {
   const GET_CONTENTS = gql`
     query getContent($id: Int!) {
       getContent(id: $id) {
+        userId
         bookMarks {
           id
           userId
@@ -69,9 +77,18 @@ const TextGame = (props: any) => {
     }
   `;
 
+  const POST_DELETECONTENT = gql`
+    mutation deleteContent($id: Int!) {
+      deleteContent(id: $id) {
+        ok
+        error
+      }
+    }
+  `;
+
   const [addCountTxt] = useMutation(POST_TEXT);
   const [addBookMark] = useMutation(POST_BOOKMARK, {
-    onCompleted: async () => {
+    onCompleted: () => {
       return refetch();
     },
     refetchQueries: [
@@ -85,6 +102,7 @@ const TextGame = (props: any) => {
     awaitRefetchQueries: true,
   });
   const [deleteBookMark] = useMutation(POST_DELETEBOOKMARK);
+  const [deleteContent] = useMutation(POST_DELETECONTENT);
 
   const [questions, setQuestions] = useState([] as any);
   const [answers, setAnswers] = useState([] as any);
@@ -94,7 +112,9 @@ const TextGame = (props: any) => {
   const [userBookMark, setUserBookMark] = useState([] as any);
   const [sweetAlertShow, setSweetAlertShow] = useState(false);
   const [sweetAlertLike, setSweetAlertLike] = useState(false);
+  const [sweetAlertDelete, setSweetAlertDelete] = useState(false);
   const [doubleClick, setDoubleClick] = useState(true);
+  const [modify, setModify] = useState(false);
 
   const { refetch } = useQuery(GET_CONTENTS, {
     variables: {
@@ -125,6 +145,9 @@ const TextGame = (props: any) => {
             setBookMark(true);
           }
         });
+        if (data.getContent.userId === userId) {
+          setModify(true);
+        }
       }
     },
     fetchPolicy: "cache-and-network",
@@ -219,8 +242,38 @@ const TextGame = (props: any) => {
     setSweetAlertLike(true);
   };
 
+  const deleteContentBtnHandler = () => {
+    setSweetAlertDelete(true);
+  };
+
   return (
     <>
+      <SweetAlert
+        show={sweetAlertDelete}
+        custom
+        showCancel
+        showCloseButton
+        confirmBtnText="삭제"
+        cancelBtnText="취소"
+        confirmBtnBsStyle="danger"
+        cancelBtnBsStyle="light"
+        success
+        title="삭제하시겠습니까?"
+        onConfirm={() => {
+          deleteContent({
+            variables: {
+              id: +props.gameid,
+            },
+          });
+          setSweetAlertDelete(false);
+          history.push("/");
+          return;
+        }}
+        onCancel={() => {
+          setSweetAlertDelete(false);
+          return;
+        }}
+      ></SweetAlert>
       <SweetAlert
         show={sweetAlertLike}
         custom
@@ -259,7 +312,7 @@ const TextGame = (props: any) => {
       {questions.length === 0 ? (
         "loading..."
       ) : (
-        <Container>
+        <Container className="mt-3">
           <div style={{ textAlign: "left" }}>
             {isLogin ? (
               bookMark ? (
@@ -302,6 +355,27 @@ const TextGame = (props: any) => {
                 </Button>
               </CopyToClipboard>
             </AwesomeButton>
+            {modify ? (
+              <>
+                <LinkContainer to={`/modifytext/${+props.gameid}/`}>
+                  <AwesomeButton type="primary" className="m-1">
+                    <Button variant="urtest">
+                      <Pen />
+                    </Button>
+                  </AwesomeButton>
+                </LinkContainer>
+                <AwesomeButton type="primary" className="m-1">
+                  <Button
+                    variant="urtest"
+                    onClick={() => deleteContentBtnHandler()}
+                  >
+                    <Trash />
+                  </Button>
+                </AwesomeButton>
+              </>
+            ) : (
+              ""
+            )}
           </div>
           <h1 className="textgame-title font-jua m-5">
             {questions[0].questionBody}

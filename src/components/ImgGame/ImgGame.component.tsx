@@ -4,7 +4,14 @@ import { gql, useQuery, useMutation, useReactiveVar } from "@apollo/client";
 import { isLoginVar } from "../../common/graphql/client";
 import { LinkContainer } from "react-router-bootstrap";
 import { useLocation, useHistory } from "react-router-dom";
-import { ShareFill, Heart, HeartFill, Trophy } from "react-bootstrap-icons";
+import {
+  ShareFill,
+  Heart,
+  HeartFill,
+  Trophy,
+  Pen,
+  Trash,
+} from "react-bootstrap-icons";
 import jwt from "jsonwebtoken";
 import SweetAlert from "react-bootstrap-sweetalert";
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -24,6 +31,7 @@ const ImgGame = (props: any) => {
   const GET_CONTENTS = gql`
     query getContent($id: Int!) {
       getContent(id: $id) {
+        userId
         bookMarks {
           id
           userId
@@ -68,6 +76,15 @@ const ImgGame = (props: any) => {
     }
   `;
 
+  const POST_DELETECONTENT = gql`
+    mutation deleteContent($id: Int!) {
+      deleteContent(id: $id) {
+        ok
+        error
+      }
+    }
+  `;
+
   const [addBookMark] = useMutation(POST_BOOKMARK, {
     onCompleted: async () => {
       return refetch();
@@ -84,6 +101,7 @@ const ImgGame = (props: any) => {
   });
   const [deleteBookMark] = useMutation(POST_DELETEBOOKMARK);
   const [addCountPhoto] = useMutation(POST_WINCOUNT);
+  const [deleteContent] = useMutation(POST_DELETECONTENT);
 
   const [Data, setData] = useState([] as any);
   const [count, setCount] = useState(4);
@@ -98,6 +116,8 @@ const ImgGame = (props: any) => {
   const [userBookMark, setUserBookMark] = useState([] as any);
   const [sweetAlertShow, setSweetAlertShow] = useState(false);
   const [sweetAlertLike, setSweetAlertLike] = useState(false);
+  const [sweetAlertDelete, setSweetAlertDelete] = useState(false);
+  const [modify, setModify] = useState(false);
 
   const startHandler = () => {
     setStart(false);
@@ -149,6 +169,9 @@ const ImgGame = (props: any) => {
             setBookMark(true);
           }
         });
+        if (data.getContent.userId === userId) {
+          setModify(true);
+        }
       }
     },
     fetchPolicy: "cache-and-network",
@@ -239,8 +262,38 @@ const ImgGame = (props: any) => {
     setSweetAlertLike(true);
   };
 
+  const deleteContentBtnHandler = () => {
+    setSweetAlertDelete(true);
+  };
+
   return (
     <>
+      <SweetAlert
+        show={sweetAlertDelete}
+        custom
+        showCancel
+        showCloseButton
+        confirmBtnText="삭제"
+        cancelBtnText="취소"
+        confirmBtnBsStyle="danger"
+        cancelBtnBsStyle="light"
+        success
+        title="삭제하시겠습니까?"
+        onConfirm={() => {
+          deleteContent({
+            variables: {
+              id: +props.gameid,
+            },
+          });
+          setSweetAlertDelete(false);
+          history.push("/");
+          return;
+        }}
+        onCancel={() => {
+          setSweetAlertDelete(false);
+          return;
+        }}
+      ></SweetAlert>
       <SweetAlert
         show={sweetAlertLike}
         custom
@@ -277,7 +330,7 @@ const ImgGame = (props: any) => {
         }}
       >{`https://urtest.shop${location.pathname}`}</SweetAlert>
       {start ? (
-        <Container fluid>
+        <Container fluid className="mt-3">
           <CardDeck className="vh-92">
             <Card className=" bg-image-imggame" />
             <Card>
@@ -330,6 +383,27 @@ const ImgGame = (props: any) => {
                       </Button>
                     </CopyToClipboard>
                   </AwesomeButton>
+                  {modify ? (
+                    <>
+                      <LinkContainer to={`/modifytest/${+props.gameid}/`}>
+                        <AwesomeButton type="secondary" className="m-1">
+                          <Button variant="urtest">
+                            <Pen />
+                          </Button>
+                        </AwesomeButton>
+                      </LinkContainer>
+                      <AwesomeButton type="secondary" className="m-1">
+                        <Button
+                          variant="urtest"
+                          onClick={() => deleteContentBtnHandler()}
+                        >
+                          <Trash />
+                        </Button>
+                      </AwesomeButton>
+                    </>
+                  ) : (
+                    ""
+                  )}
                 </Card.Text>
                 <Card.Text className="card-start-title">{Data.title}</Card.Text>
                 <Card.Text className="card-start-title h-10">

@@ -1,9 +1,79 @@
 .swipe {
   position: absolute;
 }
+@function randomNum($min, $max) {
+  $rand: random();
+  $randomNum: $min + floor($rand * (($max - $min) + 1));
+
+  @return $randomNum;
+}
+
+@keyframes guesture-guide {
+  0% {
+    opacity: 0;
+    width: 300px;
+    height: 300px;
+    z-index: 9999;
+    transform: translate3d(0, 0, 0);
+  }
+  30% {
+    opacity: 1;
+    z-index: 9999;
+    transform: translate3d(0, 0, 0) scale(0.7);
+  }
+  90% {
+    opacity: 0.2;
+    z-index: 9999;
+    transform: translate3d(200px, -50px, 0) scale(0.7);
+  }
+  99% {
+    opacity: 0;
+    width: 300px;
+    height: 300px;
+    z-index: 9999;
+    transform: translate3d(400px, -100px, 0) scale(0.9);
+  }
+  100% {
+    opacity: 0;
+    width: 0;
+    height: 0;
+    z-index: -99;
+    transform: translate3d(400px, -100px, 0) scale(0);
+  }
+}
+.guesture {
+  position: fixed;
+  top: 50%;
+  opacity: 0;
+  left: 40%;
+  width: 0;
+  height: 0;
+  z-index: -99;
+  animation-name: guesture-guide;
+  animation-delay: 3s;
+  animation-duration: 2s;
+}
+
+@for $i from 1 through 100 {
+  @keyframes fadeInRandom#{$i} {
+    0% {
+      opacity: 0.5;
+      transform: translate3d(#{randomNum(-2000, 2000)}px, #{randomNum(-2000, 2000)}px, 0)
+        rotate(#{randomNum(-90, 90)}deg);
+    }
+    100% {
+      opacity: 1;
+      transform: translate3d(0, 0, 0) rotate(0);
+    }
+  }
+  .tinder-card-container .swipe:nth-child(#{$i}n) {
+    animation-name: fadeInRandom#{$i};
+    animation-duration: #{randomNum(500, 3000)}ms;
+  }
+}
 
 .tinder-card-container {
-  width: 90vw;
+  width: 80vw;
   max-width: 400px;
   height: 350px;
 }
@@ -74,6 +144,9 @@
   .tinder-title {
     padding: 0;
   }
+  .guesture {
+    left: 3%;
+  }
 }
 
 @keyframes popup {
@@ -101,7 +174,7 @@
 }
 
 .tinder-img-box {
-  height: 75%;
+  height: 24vh;
 }
 .tinder-img-box img {
   width: 50%;

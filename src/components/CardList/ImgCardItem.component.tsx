@@ -56,7 +56,7 @@ const ImgCardItem = ({ d }: any) => {
   );
 
   return (
-    <Col>
+    <Col className="mb-5">
       <Container>
         <div
           className={location.pathname === "/" ? "home-cards front" : "front"}
@@ -129,7 +129,7 @@ const ImgCardItem = ({ d }: any) => {
                     </div>
                   )}
                 </Overlay>
-                <CopyToClipboard text={`https://urtest.shop/textgame/${d.id}`}>
+                <CopyToClipboard text={`https://urtest.shop/imggame/${d.id}`}>
                   <Button
                     variant="info"
                     ref={target}

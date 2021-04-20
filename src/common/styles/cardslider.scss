@@ -66,7 +66,7 @@ h1 {
   // font-size: 1.1rem;
 }
 .img-box {
-  height: 75%;
+  height: 22.4vh;
 }
 
 .img-box:hover {
@@ -202,7 +202,6 @@ h1 {
 
 .col {
   width: calc(25% - 2rem);
-  margin: 1rem;
 }
 
 .container {
@@ -325,6 +324,21 @@ h1 {
   }
   .card-item {
     padding-right: 0 !important;
+  }
+  .main {
+    height: 0;
+  }
+  .login-container {
+    height: 45vh;
+  }
+  .login-dwn > div:nth-child(2) {
+    padding-right: 15px !important;
+  }
+  .mypage-container {
+    height: 90vh;
+  }
+  .img-box {
+    height: 27vh;
   }
 }
 

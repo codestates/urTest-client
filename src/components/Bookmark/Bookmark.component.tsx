@@ -27,7 +27,7 @@ import { AwesomeButton } from "react-awesome-button";
 
 SwiperCore.use([Navigation, Pagination, Scrollbar, A11y, EffectFade]);
 
-const MyTest = () => {
+const Bookmark = () => {
   const GET_CONTENT_ALL = gql`
     query getContentAll {
       getContentAll {
@@ -45,6 +45,11 @@ const MyTest = () => {
           answer {
             body
           }
+        }
+        bookMarks {
+          contentId
+          id
+          userId
         }
       }
     }
@@ -151,7 +156,7 @@ const MyTest = () => {
                 </Row>
                 {btnState === "all" ? (
                   <>
-                    <Container fluid className="fluid-item ">
+                    <Container fluid className="fluid-item">
                       <div className="gridbox">
                         {contents.map((el: any, index: number) => {
                           const token = localStorage.getItem("token");
@@ -166,7 +171,12 @@ const MyTest = () => {
                               return decoded.id;
                             }
                           );
-                          if (el.userId === userId) {
+                          const book = el.bookMarks?.filter((b: any) => {
+                            if (b.userId === userId) {
+                              return b;
+                            }
+                          });
+                          if (book.length) {
                             return (
                               <SwiperSlide
                                 className="slide-width mb-2"
@@ -191,7 +201,7 @@ const MyTest = () => {
                   </>
                 ) : btnState === "img" ? (
                   <ImgList
-                    userId={() => {
+                    bookUserId={() => {
                       const token = localStorage.getItem("token");
                       const userId = jwt.verify(
                         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -209,7 +219,7 @@ const MyTest = () => {
                   />
                 ) : (
                   <TextList
-                    userId={() => {
+                    bookUserId={() => {
                       const token = localStorage.getItem("token");
                       const userId = jwt.verify(
                         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -235,4 +245,4 @@ const MyTest = () => {
   );
 };
 
-export default MyTest;
+export default Bookmark;
