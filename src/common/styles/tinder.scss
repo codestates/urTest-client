@@ -50,7 +50,7 @@
   height: 0;
   z-index: -99;
   animation-name: guesture-guide;
-  animation-delay: 3s;
+  animation-delay: 2.5s;
   animation-duration: 2s;
 }
 
@@ -143,6 +143,9 @@
   }
   .tinder-title {
     padding: 0;
+  }
+  .tinder-title.mt-4 {
+    margin-top: 0 !important;
   }
   .guesture {
     left: 3%;
