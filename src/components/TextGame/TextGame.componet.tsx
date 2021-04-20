@@ -401,11 +401,20 @@ const TextGame = (props: any) => {
                         <Fade>
                           <Card.Text
                             style={{ color: "red", textAlign: "center" }}
-                          >{`선택률 ${(
-                            (pick.winCount /
-                              (answers[0].winCount + answers[1].winCount)) *
-                            100
-                          ).toFixed(0)}%`}</Card.Text>
+                          >
+                            {isNaN(
+                              (pick.winCount /
+                                (answers[0].winCount + answers[1].winCount)) *
+                                100
+                            )
+                              ? "선택률 0%"
+                              : `선택률 ${(
+                                  (pick.winCount /
+                                    (answers[0].winCount +
+                                      answers[1].winCount)) *
+                                  100
+                                ).toFixed(0)}%`}
+                          </Card.Text>
                         </Fade>
                       )
                     ) : (
