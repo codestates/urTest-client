@@ -74,82 +74,78 @@ const Signup = () => {
   return (
     <React.Fragment>
       {signUpOk ? <Redirect to="/login" /> : ""}
-      <Container fluid={true}>
-        <Row className="signup-dwn ml-5">
-          <Col md={7} lg={7} className="up-image ml-5" />
+      <Container fluid={true} className="login-container">
+        <Row className="login-dwn">
+          <Col md={7} lg={7} className="bg-image" />
           <Col md={8} lg={4}>
-            <div className="login d-flex align-items-center py-5">
-              <Container>
-                <Row>
-                  <Col md={9} lg={8} className="mx-auto">
-                    <h3 className="login-heading mb-4">회원가입</h3>
-                    <Form>
-                      <Form.Group controlId="formBasicEmail">
-                        <Form.Label></Form.Label>
-                        <Form.Control
-                          className="font-bgr"
-                          type="email"
-                          placeholder="이메일"
-                          name="user_email"
-                          onChange={(e) => inputHandler(e)}
-                        />
-                      </Form.Group>
-                      <Form.Group controlId="formBasicPassword">
-                        <Form.Label></Form.Label>
-                        <Form.Control
-                          className="font-bgr"
-                          type="password"
-                          placeholder="비밀번호를 입력해주세요"
-                          name="user_password"
-                          onChange={(e) => inputHandler(e)}
-                        />
-                      </Form.Group>
-                      <Form.Group controlId="formBasicPassword">
-                        <Form.Label></Form.Label>
-                        <Form.Control
-                          className="font-bgr"
-                          type="password"
-                          placeholder="비밀번호 확인"
-                          name="user_confirm_password"
-                          onChange={(e) => inputHandler(e)}
-                        />
-                        <Form.Label className="mt-1 text-danger">
-                          {!validation
-                            ? "* Confirm Password"
-                            : duplication
-                            ? "* Email Duplication"
-                            : ""}
-                        </Form.Label>
-                      </Form.Group>
-                      <AwesomeButton
-                        type="primary"
-                        className="text-uppercase mb-2 w-100 font-mg"
-                      >
-                        <Button
-                          variant="urtest"
-                          size="lg"
-                          // block
+            <Row className="bg-login">
+              <Col md={9} lg={8}>
+                <h3 className="login-heading mb-4">회원가입</h3>
+                <Form>
+                  <Form.Group controlId="formBasicEmail">
+                    <Form.Label></Form.Label>
+                    <Form.Control
+                      className="font-bgr"
+                      type="email"
+                      placeholder="이메일"
+                      name="user_email"
+                      onChange={(e) => inputHandler(e)}
+                    />
+                  </Form.Group>
+                  <Form.Group controlId="formBasicPassword">
+                    <Form.Label></Form.Label>
+                    <Form.Control
+                      className="font-bgr"
+                      type="password"
+                      placeholder="비밀번호를 입력해주세요"
+                      name="user_password"
+                      onChange={(e) => inputHandler(e)}
+                    />
+                  </Form.Group>
+                  <Form.Group controlId="formBasicPassword">
+                    <Form.Label></Form.Label>
+                    <Form.Control
+                      className="font-bgr"
+                      type="password"
+                      placeholder="비밀번호 확인"
+                      name="user_confirm_password"
+                      onChange={(e) => inputHandler(e)}
+                    />
+                    <Form.Label className="mt-1 text-danger">
+                      {!validation
+                        ? "* Confirm Password"
+                        : duplication
+                        ? "* Email Duplication"
+                        : ""}
+                    </Form.Label>
+                  </Form.Group>
+                  <AwesomeButton
+                    type="primary"
+                    className="text-uppercase mb-2 w-100 font-mg"
+                  >
+                    <Button
+                      variant="urtest"
+                      size="lg"
+                      // block
 
-                          type="submit"
-                          onClick={(e) => signupBtnHandler(e)}
-                        >
-                          Sign Up
-                        </Button>
-                      </AwesomeButton>
+                      type="submit"
+                      onClick={(e) => signupBtnHandler(e)}
+                    >
+                      Sign Up
+                    </Button>
+                  </AwesomeButton>
 
-                      <LinkContainer to="/login">
-                        <AwesomeButton
-                          type="link"
-                          className="mt-2 text-inverse a-urtest w-100"
-                        >
-                          로그인 하러가기
-                        </AwesomeButton>
-                      </LinkContainer>
-                    </Form>
-                  </Col>
-                </Row>
-              </Container>
-            </div>
+                  <LinkContainer to="/login">
+                    <AwesomeButton
+                      type="link"
+                      className="mt-2 text-inverse a-urtest w-100"
+                    >
+                      로그인 하러가기
+                    </AwesomeButton>
+                  </LinkContainer>
+                </Form>
+              </Col>
+            </Row>
           </Col>
         </Row>
       </Container>
