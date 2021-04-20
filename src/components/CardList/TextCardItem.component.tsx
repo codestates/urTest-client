@@ -57,7 +57,7 @@ const TextCardItem = ({ d }: any) => {
     </Tooltip>
   );
   return (
-    <Col>
+    <Col className="mb-5">
       <Container>
         <div
           className={location.pathname === "/" ? "home-cards front" : "front"}
