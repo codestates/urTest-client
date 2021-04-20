@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import { useHistory } from "react-router-dom";
 import { useReactiveVar, useMutation, gql } from "@apollo/client";
 import { inputVar } from "../../common/graphql/client";
-import { Form, Button, Col, Row } from "react-bootstrap";
+import { Form, Button, Col, Row, Container } from "react-bootstrap";
 import SweetAlert from "react-bootstrap-sweetalert";
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 //@ts-ignore
@@ -130,84 +130,87 @@ const Step1 = () => {
   };
   return (
     <>
-      <Row className="uplode-point justify-content-md-center  mx-2">
-        <Col md={8} lg={4} className="bg-image3" />
-        <Col md={8} lg={3} className="bg-lightk rounded pb-4">
-          <div className="upload">
-            <Form className="upload-form" onSubmit={handleSubmit(onSubmit)}>
-              <Form.Row>
-                <Form.Group as={Col}>
-                  <Form.Label>제목</Form.Label>
-                  <Form.Control
-                    className="title font-bgr"
-                    type="text"
-                    placeholder="제목을 작성해주세요"
-                    {...register("title", { required: true, minLength: 5 })}
-                    defaultValue={uploadObj.title}
-                  />
-                  {errors.title && "제목은 5글자 이상으로 작성해주세요"}
-                </Form.Group>
-              </Form.Row>
-              <Form.Row>
-                <Form.Group as={Col}>
-                  <Form.Label>설명</Form.Label>
-                  <Form.Control
-                    className="font-bgr"
-                    type="text"
-                    as="textarea"
-                    rows={3}
-                    placeholder="설명을 작성해주세요"
-                    {...register("desc", { required: true, minLength: 5 })}
-                    defaultValue={uploadObj.desc}
-                  />
-                  {errors.desc && "설명은 5글자 이상으로 작성해주세요"}
-                </Form.Group>
-              </Form.Row>
+      <Container className="mypage-container">
+        <Container className="mypage-point">
+          <Row className="mx-3 upload-row">
+            <Col md={5} lg={7} className="bg-image3" />
+            <Col md={7} lg={5} className=" rounded pb-4 pt-4">
+              <Form onSubmit={handleSubmit(onSubmit)}>
+                <Form.Row>
+                  <Form.Group as={Col}>
+                    <Form.Label>제목</Form.Label>
+                    <Form.Control
+                      className="title font-bgr"
+                      type="text"
+                      placeholder="제목을 작성해주세요"
+                      {...register("title", { required: true, minLength: 5 })}
+                      defaultValue={uploadObj.title}
+                    />
+                    {errors.title && "제목은 5글자 이상으로 작성해주세요"}
+                  </Form.Group>
+                </Form.Row>
+                <Form.Row>
+                  <Form.Group as={Col}>
+                    <Form.Label>설명</Form.Label>
+                    <Form.Control
+                      className="font-bgr"
+                      type="text"
+                      as="textarea"
+                      rows={3}
+                      placeholder="설명을 작성해주세요"
+                      {...register("desc", { required: true, minLength: 5 })}
+                      defaultValue={uploadObj.desc}
+                    />
+                    {errors.desc && "설명은 5글자 이상으로 작성해주세요"}
+                  </Form.Group>
+                </Form.Row>
 
-              <Form.Row>
-                <Form.Group as={Col} controlId="types">
-                  <Form.Label>Types</Form.Label>
-                  <Form.Control
-                    as="select"
-                    {...register("type")}
-                    onChange={typeSelected}
-                    custom
-                  >
-                    <option value="imggame">이상형 월드컵</option>
-                    <option value="textgame">밸런스게임</option>
-                  </Form.Control>
-                </Form.Group>
-              </Form.Row>
-              <br></br>
-              <Form.Row>
-                <Form.Group as={Col}>
-                  <AwesomeButton
-                    type="primary"
-                    className="uploadbtn center w-100"
-                  >
-                    <Button variant="urtest" type="submit">
-                      {/* <ArrowRightCircleFill width="32"/> */}
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="35"
-                        height="35"
-                        fill="currentColor"
-                        className="bi bi-arrow-right"
-                        viewBox="0 0 16 16"
-                      >
-                        <path
-                          fillRule="evenodd"
-                          d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"
-                        />
-                      </svg>
-                    </Button>
-                  </AwesomeButton>
-                </Form.Group>
-              </Form.Row>
-            </Form>
-          </div>
-        </Col>
-      </Row>
+                <Form.Row>
+                  <Form.Group as={Col} controlId="types">
+                    <Form.Label>Types</Form.Label>
+                    <Form.Control
+                      as="select"
+                      {...register("type")}
+                      onChange={typeSelected}
+                      custom
+                    >
+                      <option value="imggame">이상형 월드컵</option>
+                      <option value="textgame">밸런스게임</option>
+                    </Form.Control>
+                  </Form.Group>
+                </Form.Row>
+                <br></br>
+                <Form.Row>
+                  <Form.Group as={Col}>
+                    <AwesomeButton
+                      type="primary"
+                      className="uploadbtn center w-100"
+                    >
+                      <Button variant="urtest" type="submit">
+                        {/* <ArrowRightCircleFill width="32"/> */}
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="35"
+                          height="35"
+                          fill="currentColor"
+                          className="bi bi-arrow-right"
+                          viewBox="0 0 16 16"
+                        >
+                          <path
+                            fillRule="evenodd"
+                            d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"
+                          />
+                        </svg>
+                      </Button>
+                    </AwesomeButton>
+                  </Form.Group>
+                </Form.Row>
+              </Form>
+            </Col>
+          </Row>
+        </Container>
+      </Container>
+
       <SweetAlert
         show={sweetAlertShow}
         showConfirm={false}

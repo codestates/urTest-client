@@ -48,8 +48,16 @@
   background-repeat: no-repeat;
 }
 
-.uplode-point {
-  margin-top: 5rem;
+.upload-point {
+  width: 100%;
+  height: 100%;
+  margin: 0 !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.upload-box {
+  height: 100vh;
 }
 
 @media (max-width: 992px) {
@@ -62,8 +70,25 @@
 }
 .mypage-container {
   display: flex;
-  height: 100vh;
+  height: 95vh;
   width: 100%;
   justify-content: center;
   align-items: center;
+}
+.mypage-point {
+  margin-bottom: 2rem;
+}
+.bg-image3 {
+  height: 61vh;
+}
+// .bg-image2 {
+//   height: 55vh;
+// }
+.upload-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.rounded {
+  height: 100%;
 }
