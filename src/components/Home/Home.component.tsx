@@ -11,7 +11,7 @@ import TextCardItem from "../CardList/TextCardItem.component";
 import ImgCardItem from "../CardList/ImgCardItem.component";
 import TinderImgCardItem from "../CardList/TinderImgCard.component";
 import TinderTextCardItem from "../CardList/TinderTextCard.component";
-import { Container, Button, Row, Col } from "react-bootstrap";
+import { Container, Button, Row, Col, Image } from "react-bootstrap";
 import { gql, useQuery, useReactiveVar } from "@apollo/client";
 import { searchState } from "../../common/graphql/client";
 import Loading from "../Loading/Loading";
@@ -21,7 +21,6 @@ import "swiper/components/effect-fade/effect-fade.scss";
 import TextList from "../TextList/TextList.component";
 import Fade from "react-reveal/Fade";
 import TinderCard from "react-tinder-card";
-// import { Fade as Afade } from "react-awesome-reveal";
 import Reveal from "react-awesome-reveal";
 import { keyframes } from "@emotion/react";
 
@@ -45,6 +44,10 @@ const fadeInUp = keyframes`
     transform: translate3d(0, 0, 0);
   }
 `;
+function rand(min: any, max: any) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
 const rotateUp = keyframes`
 
   from {
@@ -345,6 +348,10 @@ const Home = () => {
                   <div className="tinder-div1">
                     <div className="tinder-div2">
                       <div className="tinder-card-container">
+                        <Image
+                          src="http://drive.google.com/uc?export=view&id=1uXqJ6LcWhgGm096abl4XUe2RU-amZC4D"
+                          className="guesture"
+                        />
                         {characters.map((character: any, index: any) => (
                           <>
                             <TinderCard
