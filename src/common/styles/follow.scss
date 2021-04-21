@@ -31,6 +31,10 @@ $multiplier: $delay;
   top: -2rem;
 }
 
+.fa_2x {
+  font-size: 1.7rem;
+}
+
 .followMe .team1 {
   top: 4rem;
   left: 15%;
@@ -59,6 +63,7 @@ $multiplier: $delay;
   @include flex();
   justify-content: space-evenly;
   a {
+    font-size: 1.7rem;
     padding: 0 7px 0 7px;
     transition: 700ms;
     color: $accent;
