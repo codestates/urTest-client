@@ -129,11 +129,12 @@ const ImgGame = (props: any) => {
 
   const startHandler = () => {
     setStart(false);
-    const item = [...Data.photos.slice(0, count)];
-    item.sort(() => Math.random() - 0.5);
-    setImg(item);
-    setDisplays([item[0], item[1]]);
-    setRounds(item.length / 2);
+    const item = [...Data.photos];
+    const itemSort = item.sort(() => Math.random() - 0.5);
+    const itemSlice = itemSort.slice(0, count);
+    setImg(itemSlice);
+    setDisplays([itemSlice[0], itemSlice[1]]);
+    setRounds(itemSlice.length / 2);
   };
 
   const fourCountHandler = () => {

@@ -9,6 +9,7 @@ import {
 } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import { CopyToClipboard } from "react-copy-to-clipboard";
+import { useHistory } from "react-router-dom";
 import {
   ShareFill,
   Trophy,
@@ -17,6 +18,7 @@ import {
 } from "react-bootstrap-icons";
 
 const TextCardItem = ({ d }: any) => {
+  const history = useHistory();
   const ADD_VIEWS = gql`
     mutation addViews($id: Int!) {
       addViews(id: $id) {
@@ -76,6 +78,9 @@ const TextCardItem = ({ d }: any) => {
                       },
                     });
                   }}
+                  onTouchStart={() => {
+                    history.push(`/${d.type}/${d.id}`);
+                  }}
                 >
                   <div className="tinder-start-game">
                     <div>
@@ -114,7 +119,12 @@ const TextCardItem = ({ d }: any) => {
                   <span className="icon-view">{d.views}</span>
                 </Button>
               </OverlayTrigger>
-              <LinkContainer to={`/analytics/${+d.id}/`}>
+              <LinkContainer
+                to={`/analytics/${+d.id}/`}
+                onTouchStart={() => {
+                  history.push(`/analytics/${+d.id}/`);
+                }}
+              >
                 <Button variant="info">
                   <Trophy />
                 </Button>
