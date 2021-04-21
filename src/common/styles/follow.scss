@@ -1,0 +1,293 @@
+$primary: #1f2937;
+$secondary: #fff;
+$accent: #1f2937;
+$num: 4;
+$delay: 85ms;
+$multiplier: $delay;
+
+.followMe {
+  position: relative;
+  top: -1rem;
+  color: #fff;
+  font-size: 1.7rem;
+}
+
+@mixin flex() {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+@mixin center() {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.followTitle {
+  color: #fff;
+  top: -2rem;
+}
+
+.followMe .team1 {
+  top: 4rem;
+  left: 15%;
+  border: solid #fff 1.5px;
+}
+.followMe .team2 {
+  top: 4rem;
+  left: 85%;
+  border: solid #fff 1.5px;
+}
+.followMe .team3 {
+  top: 7rem;
+  left: 15%;
+  border: solid #fff 1.5px;
+}
+.followMe .team4 {
+  top: 7rem;
+  left: 85%;
+  border: solid #fff 1.5px;
+}
+.social a {
+  padding: 0 7px 0 7px;
+}
+
+.social {
+  @include flex();
+  justify-content: space-evenly;
+  a {
+    padding: 0 7px 0 7px;
+    transition: 700ms;
+    color: $accent;
+    text-align: center;
+    transform: scale(0);
+    opacity: 0;
+    text-decoration: none;
+    @while $num > 0 {
+      &:nth-child(#{$num}) {
+        transition-delay: (#{$delay});
+      }
+      $delay: $delay + $multiplier;
+      $num: $num - 1;
+    }
+  }
+}
+
+.team1 {
+  width: 150px;
+  height: 40px;
+  @include flex();
+  @include center();
+  background: $secondary;
+  border-radius: 0.4rem;
+  text-align: center;
+  font-weight: bold;
+  overflow: hidden;
+  color: $accent;
+  .btn-team {
+    @include flex();
+    width: 150px;
+    height: 40px;
+    position: absolute;
+    top: 0em;
+    left: 0em;
+    background: $accent;
+    border-radius: 0.4rem;
+    color: $secondary;
+    transition: 950ms cubic-bezier(0.89, 0.03, 0.06, 1.5);
+    a {
+      transform: scale(1);
+      @include flex();
+      opacity: 1;
+      padding: 0;
+      margin: auto;
+      color: $secondary;
+      font-size: 20px;
+    }
+  }
+}
+
+.team2 {
+  width: 150px;
+  height: 40px;
+  @include flex();
+  @include center();
+  background: $secondary;
+  border-radius: 0.4rem;
+  text-align: center;
+  font-weight: bold;
+  overflow: hidden;
+  color: $accent;
+  .btn-team {
+    @include flex();
+    width: 150px;
+    height: 40px;
+    position: absolute;
+    top: 0em;
+    left: 0em;
+    background: $accent;
+    border-radius: 0.4rem;
+    color: $secondary;
+    transition: 950ms cubic-bezier(0.89, 0.03, 0.06, 1.5);
+    a {
+      transform: scale(1);
+      @include flex();
+      opacity: 1;
+      padding: 0;
+      margin: auto;
+      color: $secondary;
+      font-size: 20px;
+    }
+  }
+}
+
+.team3 {
+  width: 150px;
+  height: 40px;
+  @include flex();
+  @include center();
+  background: $secondary;
+  border-radius: 0.4rem;
+  text-align: center;
+  font-weight: bold;
+  overflow: hidden;
+  color: $accent;
+  .btn-team {
+    @include flex();
+    width: 150px;
+    height: 40px;
+    position: absolute;
+    top: 0em;
+    left: 0em;
+    background: $accent;
+    border-radius: 0.4rem;
+    color: $secondary;
+    transition: 950ms cubic-bezier(0.89, 0.03, 0.06, 1.5);
+    a {
+      transform: scale(1);
+      @include flex();
+      opacity: 1;
+      padding: 0;
+      margin: auto;
+      color: $secondary;
+      font-size: 20px;
+    }
+  }
+}
+
+.team4 {
+  width: 150px;
+  height: 40px;
+  @include flex();
+  @include center();
+  background: $secondary;
+  border-radius: 0.4rem;
+  text-align: center;
+  font-weight: bold;
+  overflow: hidden;
+  color: $accent;
+  .btn-team {
+    @include flex();
+    width: 150px;
+    height: 40px;
+    position: absolute;
+    top: 0em;
+    left: 0em;
+    background: $accent;
+    border-radius: 0.4rem;
+    color: $secondary;
+    transition: 950ms cubic-bezier(0.89, 0.03, 0.06, 1.5);
+    a {
+      transform: scale(1);
+      @include flex();
+      opacity: 1;
+      padding: 0;
+      margin: auto;
+      color: $secondary;
+      font-size: 20px;
+    }
+  }
+}
+
+.team1:hover {
+  .social a {
+    transform: scale(1);
+    transition-timing-function: cubic-bezier(1, -0.03, 0, 1.85);
+    opacity: 1;
+  }
+  .btn-team {
+    transform: translateX(-500px);
+  }
+}
+
+.team2:hover {
+  .social a {
+    transform: scale(1);
+    transition-timing-function: cubic-bezier(1, -0.03, 0, 1.85);
+    opacity: 1;
+  }
+  .btn-team {
+    transform: translateX(-500px);
+  }
+}
+
+.team3:hover {
+  .social a {
+    transform: scale(1);
+    transition-timing-function: cubic-bezier(1, -0.03, 0, 1.85);
+    opacity: 1;
+  }
+  .btn-team {
+    transform: translateX(-500px);
+  }
+}
+
+.team4:hover {
+  .social a {
+    transform: scale(1);
+    transition-timing-function: cubic-bezier(1, -0.03, 0, 1.85);
+    opacity: 1;
+  }
+  .btn-team {
+    transform: translateX(-500px);
+  }
+}
+
+.social a:hover {
+  color: $primary;
+  transition-timing-function: ease-in-out !important;
+  transition-delay: 1ms !important;
+}
+
+@media (max-width: 992px) {
+  .followMe {
+    position: relative;
+  }
+
+  .followMe .team1 {
+    top: 4rem;
+    left: 15%;
+    border: solid #fff 1.5px;
+  }
+  .followMe .team2 {
+    top: 4rem;
+    left: 85%;
+    border: solid #fff 1.5px;
+  }
+  .followMe .team3 {
+    top: 7rem;
+    left: 15%;
+    border: solid #fff 1.5px;
+  }
+  .followMe .team4 {
+    top: 7rem;
+    left: 85%;
+    border: solid #fff 1.5px;
+  }
+  .social a {
+    padding: 0 7px 0 7px;
+  }
+}

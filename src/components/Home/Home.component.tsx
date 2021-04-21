@@ -23,6 +23,7 @@ import Fade from "react-reveal/Fade";
 import TinderCard from "react-tinder-card";
 import Reveal from "react-awesome-reveal";
 import { keyframes } from "@emotion/react";
+import FollowMe from "../FollowMe/FollowMe.component";
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 //@ts-ignore
@@ -433,6 +434,7 @@ const Home = () => {
                         ))}
                       </div>
                     </div>
+                    <FollowMe />
                   </div>
                 </div>
               </Container>
