@@ -121,7 +121,7 @@ const App = () => {
         className="justify-content-start header-nav bg-white"
         fixed="top"
         expanded={false}
-        onToggle={(toggleState: boolean) => {
+        onToggle={() => {
           setSideBarState(true);
         }}
       >

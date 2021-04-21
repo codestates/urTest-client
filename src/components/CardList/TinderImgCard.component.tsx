@@ -15,8 +15,10 @@ import {
   Eye,
 } from "react-bootstrap-icons";
 import { CopyToClipboard } from "react-copy-to-clipboard";
+import { useHistory } from "react-router-dom";
 
 const ImgCardItem = ({ d }: any) => {
+  const history = useHistory();
   const ADD_VIEWS = gql`
     mutation addViews($id: Int!) {
       addViews(id: $id) {
@@ -74,6 +76,9 @@ const ImgCardItem = ({ d }: any) => {
                       },
                     });
                   }}
+                  onTouchStart={() => {
+                    history.push(`/${d.type}/${d.id}`);
+                  }}
                 >
                   <div className="tinder-start-game">
                     <div>
@@ -107,7 +112,12 @@ const ImgCardItem = ({ d }: any) => {
                   <span className="icon-view">{d.views}</span>
                 </Button>
               </OverlayTrigger>
-              <LinkContainer to={`/analytics/${+d.id}/`}>
+              <LinkContainer
+                to={`/analytics/${+d.id}/`}
+                onTouchStart={() => {
+                  history.push(`/analytics/${+d.id}/`);
+                }}
+              >
                 <Button variant="info">
                   <Trophy />
                 </Button>
