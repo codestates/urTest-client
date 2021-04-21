@@ -173,23 +173,24 @@ const Signin = () => {
                   <GoogleLogin
                     clientId="724060049648-nnacpoao7gftdukk1gurp600rfgme79k.apps.googleusercontent.com"
                     render={(renderProps) => (
-                      <AwesomeButton
-                        type="primary"
-                        className="btn-login2 mb-2 w-100 font-mg font-size-1-2"
+                      <Button
+                        onClick={renderProps.onClick}
+                        variant="urtest-google"
+                        className="w-100 px-0"
+                        type="submit"
                       >
-                        <Button
-                          onClick={renderProps.onClick}
-                          variant="urtest"
-                          type="submit"
+                        <AwesomeButton
+                          type="primary"
+                          className="btn-login2 mb-2 w-100 font-mg font-size-1-2"
                         >
                           Google
-                        </Button>
-                      </AwesomeButton>
+                        </AwesomeButton>
+                      </Button>
                     )}
                     onSuccess={responseGoogle}
                     onFailure={responseGoogle}
                     cookiePolicy={"single_host_origin"}
-                  />
+                  ></GoogleLogin>
                   <LinkContainer to="/signup">
                     <AwesomeButton
                       type="link"
