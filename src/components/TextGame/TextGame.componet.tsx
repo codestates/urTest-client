@@ -116,6 +116,8 @@ const TextGame = (props: any) => {
   const [sweetAlertDelete, setSweetAlertDelete] = useState(false);
   const [doubleClick, setDoubleClick] = useState(true);
   const [modify, setModify] = useState(false);
+  const [firstAnswer, setFirstAnswer] = useState(false);
+  const [secondAnswer, setSecondAnswer] = useState(false);
 
   const { refetch } = useQuery(GET_CONTENTS, {
     variables: {
@@ -158,20 +160,37 @@ const TextGame = (props: any) => {
     const nextQuestions = [...questions];
     nextQuestions.shift();
     setRating(false);
+    setFirstAnswer(false);
+    setSecondAnswer(false);
     setQuestions(nextQuestions);
     setAnswers([nextQuestions[0].answer[0], nextQuestions[0].answer[1]]);
     setDoubleClick(true);
     return;
   };
 
-  const clickHandler = (pick: any) => {
+  const firstClickHandler = () => {
     addCountTxt({
       variables: {
-        id: pick.id,
+        id: answers[0].id,
       },
     });
     setRating(true);
     setDoubleClick(false);
+    setFirstAnswer(true);
+    if (questions.length === 1) {
+      setLastPick(true);
+    }
+  };
+
+  const secondClickHandler = () => {
+    addCountTxt({
+      variables: {
+        id: answers[1].id,
+      },
+    });
+    setRating(true);
+    setDoubleClick(false);
+    setSecondAnswer(true);
     if (questions.length === 1) {
       setLastPick(true);
     }
@@ -362,43 +381,66 @@ const TextGame = (props: any) => {
             {questions[0].questionBody}
           </h1>
           <CardDeck>
-            {answers.map((pick: any) => {
-              return (
-                <Card
-                  key={pick.id}
-                  onClick={() =>
-                    doubleClick ? clickHandler(pick) : console.log(doubleClick)
-                  }
-                >
-                  <Card.Body>
-                    <Card.Text className="textgame-answer">
-                      {pick.body}
-                    </Card.Text>
-                    {rating ? (
-                      <Fade>
-                        <Card.Text
-                          style={{ color: "red", textAlign: "center" }}
-                        >
-                          {isNaN(
-                            (pick.winCount /
+            <Card
+              onClick={() =>
+                doubleClick ? firstClickHandler() : console.log(doubleClick)
+              }
+            >
+              <Card.Body className={firstAnswer ? "textgame-pick" : ""}>
+                <Card.Text className="textgame-answer">
+                  {answers[0].body}
+                </Card.Text>
+                {rating ? (
+                  <Fade>
+                    <Card.Text style={{ color: "red", textAlign: "center" }}>
+                      {isNaN(
+                        (answers[0].winCount /
+                          (answers[0].winCount + answers[1].winCount)) *
+                          100
+                      )
+                        ? "선택률 0%"
+                        : `선택률 ${(
+                            (answers[0].winCount /
                               (answers[0].winCount + answers[1].winCount)) *
-                              100
-                          )
-                            ? "선택률 0%"
-                            : `선택률 ${(
-                                (pick.winCount /
-                                  (answers[0].winCount + answers[1].winCount)) *
-                                100
-                              ).toFixed(0)}%`}
-                        </Card.Text>
-                      </Fade>
-                    ) : (
-                      ""
-                    )}
-                  </Card.Body>
-                </Card>
-              );
-            })}
+                            100
+                          ).toFixed(0)}%`}
+                    </Card.Text>
+                  </Fade>
+                ) : (
+                  ""
+                )}
+              </Card.Body>
+            </Card>
+            <Card
+              onClick={() =>
+                doubleClick ? secondClickHandler() : console.log(doubleClick)
+              }
+            >
+              <Card.Body className={secondAnswer ? "textgame-pick" : ""}>
+                <Card.Text className="textgame-answer">
+                  {answers[1].body}
+                </Card.Text>
+                {rating ? (
+                  <Fade>
+                    <Card.Text style={{ color: "red", textAlign: "center" }}>
+                      {isNaN(
+                        (answers[1].winCount /
+                          (answers[0].winCount + answers[1].winCount)) *
+                          100
+                      )
+                        ? "선택률 0%"
+                        : `선택률 ${(
+                            (answers[1].winCount /
+                              (answers[0].winCount + answers[1].winCount)) *
+                            100
+                          ).toFixed(0)}%`}
+                    </Card.Text>
+                  </Fade>
+                ) : (
+                  ""
+                )}
+              </Card.Body>
+            </Card>
           </CardDeck>
           {rating ? (
             lastPick ? (
