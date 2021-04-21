@@ -409,29 +409,27 @@ const Home = () => {
                           className="guesture"
                         />
                         {characters.map((character: any, index: any) => (
-                          <>
-                            <TinderCard
-                              // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                              // @ts-ignore
-                              ref={childRefs[index]}
-                              className="swipe"
-                              key={character.id}
-                              onSwipe={(dir) => swiped(dir, character.id)}
-                              onCardLeftScreen={() => outOfFrame(character.id)}
-                            >
-                              {character.photos.length === 0 ? (
-                                <TinderTextCardItem
-                                  d={character}
-                                  className="tinder-card animate__pulse"
-                                />
-                              ) : (
-                                <TinderImgCardItem
-                                  d={character}
-                                  className="tinder-card"
-                                />
-                              )}
-                            </TinderCard>
-                          </>
+                          <TinderCard
+                            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                            // @ts-ignore
+                            ref={childRefs[index]}
+                            className="swipe"
+                            key={index}
+                            onSwipe={(dir) => swiped(dir, character.id)}
+                            onCardLeftScreen={() => outOfFrame(character.id)}
+                          >
+                            {character.photos.length === 0 ? (
+                              <TinderTextCardItem
+                                d={character}
+                                className="tinder-card animate__pulse"
+                              />
+                            ) : (
+                              <TinderImgCardItem
+                                d={character}
+                                className="tinder-card"
+                              />
+                            )}
+                          </TinderCard>
                         ))}
                       </div>
                     </div>
