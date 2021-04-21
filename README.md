@@ -6,6 +6,7 @@
 </p>
 
 ## ✏ 심리테스트 & 이상형월드컵 서비스입니다. 근데 이제 틴더게임을 곁들인...
+
   <p align="center">
     <a href="https://urtest.shop">🏠 Homepage   </a>
     <!-- <a href="https://youtu.be/uBEj5ZkDewI">📺  시연 영상   </a> -->
@@ -15,8 +16,8 @@
     <br />
     <a href="https://github.com/codestates/urtest-client/wiki/FeatureFlow">:package: Feature List   </a>
     <a href="https://github.com/codestates/urtest-client/wiki/DatabaseScheme">🗄 Database Scheme   </a>
-    <!-- <a href="https://github.com/codestates/exitGiftShop-client/wiki/Work-Flow">🌈  Feature Work Flow   </a> -->
-    <!-- <a href="https://back.exitgift.shop:4000/docs/">📘 Api Docs</a> -->
+    <a href="https://github.com/codestates/urtest-client/wiki/FeatureFlow">🌈  Feature Work Flow   </a> -->
+    <a href="https://back.exitgift.shop:4000/graphql">📘 Api Docs</a>
     <!-- <a href="https://www.miricanvas.com/v/1b33h1">📗 발표 자료   </a> -->
   </p>
 

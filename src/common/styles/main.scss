@@ -1,0 +1,94 @@
+.main {
+  position: relative;
+  top: 40px;
+  height: 100%;
+  font-family: "BGR-B", sans-serif;
+  font-weight: 100;
+}
+
+.vh-89 {
+  height: 89vh;
+}
+
+.vh-92 {
+  height: 92vh;
+}
+
+.vh-93 {
+  height: 93vh;
+}
+
+.btn-dark {
+  background-color: #2f2e41 !important;
+}
+
+.color-purple-b {
+  background-color: #2f2e41 !important;
+}
+
+.color-purple {
+  background-color: #3f3d57 !important;
+}
+
+.color-turquoise {
+  background-color: #3d96a2 !important;
+}
+.color-turquoise-b {
+  background-color: #2c717a !important;
+}
+
+.btn-info {
+  background-color: #3d96a2 !important;
+}
+
+.bg-image4 {
+  background-image: url("404.svg");
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.upload-point {
+  width: 100%;
+  height: 100%;
+  margin: 0 !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.upload-box {
+  height: 100vh;
+}
+
+@media (max-width: 992px) {
+  .notfound-title {
+    font-size: 2.5rem !important;
+  }
+  .main {
+    top: 20px;
+  }
+}
+.mypage-container {
+  display: flex;
+  height: 95vh;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+.mypage-point {
+  margin-bottom: 2rem;
+}
+.bg-image3 {
+  height: 61vh;
+}
+// .bg-image2 {
+//   height: 55vh;
+// }
+.upload-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.rounded {
+  height: 100%;
+}
