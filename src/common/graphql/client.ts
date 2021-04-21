@@ -22,11 +22,9 @@ export const inputVar = makeVar({
 });
 export const searchState = makeVar("");
 export const typeCheck = makeVar("");
-
+export const openingVar = makeVar(false);
 export const uploadVar = makeVar(false);
-
 export const isLoginVar = makeVar(false);
-
 export const cache = new InMemoryCache();
 
 const httpLink = createUploadLink({

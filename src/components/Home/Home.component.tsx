@@ -13,7 +13,7 @@ import TinderImgCardItem from "../CardList/TinderImgCard.component";
 import TinderTextCardItem from "../CardList/TinderTextCard.component";
 import { Container, Button, Row, Col, Image } from "react-bootstrap";
 import { gql, useQuery, useReactiveVar } from "@apollo/client";
-import { searchState } from "../../common/graphql/client";
+import { searchState, openingVar } from "../../common/graphql/client";
 import Loading from "../Loading/Loading";
 import ImgList from "../ImgList/ImgList.component";
 import "swiper/swiper.scss";
@@ -88,7 +88,7 @@ const Home = () => {
       }
     }
   `;
-  const [viewAll, setViewAll] = useState(false);
+  const [viewAll, setViewAll] = useState(openingVar);
   const [tinderBtnAni, setTinderBtnAni] = useState(false);
   const [contents, setContents] = useState([] as any);
   const [btnState, setBtnState] = useState("all" as string);
@@ -97,6 +97,7 @@ const Home = () => {
   let charactersState = contents;
   const [characters, setCharacters] = useState([] as any);
   useReactiveVar(searchState);
+  useReactiveVar(openingVar);
 
   const {} = useQuery(GET_CONTENT_ALL, {
     onCompleted: (data) => {
@@ -129,18 +130,6 @@ const Home = () => {
       }
     });
   });
-  // const btnAll = (e: any) => {
-  //   e.preventDefault();
-  //   setBtnState("all");
-  // };
-  // const btnImg = (e: any) => {
-  //   e.preventDefault();
-  //   setBtnState("img");
-  // };
-  // const btnText = (e: any) => {
-  //   e.preventDefault();
-  //   setBtnState("text");
-  // };
 
   const childRefs = useMemo(
     () =>
@@ -174,6 +163,7 @@ const Home = () => {
     }
     if (e.target.textContent === "Swipe") {
       setBtnState("all");
+      openingVar(false);
       !tinderBtnAni ? setTinderBtnAni(true) : setTinderBtnAni(false);
       if (!viewAll) {
         await delay(1000);
@@ -182,6 +172,7 @@ const Home = () => {
         setViewAll(false);
       }
     } else {
+      openingVar(false);
       window.location.reload();
     }
   };
@@ -202,6 +193,7 @@ const Home = () => {
       e.target.closest(".aws-btn__content").classList.add("active");
     }
     setBtnState("all");
+    openingVar(true);
     if (!tinderBtnAni) {
       setTinderBtnAni(true);
     }
@@ -231,6 +223,7 @@ const Home = () => {
       e.target.closest(".aws-btn__content").classList.add("active");
     }
     setBtnState("img");
+    openingVar(true);
     if (!tinderBtnAni) {
       setTinderBtnAni(true);
     }
@@ -260,6 +253,7 @@ const Home = () => {
       e.target.closest(".aws-btn__content").classList.add("active");
     }
     setBtnState("text");
+    openingVar(true);
     if (!tinderBtnAni) {
       setTinderBtnAni(true);
     }
