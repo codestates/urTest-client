@@ -98,7 +98,6 @@ const TextGame = (props: any) => {
 
   const [addCountTxt] = useMutation(POST_TEXT, {
     onCompleted: (data) => {
-      console.log(data.addCountTxt.countAll);
       setAnswerCount(data.addCountTxt.countAll);
     },
   });
@@ -455,7 +454,6 @@ const TextGame = (props: any) => {
               >
                 <ProgressBar
                   animated
-                  variant="danger"
                   now={
                     firstAnswer
                       ? (answerCount / (answerCount + answers[1].winCount)) *
@@ -479,7 +477,7 @@ const TextGame = (props: any) => {
                 />
                 <ProgressBar
                   animated
-                  variant="warning"
+                  variant="danger"
                   now={
                     secondAnswer
                       ? (answerCount / (answers[0].winCount + answerCount)) *
@@ -504,11 +502,12 @@ const TextGame = (props: any) => {
               </ProgressBar>
             ) : (
               <ProgressBar
+                animated
                 style={{ fontSize: "1rem", height: "40px" }}
                 className="mb-4 m-1"
               >
+                <ProgressBar animated now={50} label={`0%`} />
                 <ProgressBar animated variant="danger" now={50} label={`0%`} />
-                <ProgressBar animated variant="warning" now={50} label={`0%`} />
               </ProgressBar>
             )}
           </div>
