@@ -58,11 +58,7 @@
   @keyframes fadeInRandom#{$i} {
     0% {
       opacity: 0.5;
-      transform: translate3d(
-          #{randomNum(-2000, 2000)}px,
-          #{randomNum(-2000, 2000)}px,
-          0
-        )
+      transform: translate3d(#{randomNum(-2000, 2000)}px, #{randomNum(-2000, 2000)}px, 0)
         rotate(#{randomNum(-90, 90)}deg);
     }
     100% {
@@ -149,7 +145,7 @@
     padding: 0;
   }
   .tinder-title.mt-4 {
-    margin-top: 0 !important;
+    margin-top: 2rem !important;
   }
   .tinder-title.mt-4.mytest-title {
     margin-top: 1rem !important;

@@ -271,7 +271,13 @@ h1 {
     color: #000;
   }
   .main {
+    $main: &;
     top: 50px;
+    & .tinder-wrapper {
+      @at-root #{$main} {
+        top: 20px;
+      }
+    }
   }
 }
 
