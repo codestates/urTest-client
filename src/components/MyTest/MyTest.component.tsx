@@ -191,6 +191,7 @@ const MyTest = () => {
                   </>
                 ) : btnState === "img" ? (
                   <ImgList
+                    bookMarkLoading={true}
                     userId={() => {
                       const token = localStorage.getItem("token");
                       const userId = jwt.verify(
@@ -209,6 +210,7 @@ const MyTest = () => {
                   />
                 ) : (
                   <TextList
+                    bookMarkLoading={true}
                     userId={() => {
                       const token = localStorage.getItem("token");
                       const userId = jwt.verify(

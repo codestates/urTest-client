@@ -60,31 +60,29 @@ const SearchList = () => {
   }, [location.pathname]);
 
   return (
-    <>
-      <Container fluid className="vh-93 pt-5">
-        {!searchData ? (
-          <div>검색결과가 없습니다</div>
-        ) : contents.length === 0 ? (
-          <Loading />
-        ) : (
-          <div className="gridbox">
-            {contents.map((el: any, index: number) => {
-              return (
-                <SwiperSlide className="slide-width" key={index}>
-                  <Fade bottom>
-                    {el.photos.length === 0 ? (
-                      <TextCardItem d={el} className="card-item" />
-                    ) : (
-                      <ImgCardItem d={el} className="card-item" />
-                    )}
-                  </Fade>
-                </SwiperSlide>
-              );
-            })}
-          </div>
-        )}
-      </Container>
-    </>
+    <Container fluid className="vh-93 pt-5 scroll-setting-search">
+      {!searchData ? (
+        <div>검색결과가 없습니다</div>
+      ) : contents.length === 0 ? (
+        <Loading />
+      ) : (
+        <div className="gridbox">
+          {contents.map((el: any, index: number) => {
+            return (
+              <SwiperSlide className="slide-width" key={index}>
+                <Fade bottom>
+                  {el.photos.length === 0 ? (
+                    <TextCardItem d={el} className="card-item" />
+                  ) : (
+                    <ImgCardItem d={el} className="card-item" />
+                  )}
+                </Fade>
+              </SwiperSlide>
+            );
+          })}
+        </div>
+      )}
+    </Container>
   );
 };
 
