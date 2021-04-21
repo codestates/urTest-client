@@ -179,21 +179,24 @@ const ImgGame = (props: any) => {
     setCount(64);
   };
 
-  const token = localStorage.getItem("token");
-  const userId = jwt.verify(
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    //@ts-ignore
-    token,
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    //@ts-ignore
-    process.env.REACT_APP_SECRET_KEY,
-    function (err: any, decoded: any) {
-      return decoded.id;
-    }
-  );
+  let adminId;
+  if (isLogin) {
+    const token = localStorage.getItem("token");
+    adminId = jwt.verify(
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      //@ts-ignore
+      token,
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      //@ts-ignore
+      process.env.REACT_APP_SECRET_KEY,
+      function (err: any, decoded: any) {
+        return decoded.id;
+      }
+    );
+  }
   const {} = useQuery(GET_PROFILE, {
     variables: {
-      id: userId,
+      id: adminId,
     },
     onCompleted: (data) => {
       if (isLogin) {
