@@ -49,6 +49,13 @@ const TextGame = (props: any) => {
       }
     }
   `;
+  const GET_PROFILE = gql`
+    query getProfile($id: Int!) {
+      getProfile(id: $id) {
+        grade
+      }
+    }
+  `;
 
   const POST_TEXT = gql`
     mutation addCountTxt($id: Int!) {
@@ -153,6 +160,31 @@ const TextGame = (props: any) => {
   const [firstAnswer, setFirstAnswer] = useState(false);
   const [secondAnswer, setSecondAnswer] = useState(false);
 
+  const token = localStorage.getItem("token");
+  const userId = jwt.verify(
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    //@ts-ignore
+    token,
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    //@ts-ignore
+    process.env.REACT_APP_SECRET_KEY,
+    function (err: any, decoded: any) {
+      return decoded.id;
+    }
+  );
+  const {} = useQuery(GET_PROFILE, {
+    variables: {
+      id: userId,
+    },
+    onCompleted: (data) => {
+      if (isLogin) {
+        if (data.getProfile.grade === "admin") {
+          setModify(true);
+        }
+      }
+    },
+    fetchPolicy: "cache-and-network",
+  });
   const { refetch } = useQuery(GET_CONTENTS, {
     variables: {
       id: +props.gameid,
