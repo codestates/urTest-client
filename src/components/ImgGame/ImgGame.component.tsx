@@ -99,9 +99,35 @@ const ImgGame = (props: any) => {
     ],
     awaitRefetchQueries: true,
   });
-  const [deleteBookMark] = useMutation(POST_DELETEBOOKMARK);
+  const [deleteBookMark] = useMutation(POST_DELETEBOOKMARK, {
+    onCompleted: () => {
+      return refetch();
+    },
+    refetchQueries: [
+      {
+        query: GET_CONTENTS,
+        variables: {
+          id: +props.gameid,
+        },
+      },
+    ],
+    awaitRefetchQueries: true,
+  });
   const [addCountPhoto] = useMutation(POST_WINCOUNT);
-  const [deleteContent] = useMutation(POST_DELETECONTENT);
+  const [deleteContent] = useMutation(POST_DELETECONTENT, {
+    onCompleted: () => {
+      return refetch();
+    },
+    refetchQueries: [
+      {
+        query: GET_CONTENTS,
+        variables: {
+          id: +props.gameid,
+        },
+      },
+    ],
+    awaitRefetchQueries: true,
+  });
 
   const [Data, setData] = useState([] as any);
   const [count, setCount] = useState(4);

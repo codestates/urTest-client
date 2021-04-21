@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { gql, useQuery, useMutation, useReactiveVar } from "@apollo/client";
 import { isLoginVar } from "../../common/graphql/client";
 import { LinkContainer } from "react-router-bootstrap";
-import { Container, Card, CardDeck, Button } from "react-bootstrap";
+import { Container, Row, Col, Button, ProgressBar } from "react-bootstrap";
 import { useLocation, useHistory } from "react-router-dom";
 import Loading from "../Loading/Loading";
 import {
@@ -15,7 +15,6 @@ import {
 } from "react-bootstrap-icons";
 import jwt from "jsonwebtoken";
 import SweetAlert from "react-bootstrap-sweetalert";
-import { Fade } from "react-awesome-reveal";
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 //@ts-ignore
 import { AwesomeButton } from "react-awesome-button";
@@ -56,6 +55,7 @@ const TextGame = (props: any) => {
       addCountTxt(id: $id) {
         ok
         error
+        countAll
       }
     }
   `;
@@ -87,7 +87,15 @@ const TextGame = (props: any) => {
     }
   `;
 
-  const [addCountTxt] = useMutation(POST_TEXT);
+  const [answerCount, setAnswerCount] = useState(0);
+
+  const [addCountTxt] = useMutation(POST_TEXT, {
+    onCompleted: (data) => {
+      console.log(data.addCountTxt.countAll);
+      setAnswerCount(data.addCountTxt.countAll);
+    },
+  });
+
   const [addBookMark] = useMutation(POST_BOOKMARK, {
     onCompleted: () => {
       return refetch();
@@ -102,8 +110,34 @@ const TextGame = (props: any) => {
     ],
     awaitRefetchQueries: true,
   });
-  const [deleteBookMark] = useMutation(POST_DELETEBOOKMARK);
-  const [deleteContent] = useMutation(POST_DELETECONTENT);
+  const [deleteBookMark] = useMutation(POST_DELETEBOOKMARK, {
+    onCompleted: () => {
+      return refetch();
+    },
+    refetchQueries: [
+      {
+        query: GET_CONTENTS,
+        variables: {
+          id: +props.gameid,
+        },
+      },
+    ],
+    awaitRefetchQueries: true,
+  });
+  const [deleteContent] = useMutation(POST_DELETECONTENT, {
+    onCompleted: () => {
+      return refetch();
+    },
+    refetchQueries: [
+      {
+        query: GET_CONTENTS,
+        variables: {
+          id: +props.gameid,
+        },
+      },
+    ],
+    awaitRefetchQueries: true,
+  });
 
   const [questions, setQuestions] = useState([] as any);
   const [answers, setAnswers] = useState([] as any);
@@ -157,8 +191,8 @@ const TextGame = (props: any) => {
   });
 
   const nextBtnHandler = () => {
-    const nextQuestions = [...questions];
-    nextQuestions.shift();
+    const Questions = [...questions];
+    const nextQuestions = Questions.slice(1);
     setRating(false);
     setFirstAnswer(false);
     setSecondAnswer(false);
@@ -174,6 +208,7 @@ const TextGame = (props: any) => {
         id: answers[0].id,
       },
     });
+
     setRating(true);
     setDoubleClick(false);
     setFirstAnswer(true);
@@ -380,68 +415,97 @@ const TextGame = (props: any) => {
           <h1 className="textgame-title font-jua m-5">
             {questions[0].questionBody}
           </h1>
-          <CardDeck>
-            <Card
+          <div>
+            {rating ? (
+              <ProgressBar
+                style={{ fontSize: "1rem", height: "40px" }}
+                className="mb-4 m-1"
+              >
+                <ProgressBar
+                  animated
+                  variant="danger"
+                  now={
+                    firstAnswer
+                      ? (answerCount / (answerCount + answers[1].winCount)) *
+                        100
+                      : (answers[0].winCount /
+                          (answers[0].winCount + answers[1].winCount + 1)) *
+                        100
+                  }
+                  label={
+                    firstAnswer
+                      ? `${(
+                          (answerCount / (answerCount + answers[1].winCount)) *
+                          100
+                        ).toFixed(0)}%`
+                      : `${(
+                          (answers[0].winCount /
+                            (answers[0].winCount + answers[1].winCount + 1)) *
+                          100
+                        ).toFixed(0)}%`
+                  }
+                />
+                <ProgressBar
+                  animated
+                  variant="warning"
+                  now={
+                    secondAnswer
+                      ? (answerCount / (answers[0].winCount + answerCount)) *
+                        100
+                      : (answers[1].winCount /
+                          (answers[0].winCount + answers[1].winCount + 1)) *
+                        100
+                  }
+                  label={
+                    secondAnswer
+                      ? `${(
+                          (answerCount / (answers[0].winCount + answerCount)) *
+                          100
+                        ).toFixed(0)}%`
+                      : `${(
+                          (answers[1].winCount /
+                            (answers[0].winCount + answers[1].winCount + 1)) *
+                          100
+                        ).toFixed(0)}%`
+                  }
+                />
+              </ProgressBar>
+            ) : (
+              <ProgressBar
+                style={{ fontSize: "1rem", height: "40px" }}
+                className="mb-4 m-1"
+              >
+                <ProgressBar animated variant="danger" now={50} label={`0%`} />
+                <ProgressBar animated variant="warning" now={50} label={`0%`} />
+              </ProgressBar>
+            )}
+          </div>
+          <Row className="m-1">
+            <Col
               onClick={() =>
                 doubleClick ? firstClickHandler() : console.log(doubleClick)
               }
+              className={
+                firstAnswer
+                  ? "m-1 p-3 textgame-answer textgame-pick-first"
+                  : "textgame-border m-1 p-3 textgame-answer"
+              }
             >
-              <Card.Body className={firstAnswer ? "textgame-pick" : ""}>
-                <Card.Text className="textgame-answer">
-                  {answers[0].body}
-                </Card.Text>
-                {rating ? (
-                  <Fade>
-                    <Card.Text style={{ color: "red", textAlign: "center" }}>
-                      {isNaN(
-                        (answers[0].winCount /
-                          (answers[0].winCount + answers[1].winCount)) *
-                          100
-                      )
-                        ? "선택률 0%"
-                        : `선택률 ${(
-                            (answers[0].winCount /
-                              (answers[0].winCount + answers[1].winCount)) *
-                            100
-                          ).toFixed(0)}%`}
-                    </Card.Text>
-                  </Fade>
-                ) : (
-                  ""
-                )}
-              </Card.Body>
-            </Card>
-            <Card
+              {answers[0].body}
+            </Col>
+            <Col
               onClick={() =>
                 doubleClick ? secondClickHandler() : console.log(doubleClick)
               }
+              className={
+                secondAnswer
+                  ? "m-1 p-3 textgame-answer textgame-pick-second"
+                  : "textgame-border m-1 p-3 textgame-answer"
+              }
             >
-              <Card.Body className={secondAnswer ? "textgame-pick" : ""}>
-                <Card.Text className="textgame-answer">
-                  {answers[1].body}
-                </Card.Text>
-                {rating ? (
-                  <Fade>
-                    <Card.Text style={{ color: "red", textAlign: "center" }}>
-                      {isNaN(
-                        (answers[1].winCount /
-                          (answers[0].winCount + answers[1].winCount)) *
-                          100
-                      )
-                        ? "선택률 0%"
-                        : `선택률 ${(
-                            (answers[1].winCount /
-                              (answers[0].winCount + answers[1].winCount)) *
-                            100
-                          ).toFixed(0)}%`}
-                    </Card.Text>
-                  </Fade>
-                ) : (
-                  ""
-                )}
-              </Card.Body>
-            </Card>
-          </CardDeck>
+              {answers[1].body}
+            </Col>
+          </Row>
           {rating ? (
             lastPick ? (
               ""
