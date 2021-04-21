@@ -374,6 +374,9 @@ const Analytics = (props: any) => {
     setModalPassword(password);
   };
   const handleCommentAdd = (e: any) => {
+    if (!e.desc || !e.password) {
+      return alert("공백을 채워주세요");
+    }
     addComment({
       variables: {
         id: +props.gameid,
