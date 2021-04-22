@@ -4,6 +4,7 @@ import { gql, useQuery, useMutation, useReactiveVar } from "@apollo/client";
 import { isLoginVar } from "../../common/graphql/client";
 import { LinkContainer } from "react-router-bootstrap";
 import { useLocation, useHistory } from "react-router-dom";
+import Loading from "../Loading/Loading";
 import {
   ShareFill,
   Heart,
@@ -393,7 +394,10 @@ const ImgGame = (props: any) => {
           return;
         }}
       >{`https://urtest.shop${location.pathname}`}</SweetAlert>
-      {start ? (
+
+      {Data.length === 0 ? (
+        <Loading />
+      ) : start ? (
         <Container fluid className="mt-3">
           <CardDeck className="vh-92">
             <Card className=" bg-image-imggame border-card" />
