@@ -8,7 +8,7 @@
 ## ✏ 밸런스게임 & 이상형월드컵 서비스입니다. 근데 이제 틴더게임을 곁들인...
 
   <p align="center">
-    <a href="https://urtest.shop">🏠 Homepage   </a>
+    <a href="https://urtest.shop">🏠 배포링크   </a>
     <!-- <a href="https://youtu.be/uBEj5ZkDewI">📺  시연 영상   </a> -->
     <a href="https://github.com/codestates/urtest-client/wiki">📖 Wiki   </a>
     <a href="https://github.com/codestates/urtest-client/wiki/WireFrame">:mag: Wire Frame   </a>
