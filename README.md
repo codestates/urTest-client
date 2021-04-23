@@ -24,9 +24,11 @@
 
 ## 프로젝트 소개
 
-![랜딩-틴더-웹](https://user-images.githubusercontent.com/56165665/115845142-67d05480-a3d5-11eb-8e2c-105891a71c73.gif)
+랜딩 페이지에서는 틴더게임을 통해 어떤 게임들이 있는지 체험할 수 있고 전체의 목록, 각각의 게임에 들어가 공유, 통계, 댓글 또한 확인 할 수 있습니다.
 
-![랜딩-소팅-웹](https://user-images.githubusercontent.com/56165665/115845149-6acb4500-a3d5-11eb-979d-6114eb314ccc.gif)
+![랜딩-틴더-웹](https://user-images.githubusercontent.com/56165665/115845895-3441fa00-a3d6-11eb-94ed-640f66fd426f.gif)
+
+![랜딩-소팅-웹 (1) (1)](https://user-images.githubusercontent.com/56165665/115846068-62273e80-a3d6-11eb-9ddb-54c5e865965f.gif)
 
 ### 주제 선정 이유
 
@@ -44,4 +46,5 @@
 | `TypeScript`     | `PostgreSQL`    | `Route53`    | `GitBook`       |                |
 |                  | `TypeScript`    | `ACM`        |                 |                |
 |                  |                 | `ELB`        |                 |                |
+
 
