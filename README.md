@@ -1,3 +1,4 @@
+
 <h1 align="center">👉🏻 urTest 👈🏻</h1>
 <p align="center">
     <img alt="Documentation" src="https://img.shields.io/badge/documentation-yes-brightgreen.svg" />
@@ -23,6 +24,10 @@
 
 ## 프로젝트 소개
 
+![랜딩-틴더-웹](https://user-images.githubusercontent.com/56165665/115845142-67d05480-a3d5-11eb-8e2c-105891a71c73.gif)
+
+![랜딩-소팅-웹](https://user-images.githubusercontent.com/56165665/115845149-6acb4500-a3d5-11eb-979d-6114eb314ccc.gif)
+
 ### 주제 선정 이유
 
 프로젝트 주제를 정하기 위해 줌에서 만난 9조. 새로운 스택과 기술은 오케이! 그런데 아이디어를 낼수록 점점 재미없는 아이디어들 뿐...
@@ -39,3 +44,4 @@
 | `TypeScript`     | `PostgreSQL`    | `Route53`    | `GitBook`       |                |
 |                  | `TypeScript`    | `ACM`        |                 |                |
 |                  |                 | `ELB`        |                 |                |
+
