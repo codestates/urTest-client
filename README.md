@@ -5,7 +5,7 @@
     <img alt="typescript" src="https://img.shields.io/badge/typescript-4.2.3-blue" />
 </p>
 
-## ✏ 심리테스트 & 이상형월드컵 서비스입니다. 근데 이제 틴더게임을 곁들인...
+## ✏ 밸런스게임 & 이상형월드컵 서비스입니다. 근데 이제 틴더게임을 곁들인...
 
   <p align="center">
     <a href="https://urtest.shop">🏠 Homepage   </a>
