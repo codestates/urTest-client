@@ -17,8 +17,8 @@
     <br />
     <a href="https://github.com/codestates/urtest-client/wiki/FeatureFlow">:package: Feature List   </a>
     <a href="https://github.com/codestates/urtest-client/wiki/DatabaseScheme">🗄 Database Scheme   </a>
-    <a href="https://github.com/codestates/urtest-client/wiki/FeatureFlow">🌈  Feature Work Flow   </a> -->
-    <a href="https://back.exitgift.shop:4000/graphql">📘 Api Docs</a>
+<!--     <a href="https://github.com/codestates/urtest-client/wiki/FeatureFlow">🌈  Feature Work Flow   </a> -->
+    <a href="https://back.urtest.shop:4000/graphql">📘 Api Docs</a>
     <!-- <a href="https://www.miricanvas.com/v/1b33h1">📗 발표 자료   </a> -->
   </p>
 
